@@ -5,14 +5,15 @@ const headers = {
   Accept: "application/json",
 };
 
+const domain = `http://ec2-34-194-74-124.compute-1.amazonaws.com/api/v1/books/`;
+
 export const BookService = {
   getBookList: async (param: GetBookListRequest) => {
     const query = `${param.keyword === "" ? "" : param.keyword + "?"}display=${
       param.display
     }&start=${param.start}`;
 
-    const url =
-      `http://ec2-34-194-74-124.compute-1.amazonaws.com/api/v1/books/` + query;
+    const url = domain + query;
     const res = await axios
       .get(url)
       .then(function (response) {
