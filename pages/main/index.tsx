@@ -58,7 +58,7 @@ const Home: NextPage = () => {
           )}
           {/* Review List Area*/}
           <div className={"w-full"}>
-            <ReviewImageCardList extension={extension} bookData={mockData} />
+            <ReviewImageCardList extension={extension} />
           </div>
           {!extension && (
             <div
