@@ -10,7 +10,7 @@ import { debounce } from "lodash";
 
 interface BookImageCardListProps {
   extension: boolean;
-  keyword: string;
+  keyword?: string;
 }
 
 const BookImageCardList = ({ extension, keyword }: BookImageCardListProps) => {
@@ -24,7 +24,7 @@ const BookImageCardList = ({ extension, keyword }: BookImageCardListProps) => {
     const getBookListRequest = new GetBookListRequest();
     getBookListRequest.display = 10;
     getBookListRequest.start = 1;
-    getBookListRequest.keyword = keyword;
+    getBookListRequest.keyword = keyword ? keyword : "";
 
     // @ts-ignore
     const { data } = await BookService.getBookList(getBookListRequest);
