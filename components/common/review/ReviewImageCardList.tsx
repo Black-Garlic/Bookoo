@@ -2,9 +2,13 @@ import ReviewImageCardRow from "./ReviewImageCardRow";
 
 interface ReviewImageCardListProps {
   extension: boolean;
+  bookData: any[];
 }
 
-const ReviewImageCardList = ({ extension }: ReviewImageCardListProps) => {
+const ReviewImageCardList = ({
+  extension,
+  bookData,
+}: ReviewImageCardListProps) => {
   return (
     // Review List
     <div className={"flex flex-col"}>
