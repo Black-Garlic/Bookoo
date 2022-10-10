@@ -1,31 +1,11 @@
 import type { NextPage } from "next";
 import ReviewImageCardList from "../../components/common/review/ReviewImageCardList";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import BookImageCardList from "../../components/common/book/BookImageCardList";
-import { BookData } from "../../mock/bookData";
-import { debounce } from "lodash";
 
 const Home: NextPage = () => {
-  const [keyword, setKeyword] = useState("");
   const [searchText, setSearchText] = useState("");
   const [extension, setExtension] = useState(false);
-  const [mockData, setMockData] = useState([...BookData]);
-
-  useEffect(() => {
-    getSearch(searchText);
-  }, [searchText]);
-
-  const delayedQuerycall = useMemo(
-    () => debounce((q) => setKeyword(q), 500),
-    [setKeyword]
-  );
-
-  const getSearch = useCallback(
-    async (searchText: string) => {
-      delayedQuerycall(searchText);
-    },
-    [delayedQuerycall]
-  );
 
   return (
     <div className={"flex flex-col px-40 w-full h-full"}>
@@ -83,7 +63,7 @@ const Home: NextPage = () => {
       ) : (
         <div className={"mt-36 mb-12"}>
           <div className={"w-full"}>
-            <BookImageCardList extension={true} keyword={keyword} />
+            <BookImageCardList extension={true} />
           </div>
         </div>
       )}
