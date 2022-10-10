@@ -7,7 +7,7 @@ const { persistAtom } = recoilPersist();
  *  get : console.log(test.isTest); => false
  *  set : setTest({...isTest : true}); => true
  */
-const testState = atom({
+export const testState = atom({
   key: "test",
   default: {
     isTest: false,
@@ -15,4 +15,9 @@ const testState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export { testState };
+export const modalState = atom({
+  key: "modal",
+  default: {
+    mypage: false,
+  },
+});
