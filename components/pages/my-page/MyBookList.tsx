@@ -8,8 +8,8 @@ interface MyBookListProps {
 const MyBookList = ({ isEmpty }: MyBookListProps) => {
   return (
     <div className={"pr-20"}>
-      <div className={"w-full h-9 flex flex-row text-white"}>
-        <div className={"flex-1 text-2xl"}>
+      <div className={"w-full h-9 flex flex-row text-text-1"}>
+        <div className={"flex-1 title-3"}>
           {isEmpty ? "내 책장" : "총 99권 읽음"}
         </div>
         <div className={"flex flex-row justify-end"}>

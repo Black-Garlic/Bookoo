@@ -13,20 +13,20 @@ const ReviewCard = ({ like }: ReviewItemProps) => {
         </div>
         <div className={"w-full h-8 flex-1 flex flex-col ml-2"}>
           <div className={"flex-1 flex flex-row"}>
-            <div className={"text-white text-center"}>책 제목</div>
-            <div className={"w-0 h-4 border border-white mx-2"} />
-            <div className={"text-white"}>책 제목</div>
+            <div className={"caption-1 text-text-1 text-center"}>책 제목</div>
+            <div className={"w-0 h-4 border border-white mx-2 self-center"} />
+            <div className={"caption-1 text-text-2"}>책 제목</div>
           </div>
           <div className={"w-full h-8 flex flex-row"}>
-            <div className={"pr-1 text-white"}>닉네임</div>
+            {like && <div className={"pr-1 caption-1 text-text-1"}>닉네임</div>}
             <StarCount />
           </div>
         </div>
       </div>
       <div className={"flex-1"}>
-        <div className={"text-white"}>섞어야 한다</div>
+        <div className={"caption-2 text-text-1"}>섞어야 한다</div>
       </div>
-      <div className={"w-full flex flex-row text-[#6D6D6D] text-xs"}>
+      <div className={"w-full flex flex-row caption-3 text-text-2"}>
         <div className={"w-16 h-5 mr-2"}>2022/08/24</div>
         {/* Like */}
         <div className={"w-16 h-5 mr-2 flex flex-row"}>

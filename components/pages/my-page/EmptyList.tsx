@@ -8,7 +8,7 @@ const EmptyList = ({ comment }: EmptyListProps) => {
       <div className={"w-[172px] h-[172px] self-center mt-56"}>
         <img src={"svg/circle.svg"} alt={"circle"} />
       </div>
-      <div className={"w-full h-auto text-white text-center mt-5"}>
+      <div className={"w-full h-auto sub-title-1 text-text-1 text-center mt-5"}>
         {comment}
       </div>
     </div>

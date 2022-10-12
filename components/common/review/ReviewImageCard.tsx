@@ -12,15 +12,15 @@ const ReviewImageCard = () => {
       <div className={"flex-1 mt-3 ml-2 flex flex-col"}>
         {/* Review info Top */}
         <div className={"w-full h-8 flex flex-row"}>
-          <div className={"pr-1 text-white"}>닉네임</div>
+          <div className={"pr-1 body-1 text-text-1"}>닉네임</div>
           <StarCount />
         </div>
         {/* Review Info Center */}
         <div className={"flex-1"}>
-          <div className={"text-white"}>섞어야 한다</div>
+          <div className={"caption-2 text-text-1"}>섞어야 한다</div>
         </div>
         {/* Review Info Bottom */}
-        <div className={"w-full flex flex-row text-[#6D6D6D] text-xs"}>
+        <div className={"w-full flex flex-row text-text-2 caption-3"}>
           <div className={"w-16 h-5 mr-2"}>2022/08/24</div>
           {/* Like */}
           <div className={"w-16 h-5 mr-2 flex flex-row"}>

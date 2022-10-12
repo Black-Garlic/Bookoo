@@ -8,8 +8,8 @@ interface MyCommentListProps {
 const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
   return (
     <div className={"pr-20"}>
-      <div className={"w-full h-9 flex flex-row text-white"}>
-        <div className={"flex-1 text-2xl"}>
+      <div className={"w-full h-9 flex flex-row text-text-1"}>
+        <div className={"flex-1 title-3"}>
           {isEmpty ? "내 댓글" : "총 99개의 댓글"}
         </div>
       </div>

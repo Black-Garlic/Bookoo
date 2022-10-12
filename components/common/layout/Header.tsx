@@ -7,14 +7,14 @@ const Header = ({ setMyPageOpen }: HeaderProps) => {
     // GNB
     <div className={"w-full h-[80px] flex flex-row bg-[#292929] p-7 fixed"}>
       {/* Left Area */}
-      <div className={"flex text-white justify-star"}>
+      <div className={"flex text-text-1 justify-star"}>
         {/* Logo */}
         <div className={"w-20"}>Logo</div>
       </div>
       {/* Search Bar */}
-      <div className={"text-white flex-1 ml-40"}>Search Bar</div>
+      <div className={"text-text-1 flex-1 ml-40"}>Search Bar</div>
       {/* Right Area */}
-      <div className={"flex flex-row text-white justify-end"}>
+      <div className={"flex flex-row text-text-1 justify-end"}>
         <button className={"w-6 h-6"}>
           <img src={"svg/uil_search-alt.svg"} alt={"search"} />
         </button>

@@ -17,7 +17,7 @@ const MenuItem = ({
     <button
       className={cn(
         "text-xl text-start mb-6",
-        selectedMenu === menuTitleEng ? "text-white" : "text-[#6D6D6D]"
+        selectedMenu === menuTitleEng ? "text-text-1" : "text-text-2"
       )}
       onClick={(e) => {
         e.preventDefault();

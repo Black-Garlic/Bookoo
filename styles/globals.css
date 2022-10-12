@@ -28,3 +28,97 @@ a {
     background: black;
   }
 }
+
+@font-face {
+  font-family: 'ONEMobileTitle';
+  src:url('../public/font/ONEMobileTitle.ttf');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NanumSquareOTFExtraBold';
+  src:url('../public/font/NanumSquareOTFRegular.otf');
+  font-style: normal;
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'NanumSquareOTFBold';
+  src:url('../public/font/NanumSquareOTFRegular.otf');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'NanumSquareOTFRegular';
+  src:url('../public/font/NanumSquareOTFRegular.otf');
+  font-style: normal;
+  font-weight: 400;
+}
+
+.title-1 {
+  font-family: 'ONEMobileTitle';
+  font-size: 72px;
+  line-height: 120%;
+}
+
+.title-2{
+  font-family: 'ONEMobileTitle';
+  font-size: 32px;
+  line-height: 150%;
+}
+
+.title-3 {
+  font-family: 'ONEMobileTitle';
+  font-size: 24px;
+  line-height: 150%;
+}
+
+.sub-title-1 {
+  font-family: 'NanumSquareOTFExtraBold';
+  font-size: 20px;
+  line-height: 120%;
+}
+
+.sub-title-2 {
+  font-family: 'NanumSquareOTFRegular';
+  font-size: 20px;
+  line-height: 120%;
+}
+
+.body-1 {
+  font-family: 'NanumSquareOTFExtraBold';
+  font-size: 16px;
+  line-height: 200%;
+}
+
+.body-2 {
+  font-family: 'NanumSquareOTFBold';
+  font-size: 16px;
+  line-height: 200%;
+}
+
+.body-3 {
+  font-family: 'NanumSquareOTFRegular';
+  font-size: 16px;
+  line-height: 200%;
+}
+
+.caption-1 {
+  font-family: 'NanumSquareOTFBold';
+  font-size: 12px;
+  line-height: 200%;
+}
+
+.caption-2 {
+  font-family: 'NanumSquareOTFRegular';
+  font-size: 12px;
+  line-height: 200%;
+}
+
+.caption-3 {
+  font-family: 'NanumSquareOTFBold';
+  font-size: 10px;
+  line-height: 200%;
+}

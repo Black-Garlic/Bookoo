@@ -62,10 +62,10 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
           }
         >
           {/* 닉네임 Area */}
-          <div className={"w-full h-[122px] mt-4 text-white "}>
+          <div className={"w-full h-[122px] mt-4 text-text-1 "}>
             {editNickname ? (
               <>
-                <div className={"text-[32px]"}>
+                <div className={"title-2"}>
                   <input
                     type={"text"}
                     className={
@@ -86,7 +86,7 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
               </>
             ) : (
               <>
-                <div className={"text-[32px]"}>
+                <div className={"title-2"}>
                   {nickName}님,
                   <br />
                   안녕하세요
@@ -100,13 +100,17 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
 
                 setEditNickname(!editNickname);
               }}
-              className={"mt-2"}
+              className={"mt-2 body-2"}
             >
               닉네임 수정
             </button>
           </div>
           {/* 메뉴 Area */}
-          <div className={"w-full h-auto mt-[66px] flex-1 flex flex-col"}>
+          <div
+            className={
+              "w-full h-auto mt-[66px] flex-1 flex flex-col sub-title-1"
+            }
+          >
             {menuItemList.map((menuItem, index) => (
               <MenuItem
                 key={index}
@@ -118,7 +122,7 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
             ))}
           </div>
           {/* Footer */}
-          <div className={"w-full h-auto mt-[66px] text-white"}>
+          <div className={"w-full h-auto mt-[66px] caption-1 text-text-1"}>
             <div className={"w-full h-auto"}>
               서비스 사용 중 불편한 사항은
               <br />
