@@ -1,8 +1,9 @@
 interface HeaderProps {
+  setNotificationOpen: any;
   setMyPageOpen: any;
 }
 
-const Header = ({ setMyPageOpen }: HeaderProps) => {
+const Header = ({ setNotificationOpen, setMyPageOpen }: HeaderProps) => {
   return (
     // GNB
     <div className={"w-full h-[80px] flex flex-row bg-[#292929] p-7 fixed"}>
@@ -23,7 +24,15 @@ const Header = ({ setMyPageOpen }: HeaderProps) => {
           <img src={"svg/uil_pen.svg"} alt={"pen"} />
         </button>
         <div className={"w-6 h-6"} />
-        <button className={"w-6 h-6"}>
+        <button
+          className={"w-6 h-6"}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            setNotificationOpen(true);
+          }}
+        >
           <img src={"svg/uil_bell.svg"} alt={"bell"} />
         </button>
         <div className={"w-6 h-6"} />
