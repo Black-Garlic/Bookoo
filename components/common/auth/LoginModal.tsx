@@ -29,11 +29,11 @@ const LoginModal = ({ setLoginOpen }: LoginPopupProps) => {
         <br />
         회원 정보가 없는 경우 자동으로 회원가입으로 넘어갑니다.
       </div>
-      <button
-        className={"w-full h-auto body-1 text-text-1 bg-primary rounded-lg"}
-      >
-        로그인
-      </button>
+      <div className={"w-full h-auto body-1 text-text-1 flex flex-row"}>
+        <button className={"flex-1 bg-primary rounded-lg py-2"}>
+          네이버 로그인 하러가기
+        </button>
+      </div>
     </ModalLayout>
   );
 };

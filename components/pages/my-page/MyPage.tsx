@@ -5,6 +5,9 @@ import MyReviewList from "./MyReviewList";
 import MyFavoriteList from "./MyFavoriteList";
 import MenuItem from "./MenuItem";
 import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
+import cn from "classnames";
+import WithdrawalModal from "../../common/auth/WithdrawalModal";
+import WithdrawalFailModal from "../../common/auth/WithdrawalFailModal";
 
 interface MyPageProps {
   setMyPageOpen: any;
@@ -30,6 +33,8 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
   const [editNickname, setEditNickname] = useState(false);
   const [nickName, setNickname] = useState("닉네임");
   const [selectedMenu, setSelectedMenu] = useState("MyBook");
+  const [withdrawalOpen, setWithdrawalOpen] = useState(false);
+  const [withdrawalFailOpen, setWithdrawalFailOpen] = useState(false);
 
   let view = <MyBookList isEmpty={true} />;
 
@@ -57,7 +62,12 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
         "overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full bg-[#292929]"
       }
     >
-      <div className={"w-screen h-screen flex flex-row"}>
+      <div
+        className={cn(
+          "w-screen h-screen flex flex-row",
+          (withdrawalOpen || withdrawalFailOpen) && "blur"
+        )}
+      >
         {/* Left Area */}
         <div
           className={
@@ -136,7 +146,17 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
             <div className={"w-full h-auto mt-4"}>버전 정보 0.0.1</div>
             <div className={"w-full h-auto mt-4 flex flex-row"}>
               <button className={"flex-1 text-start"}>로그아웃</button>
-              <button className={"flex-1 text-start"}>회원 탈퇴</button>
+              <button
+                className={"flex-1 text-start"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  setWithdrawalOpen(true);
+                }}
+              >
+                회원 탈퇴
+              </button>
             </div>
           </div>
         </div>
@@ -158,6 +178,18 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
           <div className={"w-full h-auto mt-24 pb-6"}>{view}</div>
         </div>
       </div>
+      {withdrawalOpen && (
+        <WithdrawalModal
+          setWithdrawalOpen={setWithdrawalOpen}
+          setWithdrawalFailOpen={setWithdrawalFailOpen}
+        />
+      )}
+      {withdrawalFailOpen && (
+        <WithdrawalFailModal
+          setWithdrawalOpen={setWithdrawalOpen}
+          setWithdrawalFailOpen={setWithdrawalFailOpen}
+        />
+      )}
     </div>
   );
 };
