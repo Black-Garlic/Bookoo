@@ -14,7 +14,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
         setNotificationOpen={setNotificationOpen}
         setMyPageOpen={setMyPageOpen}
       />
-      <div className={"pt-[80px] w-screen min-h-screen"}>{children}</div>
+      <div className={"book-koo"}>
+        <div className={"pt-[80px] w-screen min-h-screen"}>{children}</div>
+      </div>
       <Footer />
 
       {notificationOpen && (

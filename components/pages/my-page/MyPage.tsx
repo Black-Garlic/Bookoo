@@ -4,6 +4,7 @@ import MyCommentList from "./MyCommentList";
 import MyReviewList from "./MyReviewList";
 import MyFavoriteList from "./MyFavoriteList";
 import MenuItem from "./MenuItem";
+import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 
 interface MyPageProps {
   setMyPageOpen: any;
@@ -24,6 +25,8 @@ const menuItemList = [
 ];
 
 const MyPage = ({ setMyPageOpen }: MyPageProps) => {
+  useDisableBodyScroll();
+
   const [editNickname, setEditNickname] = useState(false);
   const [nickName, setNickname] = useState("닉네임");
   const [selectedMenu, setSelectedMenu] = useState("MyBook");
