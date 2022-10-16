@@ -16,6 +16,7 @@ module.exports = {
         link: "#D9D9D9",
         correct: "#6D6D6D",
         bookmark: "#FFC700",
+        background: "#292929",
       },
     },
   },

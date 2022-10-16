@@ -1,10 +1,13 @@
 import NotificationList from "./NotificationList";
+import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 
 interface NotificationProps {
   setNotificationOpen: any;
 }
 
 const Notification = ({ setNotificationOpen }: NotificationProps) => {
+  useDisableBodyScroll();
+
   return (
     <div
       className={
