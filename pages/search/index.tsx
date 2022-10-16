@@ -1,14 +1,29 @@
 import { NextPage } from "next";
 import BookDetailInfo from "../../components/common/book/BookDetailInfo";
 import BookReviewList from "../../components/pages/book/BookReviewList";
+import { useState } from "react";
+import BookScoreModal from "../../components/pages/book/BookScoreModal";
+import cn from "classnames";
 
 const Search: NextPage = () => {
+  const [bookScoreOpen, setBookScoreOpen] = useState(false);
+
   return (
     <div className={"w-screen h-full flex flex-row px-40 pt-20"}>
-      <div className={"w-72 h-auto ml-40 fixed top-40 left-0"}>
-        <BookDetailInfo />
+      <div
+        className={cn(
+          "w-72 h-auto ml-40 fixed top-40 left-0",
+          bookScoreOpen && "blur"
+        )}
+      >
+        <BookDetailInfo setBookScoreOpen={setBookScoreOpen} />
       </div>
-      <div className={"w-full h-auto flex-1 ml-[432px]"}>
+      <div
+        className={cn(
+          "w-full h-auto flex-1 ml-[432px]",
+          bookScoreOpen && "blur"
+        )}
+      >
         <div className={"flex flex-1 flex-col mb-16"}>
           <div className={"w-full h-auto body-1 text-text-3 mb-1 px-3"}>
             줄거리
@@ -24,6 +39,7 @@ const Search: NextPage = () => {
           <BookReviewList />
         </div>
       </div>
+      {bookScoreOpen && <BookScoreModal setBookScoreOpen={setBookScoreOpen} />}
     </div>
   );
 };

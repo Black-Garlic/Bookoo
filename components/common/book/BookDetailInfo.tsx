@@ -1,4 +1,8 @@
-const BookDetailInfo = () => {
+interface BookDetailInfoProps {
+  setBookScoreOpen?: any;
+}
+
+const BookDetailInfo = ({ setBookScoreOpen }: BookDetailInfoProps) => {
   return (
     <div className={"flex flex-col"}>
       <div className={"w-[130px] h-[200px] mb-8 place-self-center"}>
@@ -27,11 +31,27 @@ const BookDetailInfo = () => {
       </div>
       <button
         className={"w-full h-12 mb-3 body-1 text-text-2 bg-text-3 rounded-lg"}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (setBookScoreOpen) {
+            setBookScoreOpen(true);
+          }
+        }}
       >
         내 책장에 저장하기
       </button>
       <button
         className={"w-full h-12 body-1 text-text-1 bg-primary rounded-lg"}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (setBookScoreOpen) {
+            setBookScoreOpen(true);
+          }
+        }}
       >
         내 서평 보러가기
       </button>
