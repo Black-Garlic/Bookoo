@@ -59,66 +59,66 @@ a {
 
 .title-1 {
   font-family: 'ONEMobileTitle';
-  font-size: 72px;
+  font-size: 104px;
   line-height: 120%;
 }
 
 .title-2{
   font-family: 'ONEMobileTitle';
-  font-size: 32px;
+  font-size: 48px;
   line-height: 150%;
 }
 
 .title-3 {
   font-family: 'ONEMobileTitle';
-  font-size: 24px;
+  font-size: 32px;
   line-height: 150%;
 }
 
 .sub-title-1 {
   font-family: 'NanumSquareOTFExtraBold';
-  font-size: 20px;
+  font-size: 24px;
   line-height: 120%;
 }
 
 .sub-title-2 {
   font-family: 'NanumSquareOTFRegular';
-  font-size: 20px;
+  font-size: 24px;
   line-height: 120%;
 }
 
 .body-1 {
   font-family: 'NanumSquareOTFExtraBold';
-  font-size: 16px;
+  font-size: 20px;
   line-height: 200%;
 }
 
 .body-2 {
   font-family: 'NanumSquareOTFBold';
-  font-size: 16px;
+  font-size: 20px;
   line-height: 200%;
 }
 
 .body-3 {
   font-family: 'NanumSquareOTFRegular';
-  font-size: 16px;
+  font-size: 20px;
   line-height: 200%;
 }
 
 .caption-1 {
   font-family: 'NanumSquareOTFBold';
-  font-size: 12px;
+  font-size: 16px;
   line-height: 200%;
 }
 
 .caption-2 {
   font-family: 'NanumSquareOTFRegular';
-  font-size: 12px;
+  font-size: 16px;
   line-height: 200%;
 }
 
 .caption-3 {
   font-family: 'NanumSquareOTFBold';
-  font-size: 10px;
+  font-size: 12px;
   line-height: 200%;
 }
