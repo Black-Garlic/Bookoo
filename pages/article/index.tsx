@@ -1,18 +1,18 @@
 import { NextPage } from "next";
-import BookReviewCol from "../../components/pages/book/BookReviewCol";
-import CommentCol from "../../components/pages/review/CommentCol";
+import BookArticleCol from "../../components/pages/book/BookArticleCol";
 import BookDetailInfo from "../../components/common/book/BookDetailInfo";
 import StarCount from "../../components/common/star/StarCount";
+import CommentCol from "../../components/pages/article/CommentCol";
 
-const Review: NextPage = () => {
+const Article: NextPage = () => {
   return (
     <div className={"w-screen h-full flex flex-row px-40 pt-20"}>
       <div className={"w-72 h-auto"}>
-        <BookDetailInfo />
+        <BookDetailInfo bookInfo={{}} />
         <div className={"my-10"} />
         <div className={"w-full h-auto"}>
           <div className={"body-1 text-text-3 mb-1 px-3"}>서평 리스트</div>
-          <BookReviewCol />
+          <BookArticleCol />
         </div>
       </div>
       <div className={"w-full h-auto flex-1 ml-32"}>
@@ -103,4 +103,4 @@ const Review: NextPage = () => {
   );
 };
 
-export default Review;
+export default Article;

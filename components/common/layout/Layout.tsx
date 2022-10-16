@@ -5,29 +5,23 @@ import MyPage from "../../pages/my-page/MyPage";
 import NotificationPage from "../../pages/notification/NotificationPage";
 import LoginModal from "../auth/LoginModal";
 import cn from "classnames";
+import { useRecoilValue } from "recoil";
+import { popupState } from "../../../states/states";
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [notificationOpen, setNotificationOpen] = useState(false);
-  const [myPageOpen, setMyPageOpen] = useState(false);
+  const popup = useRecoilValue(popupState);
 
   return (
     <div className={"bg-[#292929] bg-cover"}>
-      <Header
-        setLoginOpen={setLoginOpen}
-        setNotificationOpen={setNotificationOpen}
-        setMyPageOpen={setMyPageOpen}
-      />
-      <div className={cn("book-koo", loginOpen && "blur")}>
+      <Header />
+      <div className={cn("book-koo", popup.login && "blur")}>
         <div className={"pt-[80px] w-screen min-h-screen"}>{children}</div>
       </div>
       <Footer />
 
-      {loginOpen && <LoginModal setLoginOpen={setLoginOpen} />}
-      {notificationOpen && (
-        <NotificationPage setNotificationOpen={setNotificationOpen} />
-      )}
-      {myPageOpen && <MyPage setMyPageOpen={setMyPageOpen} />}
+      {popup.login && <LoginModal />}
+      {popup.notification && <NotificationPage />}
+      {popup.mypage && <MyPage />}
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import StarCount from "../../common/star/StarCount";
 
-interface ReviewItemProps {
+interface ArticleItemProps {
   like: boolean;
 }
 
-const ReviewCard = ({ like }: ReviewItemProps) => {
+const ArticleCard = ({ like }: ArticleItemProps) => {
   return (
     <div className={"w-[357px] h-40 flex flex-col flex-1"}>
       <div className={"w-full h-12 flex flex-row"}>
@@ -50,4 +50,4 @@ const ReviewCard = ({ like }: ReviewItemProps) => {
     </div>
   );
 };
-export default ReviewCard;
+export default ArticleCard;

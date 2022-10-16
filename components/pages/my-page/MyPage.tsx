@@ -1,34 +1,36 @@
 import { useState } from "react";
 import MyBookList from "./MyBookList";
 import MyCommentList from "./MyCommentList";
-import MyReviewList from "./MyReviewList";
+import MyArticleList from "./MyArticleList";
 import MyFavoriteList from "./MyFavoriteList";
 import MenuItem from "./MenuItem";
 import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 import cn from "classnames";
 import WithdrawalModal from "../../common/auth/WithdrawalModal";
 import WithdrawalFailModal from "../../common/auth/WithdrawalFailModal";
+import { useRecoilState } from "recoil";
+import { popupState } from "../../../states/states";
+import { RecoilUtils } from "../../../utils/RecoilUtils";
 
-interface MyPageProps {
-  setMyPageOpen: any;
-}
+interface MyPageProps {}
 
 const menuItemList = [
   { menuTitleKor: "내 책장", menuTitleEng: "MyBook" },
   { menuTitleKor: "내 댓글", menuTitleEng: "MyComment" },
-  { menuTitleKor: "내 서평", menuTitleEng: "MyReview" },
+  { menuTitleKor: "내 서평", menuTitleEng: "MyArticle" },
   { menuTitleKor: "내가 좋아하는 서평", menuTitleEng: "MyFavorite" },
   { menuTitleKor: "내 책장 Empty", menuTitleEng: "MyBook-Empty" },
   { menuTitleKor: "내 댓글 Empty", menuTitleEng: "MyComment-Empty" },
-  { menuTitleKor: "내 서평 Empty", menuTitleEng: "MyReview-Empty" },
+  { menuTitleKor: "내 서평 Empty", menuTitleEng: "MyArticle-Empty" },
   {
     menuTitleKor: "내가 좋아하는 서평 Empty",
     menuTitleEng: "MyFavorite-Empty",
   },
 ];
 
-const MyPage = ({ setMyPageOpen }: MyPageProps) => {
+const MyPage = () => {
   useDisableBodyScroll();
+  const [popup, setPopup] = useRecoilState(popupState);
 
   const [editNickname, setEditNickname] = useState(false);
   const [nickName, setNickname] = useState("닉네임");
@@ -42,16 +44,16 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
     view = <MyBookList isEmpty={false} />;
   } else if (selectedMenu === "MyComment") {
     view = <MyCommentList isEmpty={false} />;
-  } else if (selectedMenu === "MyReview") {
-    view = <MyReviewList isEmpty={false} />;
+  } else if (selectedMenu === "MyArticle") {
+    view = <MyArticleList isEmpty={false} />;
   } else if (selectedMenu === "MyFavorite") {
     view = <MyFavoriteList isEmpty={false} />;
   } else if (selectedMenu === "MyBook-Empty") {
     view = <MyBookList isEmpty={true} />;
   } else if (selectedMenu === "MyComment-Empty") {
     view = <MyCommentList isEmpty={true} />;
-  } else if (selectedMenu === "MyReview-Empty") {
-    view = <MyReviewList isEmpty={true} />;
+  } else if (selectedMenu === "MyArticle-Empty") {
+    view = <MyArticleList isEmpty={true} />;
   } else if (selectedMenu === "MyFavorite-Empty") {
     view = <MyFavoriteList isEmpty={true} />;
   }
@@ -168,11 +170,15 @@ const MyPage = ({ setMyPageOpen }: MyPageProps) => {
               e.preventDefault();
               e.stopPropagation();
 
-              setMyPageOpen(false);
+              RecoilUtils.toggleModal("mypage", popup, setPopup);
             }}
           >
             <div className={"flex-1"} />
-            <img className={"w-6 h-6 mr-2"} src={"svg/x-outline.svg"} alt="x" />
+            <img
+              className={"w-6 h-6 mr-2"}
+              src={"/svg/x-outline.svg"}
+              alt="x"
+            />
           </button>
           {/* Header */}
           <div className={"w-full h-auto mt-24 pb-6"}>{view}</div>

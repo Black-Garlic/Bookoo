@@ -1,32 +1,39 @@
-interface HeaderProps {
-  setNotificationOpen: any;
-  setMyPageOpen: any;
-  setLoginOpen: any;
-}
+import { useRecoilState } from "recoil";
+import { popupState } from "../../../states/states";
+import { RecoilUtils } from "../../../utils/RecoilUtils";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const Header = ({
-  setLoginOpen,
-  setNotificationOpen,
-  setMyPageOpen,
-}: HeaderProps) => {
+interface HeaderProps {}
+
+const Header = ({}: HeaderProps) => {
+  const [popup, setPopup] = useRecoilState(popupState);
+  const router = useRouter();
+
   return (
     // GNB
     <div className={"w-full h-[80px] flex flex-row bg-[#292929] p-7 fixed"}>
       {/* Left Area */}
       <div className={"flex text-text-1 justify-star"}>
         {/* Logo */}
-        <div className={"w-20"}>Logo</div>
+        <div className={"w-20 font-bold"}>
+          <Link href={"/main"}>Bookoo</Link>
+        </div>
       </div>
       {/* Search Bar */}
       <div className={"text-text-1 flex-1 ml-40"}>Search Bar</div>
       {/* Right Area */}
       <div className={"flex flex-row text-text-1 justify-end"}>
-        <button className={"w-6 h-6"}>
-          <img src={"svg/uil_search-alt.svg"} alt={"search"} />
-        </button>
+        {!router.pathname.includes("/search") && (
+          <Link href={"/search"}>
+            <button className={"w-6 h-6"}>
+              <img src={"/svg/uil_search-alt.svg"} alt={"search"} />
+            </button>
+          </Link>
+        )}
         <div className={"w-6 h-6"} />
         <button className={"w-6 h-6"}>
-          <img src={"svg/uil_pen.svg"} alt={"pen"} />
+          <img src={"/svg/uil_pen.svg"} alt={"pen"} />
         </button>
         <div className={"w-6 h-6"} />
         <button
@@ -35,10 +42,11 @@ const Header = ({
             e.preventDefault();
             e.stopPropagation();
 
-            setNotificationOpen(true);
+            // setNotificationOpen(true);
+            RecoilUtils.toggleModal("notification", popup, setPopup);
           }}
         >
-          <img src={"svg/uil_bell.svg"} alt={"bell"} />
+          <img src={"/svg/uil_bell.svg"} alt={"bell"} />
         </button>
         <div className={"w-6 h-6"} />
         <button
@@ -47,10 +55,11 @@ const Header = ({
             e.preventDefault();
             e.stopPropagation();
 
-            setMyPageOpen(true);
+            RecoilUtils.toggleModal("mypage", popup, setPopup);
+            // setMyPageOpen(true);
           }}
         >
-          <img src={"svg/uil_grin.svg"} alt={"grin"} />
+          <img src={"/svg/uil_grin.svg"} alt={"grin"} />
         </button>
         <div className={"w-6 h-6"} />
         <button
@@ -58,11 +67,11 @@ const Header = ({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-
-            setLoginOpen(true);
+            RecoilUtils.toggleModal("login", popup, setPopup);
+            // setLoginOpen(true);
           }}
         >
-          <img src={"svg/uil_grin.svg"} alt={"grin"} />
+          <img src={"/svg/uil_grin.svg"} alt={"grin"} />
         </button>
       </div>
     </div>

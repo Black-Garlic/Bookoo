@@ -1,15 +1,15 @@
 import ArticleCard from "./ArticleCard";
 
-const MyFavoriteRow = () => {
+const MyArticleRow = () => {
   return (
     <div className={"w-full flex flex-row"}>
-      <ArticleCard like={true} />
+      <ArticleCard like={false} />
       <div className={"mx-6"} />
-      <ArticleCard like={true} />
+      <ArticleCard like={false} />
       <div className={"mx-6"} />
-      <ArticleCard like={true} />
+      <ArticleCard like={false} />
     </div>
   );
 };
 
-export default MyFavoriteRow;
+export default MyArticleRow;

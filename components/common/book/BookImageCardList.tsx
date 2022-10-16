@@ -2,9 +2,13 @@ import BookImageCardRow from "./BookImageCardRow";
 
 interface BookImageCardListProps {
   extension: boolean;
+  searchList: any[];
 }
 
-const BookImageCardList = ({ extension }: BookImageCardListProps) => {
+const BookImageCardList = ({
+  extension,
+  searchList,
+}: BookImageCardListProps) => {
   return (
     // Book List Area
     <div className={"flex flex-col"}>

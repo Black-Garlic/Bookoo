@@ -1,12 +1,14 @@
 import NotificationList from "./NotificationList";
 import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
+import { useRecoilState } from "recoil";
+import { popupState } from "../../../states/states";
+import { RecoilUtils } from "../../../utils/RecoilUtils";
 
-interface NotificationProps {
-  setNotificationOpen: any;
-}
+interface NotificationProps {}
 
-const Notification = ({ setNotificationOpen }: NotificationProps) => {
+const Notification = () => {
   useDisableBodyScroll();
+  const [popup, setPopup] = useRecoilState(popupState);
 
   return (
     <div
@@ -21,8 +23,9 @@ const Notification = ({ setNotificationOpen }: NotificationProps) => {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
+              RecoilUtils.toggleModal("notification", popup, setPopup);
 
-              setNotificationOpen(false);
+              // setNotificationOpen(false);
             }}
           >
             <div className={"flex-1"} />

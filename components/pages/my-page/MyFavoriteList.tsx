@@ -18,7 +18,7 @@ const MyFavoriteList = ({ isEmpty }: MyFavoriteListProps) => {
       ) : (
         <div className={"mt-12"}>
           <div className={"flex flex-col"}>
-            {/* Review List Row */}
+            {/* Article List Row */}
             <MyFavoriteRow />
             <div className={"mt-28"} />
             <MyFavoriteRow />

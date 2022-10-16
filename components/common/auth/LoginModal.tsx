@@ -1,10 +1,13 @@
 import ModalLayout from "../modal/ModalLayout";
+import { useRecoilState } from "recoil";
+import { popupState } from "../../../states/states";
+import { RecoilUtils } from "../../../utils/RecoilUtils";
 
-interface LoginPopupProps {
-  setLoginOpen: any;
-}
+interface LoginPopupProps {}
 
-const LoginModal = ({ setLoginOpen }: LoginPopupProps) => {
+const LoginModal = () => {
+  const [popup, setPopup] = useRecoilState(popupState);
+
   return (
     <ModalLayout>
       <div className={"w-full h-auto flex flex-row"}>
@@ -18,7 +21,8 @@ const LoginModal = ({ setLoginOpen }: LoginPopupProps) => {
             e.preventDefault();
             e.stopPropagation();
 
-            setLoginOpen(false);
+            // setLoginOpen(false);
+            RecoilUtils.toggleModal("login", popup, setPopup);
           }}
         >
           <img className={"w-6 h-6 mr-2"} src={"svg/x-outline.svg"} alt="x" />

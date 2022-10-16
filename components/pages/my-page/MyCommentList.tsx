@@ -18,7 +18,7 @@ const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
       ) : (
         <div className={"mt-12"}>
           <div className={"flex flex-col"}>
-            {/* Review List Row */}
+            {/* Article List Row */}
             <MyCommentRow />
             <div className={"mt-[72px]"} />
             <MyCommentRow />

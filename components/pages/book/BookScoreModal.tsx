@@ -1,14 +1,17 @@
 import ModalLayout from "../../common/modal/ModalLayout";
 import { useState } from "react";
 import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { popupState } from "../../../states/states";
+import { RecoilUtils } from "../../../utils/RecoilUtils";
 
-interface BookScoreProps {
-  setBookScoreOpen: any;
-}
+interface BookScoreProps {}
 
-const BookScore = ({ setBookScoreOpen }: BookScoreProps) => {
+const BookScore = () => {
   useDisableBodyScroll();
   const [starCount, setStarCount] = useState<number>(3);
+
+  const [popup, setPopup] = useRecoilState(popupState);
 
   return (
     <ModalLayout>
@@ -22,10 +25,10 @@ const BookScore = ({ setBookScoreOpen }: BookScoreProps) => {
             e.preventDefault();
             e.stopPropagation();
 
-            setBookScoreOpen(false);
+            RecoilUtils.toggleModal("bookScore", popup, setPopup);
           }}
         >
-          <img className={"w-6 h-6 mr-2"} src={"svg/x-outline.svg"} alt="x" />
+          <img className={"w-6 h-6 mr-2"} src={"/svg/x-outline.svg"} alt="x" />
         </button>
       </div>
       <div className={"w-full h-auto flex-1 body-3 text-text-1 mt-2 mb-8"}>
@@ -103,7 +106,7 @@ const BookScore = ({ setBookScoreOpen }: BookScoreProps) => {
             e.preventDefault();
             e.stopPropagation();
 
-            setBookScoreOpen(false);
+            // RecoilUtils.toggleModal("bookScore", popup, setPopup);
           }}
         >
           내 책장에 저장하기
@@ -115,7 +118,7 @@ const BookScore = ({ setBookScoreOpen }: BookScoreProps) => {
             e.preventDefault();
             e.stopPropagation();
 
-            setBookScoreOpen(false);
+            RecoilUtils.toggleModal("bookScore", popup, setPopup);
           }}
         >
           취소

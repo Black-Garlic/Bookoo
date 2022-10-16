@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import ReviewImageCardList from "../../components/common/review/ReviewImageCardList";
+import ArticleImageCardList from "../../components/common/article/ArticleImageCardList";
 import { useState } from "react";
 import BookImageCardList from "../../components/common/book/BookImageCardList";
 
@@ -38,9 +38,9 @@ const Home: NextPage = () => {
               실시간 서평
             </div>
           )}
-          {/* Review List Area*/}
+          {/* Article List Area*/}
           <div className={"w-full"}>
-            <ReviewImageCardList extension={extension} />
+            <ArticleImageCardList extension={extension} />
           </div>
           {!extension && (
             <div
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
       ) : (
         <div className={"mt-36 mb-12"}>
           <div className={"w-full"}>
-            <BookImageCardList extension={true} />
+            <BookImageCardList extension={true} searchList={[]} />
           </div>
         </div>
       )}

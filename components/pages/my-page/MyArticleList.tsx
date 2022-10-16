@@ -1,11 +1,11 @@
-import MyReviewRow from "./MyReviewRow";
+import MyArticleRow from "./MyArticleRow";
 import EmptyList from "./EmptyList";
 
-interface MyReviewListProps {
+interface MyArticleListProps {
   isEmpty: boolean;
 }
 
-const MyReviewList = ({ isEmpty }: MyReviewListProps) => {
+const MyArticleList = ({ isEmpty }: MyArticleListProps) => {
   return (
     <div className={"pr-20"}>
       <div className={"w-full h-9 flex flex-row text-text-1"}>
@@ -18,14 +18,14 @@ const MyReviewList = ({ isEmpty }: MyReviewListProps) => {
       ) : (
         <div className={"mt-12"}>
           <div className={"flex flex-col"}>
-            {/* Review List Row */}
-            <MyReviewRow />
+            {/* Article List Row */}
+            <MyArticleRow />
             <div className={"mt-28"} />
-            <MyReviewRow />
+            <MyArticleRow />
             <div className={"mt-28"} />
-            <MyReviewRow />
+            <MyArticleRow />
             <div className={"mt-28"} />
-            <MyReviewRow />
+            <MyArticleRow />
           </div>
         </div>
       )}
@@ -33,4 +33,4 @@ const MyReviewList = ({ isEmpty }: MyReviewListProps) => {
   );
 };
 
-export default MyReviewList;
+export default MyArticleList;

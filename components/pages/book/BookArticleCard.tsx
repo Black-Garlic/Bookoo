@@ -1,6 +1,6 @@
 import StarCount from "../../common/star/StarCount";
 
-const BookReviewCard = () => {
+const BookArticleCard = () => {
   return (
     <div className={"w-full h-full p-3 rounded-lg hover:bg-text-3"}>
       <div className={"flex flex-row"}>
@@ -52,4 +52,4 @@ const BookReviewCard = () => {
   );
 };
 
-export default BookReviewCard;
+export default BookArticleCard;

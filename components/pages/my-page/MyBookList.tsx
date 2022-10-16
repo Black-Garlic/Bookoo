@@ -14,11 +14,11 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
         </div>
         <div className={"flex flex-row justify-end"}>
           <button className={"w-6 h-6"}>
-            <img src={"svg/uil_search-alt.svg"} alt={"search"} />
+            <img src={"/svg/uil_search-alt.svg"} alt={"search"} />
           </button>
           <div className={"w-6 h-6"} />
           <button className={"w-6 h-6"}>
-            <img src={"svg/uil_filter.svg"} alt={"filter"} />
+            <img src={"/svg/uil_filter.svg"} alt={"filter"} />
           </button>
         </div>
       </div>
