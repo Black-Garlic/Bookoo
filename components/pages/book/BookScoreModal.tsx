@@ -1,11 +1,13 @@
 import ModalLayout from "../../common/modal/ModalLayout";
 import { useState } from "react";
+import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 
 interface BookScoreProps {
   setBookScoreOpen: any;
 }
 
 const BookScore = ({ setBookScoreOpen }: BookScoreProps) => {
+  useDisableBodyScroll();
   const [starCount, setStarCount] = useState<number>(3);
 
   return (
