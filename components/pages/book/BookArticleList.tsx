@@ -17,7 +17,7 @@ const BookArticleList = ({ bookId }: BookArticleListProps) => {
   };
   return (
     <div className={"w-full h-auth flex flex-col"}>
-      {articleList && articleList.length > 0 ? (
+      {articleList && articleList.length === 0 ? (
         <>
           <BookArticleRow />
           <div className={"mt-8"} />

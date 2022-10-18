@@ -7,6 +7,7 @@ import { BookService } from "../../services/BookService";
 const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchList, setSearchList] = useState([]);
+  const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
     setSearchList([]);
@@ -24,7 +25,6 @@ const Home: NextPage = () => {
     getBookListRequest.keyword = searchText;
     getBookListRequest.display = 10;
     const { data } = await BookService.getBookList(getBookListRequest);
-    console.log("data", data);
     setSearchList(data);
   };
 
@@ -39,10 +39,13 @@ const Home: NextPage = () => {
         <input
           type={"text"}
           className={
-            "w-full h-24 title-1 text-text-1 border-white border-l-2 pl-6  bg-transparent placeholder-text-2 outline-0"
+            "w-full h-24 title-1 text-text-1 border-white pl-6  bg-transparent placeholder-text-2 outline-0 " +
+            (isFocus ? "" : "border-l-2")
           }
           onKeyPress={(e) => onKeyPress(e)}
           placeholder={"도서 검색"}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
           onChange={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -56,7 +59,7 @@ const Home: NextPage = () => {
         <div className={"mt-52 mb-12"}></div>
       ) : (
         <div className={"mt-36 mb-12"}>
-          {searchList && searchList.length > 0 ? (
+          {searchList && searchList.length === 0 ? (
             <div className={"w-full"}>
               <BookImageCardList extension={true} searchList={searchList} />
             </div>
