@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import BookImageCardList from "../../components/common/book/BookImageCardList";
-import { GetBookListRequest } from "../../typings/Books";
+import { BookUnitResponseData, GetBookListRequest } from "../../typings/Books";
 import { BookService } from "../../services/BookService";
 
 const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");
-  const [searchList, setSearchList] = useState([]);
+  const [searchList, setSearchList] = useState<BookUnitResponseData[]>([]);
   const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
@@ -20,6 +20,9 @@ const Home: NextPage = () => {
     }
   };
 
+  /**
+   * progess 필요
+   */
   const getBookList = async () => {
     const getBookListRequest = new GetBookListRequest();
     getBookListRequest.keyword = searchText;
@@ -36,6 +39,7 @@ const Home: NextPage = () => {
           <img src={"svg/uil_search-alt.svg"} alt={"search"} />
         </div>
         {/* book Search Bar */}
+
         <input
           type={"text"}
           className={
@@ -59,14 +63,25 @@ const Home: NextPage = () => {
         <div className={"mt-52 mb-12"}></div>
       ) : (
         <div className={"mt-36 mb-12"}>
-          {searchList && searchList.length === 0 ? (
+          {searchList && searchList.length > 0 ? (
             <div className={"w-full"}>
               <BookImageCardList extension={true} searchList={searchList} />
             </div>
           ) : (
-            <div className={"w-full h-full text-center"}>
-              <div className={"text-white font-bold text-4xl"}>
-                데이터가 없습니다. (임시)
+            <div
+              className={
+                "w-full text-center h-96 flex flex-col justify-center items-center"
+              }
+            >
+              {/*<div className={"text-white font-bold text-4xl"}>*/}
+              {/*  데이터가 없습니다. (임시)*/}
+              {/*</div>*/}
+              <div className={"flex flex-col items-center"}>
+                <img
+                  src={"/image/noResult.png"}
+                  className={"w-[182px] h-[191.45px] object-fill"}
+                />
+                <p className={"text-white title-3"}>찾으시는 책이 없어요.</p>
               </div>
             </div>
           )}

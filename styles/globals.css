@@ -102,7 +102,7 @@ a {
 .body-3 {
   font-family: 'NanumSquareOTFRegular';
   font-size: 20px;
-  line-height: 200%;
+  line-height: 40px;
 }
 
 .caption-1 {
@@ -114,10 +114,22 @@ a {
 .caption-2 {
   font-family: 'NanumSquareOTFRegular';
   font-size: 16px;
-  line-height: 200%;
+  line-height: 32px;
 }
 
 .caption-3 {
+  font-family: 'NanumSquareOTFBold';
+  font-size: 12px;
+  line-height: 200%;
+}
+
+.title-3 {
+  font-family: 'NanumSquareOTFBold';
+  font-size: 16px;
+  line-height: 200%;
+}
+
+.title-4 {
   font-family: 'NanumSquareOTFBold';
   font-size: 12px;
   line-height: 200%;

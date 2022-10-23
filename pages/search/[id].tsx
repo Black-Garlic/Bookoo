@@ -32,9 +32,9 @@ const Search: NextPage = () => {
   }, [id]);
 
   // 예시 : 9791158511432
+  // 예시 : 9788955866117 (안되는 예시)
   const getBookDetail = async () => {
     const res = await BookService.getBookDetail(Number(id));
-    console.log("res", res);
     if (res) setBookInfo(res);
   };
 
