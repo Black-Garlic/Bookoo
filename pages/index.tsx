@@ -6,6 +6,7 @@ import BookImageCardList from "../components/common/book/BookImageCardList";
 const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");
   const [extension, setExtension] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
 
   return (
     <div className={"flex flex-col px-40 w-full h-full"}>
@@ -18,9 +19,12 @@ const Home: NextPage = () => {
         <input
           type={"text"}
           className={
-            "w-full h-24 title-1 text-text-1 border-white border-l-2 pl-6  bg-transparent placeholder-text-2 outline-0"
+            "w-full h-24 title-1 text-text-1 border-white  bg-transparent placeholder-text-2 outline-0 " +
+            (isFocus ? "pl-6" : "border-l-2 ml-6")
           }
-          placeholder={"도서 검색"}
+          placeholder={" 도서 검색"}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
           onChange={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -65,7 +69,7 @@ const Home: NextPage = () => {
       ) : (
         <div className={"mt-36 mb-12"}>
           <div className={"w-full"}>
-            <BookImageCardList extension={true} />
+            <BookImageCardList extension={true} searchList={[]} />
           </div>
         </div>
       )}

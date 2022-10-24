@@ -43,11 +43,11 @@ const Home: NextPage = () => {
         <input
           type={"text"}
           className={
-            "w-full h-24 title-1 text-text-1 border-white pl-6  bg-transparent placeholder-text-2 outline-0 " +
-            (isFocus ? "" : "border-l-2")
+            "w-full h-24 title-1 text-text-1 border-white  bg-transparent placeholder-text-2 outline-0 " +
+            (isFocus ? "pl-6" : "border-l-2 ml-6")
           }
           onKeyPress={(e) => onKeyPress(e)}
-          placeholder={"도서 검색"}
+          placeholder={" 도서 검색"}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={(e) => {

@@ -21,7 +21,7 @@ const Header = ({}: HeaderProps) => {
         </div>
       </div>
       {/* Search Bar */}
-      <div className={"text-text-1 flex-1 ml-40"}>Search Bar</div>
+      <div className={"text-text-1 flex-1 ml-40"} />
       {/* Right Area */}
       <div className={"flex flex-row text-text-1 justify-end"}>
         {!router.pathname.includes("/search") && (
