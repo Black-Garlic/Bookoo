@@ -1,11 +1,31 @@
 import MyArticleRow from "./MyArticleRow";
 import EmptyList from "./EmptyList";
+import { useEffect } from "react";
+import { ArticleService } from "../../../services/ArticleService";
 
 interface MyArticleListProps {
   isEmpty: boolean;
 }
 
 const MyArticleList = ({ isEmpty }: MyArticleListProps) => {
+  const getMyArticleList = async () => {
+    const res = await ArticleService.getArticleList(0);
+    console.log("res", res);
+  };
+
+  useEffect(() => {
+    getMyArticleList();
+    getArticelDetail();
+  }, []);
+
+  const getArticelDetail = async () => {
+    const res = await ArticleService.getArticleDetail({
+      articleId: 8,
+      userId: 0,
+      bookId: 9788960213180,
+    });
+    console.log("res", res);
+  };
   return (
     <div className={"pr-20"}>
       <div className={"w-full h-9 flex flex-row text-text-1"}>
