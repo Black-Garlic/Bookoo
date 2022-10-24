@@ -108,17 +108,17 @@ const MyPage = () => {
                 </div>
               </>
             )}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
+            {/*<button*/}
+            {/*  onClick={(e) => {*/}
+            {/*    e.preventDefault();*/}
+            {/*    e.stopPropagation();*/}
 
-                setEditNickname(!editNickname);
-              }}
-              className={"mt-2 body-2"}
-            >
-              닉네임 수정
-            </button>
+            {/*    setEditNickname(!editNickname);*/}
+            {/*  }}*/}
+            {/*  className={"mt-2 body-2"}*/}
+            {/*>*/}
+            {/*  닉네임 수정*/}
+            {/*</button>*/}
           </div>
           {/* 메뉴 Area */}
           <div
