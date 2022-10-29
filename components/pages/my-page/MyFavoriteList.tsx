@@ -14,7 +14,10 @@ const MyFavoriteList = ({ isEmpty }: MyFavoriteListProps) => {
         </div>
       </div>
       {isEmpty ? (
-        <EmptyList comment={"좋아요를 누른 서평이 없어요"} />
+        <EmptyList
+          imageFileName={"empty_book_list"}
+          comment={"좋아하는 서평이 없어요"}
+        />
       ) : (
         <div className={"mt-12"}>
           <div className={"flex flex-col"}>

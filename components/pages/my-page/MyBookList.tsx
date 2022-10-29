@@ -23,10 +23,13 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
         </div>
       </div>
       {isEmpty ? (
-        <EmptyList comment={"책을 찾을 수가 없네요"} />
+        <EmptyList
+          imageFileName={"empty_book_list"}
+          comment={"저장된 책이 없어요"}
+        />
       ) : (
         <div className={"mt-12"}>
-          <BookImageCardList extension={true} />
+          <BookImageCardList extension={true} searchList={[]} />
         </div>
       )}
     </div>

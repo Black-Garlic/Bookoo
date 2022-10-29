@@ -34,7 +34,10 @@ const MyArticleList = ({ isEmpty }: MyArticleListProps) => {
         </div>
       </div>
       {isEmpty ? (
-        <EmptyList comment={"작성한 서평이 없어요"} />
+        <EmptyList
+          imageFileName={"empty_book_list"}
+          comment={"작성된 서평이 없어요"}
+        />
       ) : (
         <div className={"mt-12"}>
           <div className={"flex flex-col"}>

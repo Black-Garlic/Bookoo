@@ -14,7 +14,10 @@ const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
         </div>
       </div>
       {isEmpty ? (
-        <EmptyList comment={"글에 단 댓글이 없어요"} />
+        <EmptyList
+          imageFileName={"empty_comment_list"}
+          comment={"작성된 댓글이 없어요"}
+        />
       ) : (
         <div className={"mt-12"}>
           <div className={"flex flex-col"}>

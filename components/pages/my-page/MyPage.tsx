@@ -73,7 +73,7 @@ const MyPage = () => {
         {/* Left Area */}
         <div
           className={
-            "w-[340px] h-full p-14 flex flex-col fixed top-0 right-0 left-0 bg-[#363636]"
+            "w-[480px] h-full p-14 flex flex-col fixed top-0 right-0 left-0 bg-[#363636]"
           }
         >
           {/* 닉네임 Area */}
@@ -163,7 +163,7 @@ const MyPage = () => {
           </div>
         </div>
         {/* Right Area */}
-        <div className={"w-full h-auth ml-[340px] py-8 pl-28 pr-8"}>
+        <div className={"w-full h-auth ml-[480px] py-8 pl-28 pr-8"}>
           <button
             className={"w-full h-6 flex flex-row"}
             onClick={(e) => {
