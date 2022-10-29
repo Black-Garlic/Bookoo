@@ -16,8 +16,8 @@ const Header = ({}: HeaderProps) => {
       {/* Left Area */}
       <div className={"flex text-text-1 justify-star"}>
         {/* Logo */}
-        <div className={"w-20 font-bold"}>
-          <Link href={"/main"}>Bookoo</Link>
+        <div className={"w-40 sub-title-2 font-bold"}>
+          <Link href={"/main"}>Book-koo</Link>
         </div>
       </div>
       {/* Search Bar */}
