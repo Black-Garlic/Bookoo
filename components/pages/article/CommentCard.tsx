@@ -1,4 +1,8 @@
-const CommentCard = () => {
+interface CommentItemProps {
+  info: any;
+}
+
+const CommentCard = ({ info }: CommentItemProps) => {
   return (
     <div
       className={

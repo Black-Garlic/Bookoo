@@ -4,7 +4,7 @@ import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { BookUnitResponseData } from "../../../typings/Books";
 
 interface BookDetailInfoProps {
-  bookInfo: BookUnitResponseData;
+  bookInfo: any;
 }
 
 const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {

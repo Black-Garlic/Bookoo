@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import ArticleImageCardList from "../components/common/article/ArticleImageCardList";
 import { useState } from "react";
 import BookImageCardList from "../components/common/book/BookImageCardList";
+import ArticleImageCard from "../components/common/article/ArticleImageCard";
 
 const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");
@@ -44,7 +45,10 @@ const Home: NextPage = () => {
           )}
           {/* Article List Area*/}
           <div className={"w-full"}>
-            <ArticleImageCardList extension={extension} />
+            {[0, 1, 3].map((element, index) => {
+              return <ArticleImageCard key={index} />;
+            })}
+            {/*<ArticleImageCardList extension={extension} />*/}
           </div>
           {!extension && (
             <div

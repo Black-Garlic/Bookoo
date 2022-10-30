@@ -5,6 +5,9 @@ import { useRecoilState } from "recoil";
 import { popupState } from "../../states/states";
 import ArticleBookSearchModal from "../../components/pages/article/ArticleBookSearchModal";
 import { RecoilUtils } from "../../utils/RecoilUtils";
+import { ArticleService } from "../../services/ArticleService";
+import { createArticleRequestData } from "../../typings/Article";
+import { useRouter } from "next/router";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -15,10 +18,34 @@ const scoreMessage = [
 ];
 
 const ArticleWrite: NextPage = () => {
+  const router = useRouter();
   const [selectedBookData, setSelectedBookData] = useState<any>();
   const [starCount, setStarCount] = useState<number>(3);
+  const [content, setContent] = useState("");
 
   const [popup, setPopup] = useRecoilState(popupState);
+
+  const selectBook = async (obj: any) => {
+    setSelectedBookData(obj);
+    RecoilUtils.toggleModal("bookSearch", popup, setPopup);
+  };
+
+  const writeArticle = async () => {
+    if (!selectedBookData?.isbn) {
+      alert("책을 골라주세요.");
+    } else if (content.length === 0) {
+      alert("내용을 적어주세요.");
+    } else {
+      const createArticleRequest = new createArticleRequestData();
+      createArticleRequest.userId = 0;
+      createArticleRequest.bookId = selectedBookData.isbn;
+      createArticleRequest.title = selectedBookData.title;
+      createArticleRequest.content = content;
+
+      const res = await ArticleService.createArticle(createArticleRequest);
+      router.push("/main");
+    }
+  };
 
   return (
     <div className={"w-screen h-full flex flex-col"}>
@@ -27,6 +54,7 @@ const ArticleWrite: NextPage = () => {
           className={
             "w-auto h-full body-1 text-text-1 px-6 py-2 rounded-lg bg-text-2"
           }
+          onClick={() => router.back()}
         >
           취소
         </button>
@@ -34,6 +62,7 @@ const ArticleWrite: NextPage = () => {
           className={
             "w-auto h-full body-1 text-text-1 mr-8 px-6 py-2 rounded-lg bg-primary"
           }
+          onClick={writeArticle}
         >
           저장
         </button>
@@ -43,24 +72,32 @@ const ArticleWrite: NextPage = () => {
           <div className={"w-32 h-44 mr-8"}>
             <img
               className={"w-32 h-44 object-fill"}
-              src={"/image/book_sample.png"}
+              src={selectedBookData?.image}
             />
           </div>
           <div className={"w-full h-auto flex-1 flex flex-col"}>
             <div className={"flex-1 title-3 text-text-1 mb-1"}>
-              하얼빈 도서 제목은 쭉 길어질 수 있게
+              {selectedBookData?.title}
             </div>
             <div className={"flex-1 flex flex-row"}>
               <div className={"w-20 body-1 text-text-2"}>저자</div>
-              <div className={"w-auto body-3 text-text-1"}>김훈</div>
+              <div className={"w-auto body-3 text-text-1"}>
+                {selectedBookData?.author}
+              </div>
             </div>
             <div className={"flex-1 flex flex-row"}>
               <div className={"w-20 body-1 text-text-2"}>출판사</div>
-              <div className={"w-auto body-3 text-text-1"}>창비</div>
+              <div className={"w-auto body-3 text-text-1"}>
+                {selectedBookData?.publisher}
+              </div>
             </div>
             <div className={"flex-1 flex flex-row"}>
               <div className={"w-20 body-1 text-text-2"}>출판일</div>
-              <div className={"w-auto body-3 text-text-1"}>2000.00.00</div>
+              <div className={"w-auto body-3 text-text-1"}>
+                {String(selectedBookData?.pubdate)?.slice(0, 4)}.
+                {String(selectedBookData?.pubdate)?.slice(4, 6)}.
+                {String(selectedBookData?.pubdate)?.slice(6, 8)}
+              </div>
             </div>
           </div>
           {!selectedBookData && (
@@ -88,7 +125,7 @@ const ArticleWrite: NextPage = () => {
             }
           >
             <div className={"w-auto h-auto flex flex-row mb-1 justify-center"}>
-              <div className={"w-16 h-16 p-3"}>
+              <div className={"w-16 h-16 p-3 cursor-pointer"}>
                 <img
                   className={"w-full h-full"}
                   src={
@@ -97,11 +134,11 @@ const ArticleWrite: NextPage = () => {
                       : "/svg/star_big_dark.svg"
                   }
                   alt={"star"}
-                  onMouseOver={() => setStarCount(1)}
+                  onClick={() => setStarCount(1)}
                 />
               </div>
               <div className={"mx-2"} />
-              <div className={"w-16 h-16 p-3"}>
+              <div className={"w-16 h-16 p-3 cursor-pointer"}>
                 <img
                   className={"w-full h-full"}
                   src={
@@ -110,11 +147,11 @@ const ArticleWrite: NextPage = () => {
                       : "/svg/star_big_dark.svg"
                   }
                   alt={"star"}
-                  onMouseOver={() => setStarCount(2)}
+                  onClick={() => setStarCount(2)}
                 />
               </div>
               <div className={"mx-2"} />
-              <div className={"w-16 h-16 p-3"}>
+              <div className={"w-16 h-16 p-3 cursor-pointer"}>
                 <img
                   className={"w-full h-full"}
                   src={
@@ -123,11 +160,11 @@ const ArticleWrite: NextPage = () => {
                       : "/svg/star_big_dark.svg"
                   }
                   alt={"star"}
-                  onMouseOver={() => setStarCount(3)}
+                  onClick={() => setStarCount(3)}
                 />
               </div>
               <div className={"mx-2"} />
-              <div className={"w-16 h-16 p-3"}>
+              <div className={"w-16 h-16 p-3 cursor-pointer"}>
                 <img
                   className={"w-full h-full"}
                   src={
@@ -136,11 +173,11 @@ const ArticleWrite: NextPage = () => {
                       : "/svg/star_big_dark.svg"
                   }
                   alt={"star"}
-                  onMouseOver={() => setStarCount(4)}
+                  onClick={() => setStarCount(4)}
                 />
               </div>
               <div className={"mx-2"} />
-              <div className={"w-16 h-16 p-3"}>
+              <div className={"w-16 h-16 p-3 cursor-pointer"}>
                 <img
                   className={"w-full h-full"}
                   src={
@@ -149,7 +186,7 @@ const ArticleWrite: NextPage = () => {
                       : "/svg/star_big_dark.svg"
                   }
                   alt={"star"}
-                  onMouseOver={() => setStarCount(5)}
+                  onClick={() => setStarCount(5)}
                 />
               </div>
             </div>
@@ -170,11 +207,13 @@ const ArticleWrite: NextPage = () => {
                 "w-full h-full min-h-[200px] body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
               }
               placeholder={"댓글을 남겨보세요!"}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
         </div>
       </div>
-      {popup.bookSearch && <ArticleBookSearchModal />}
+      {popup.bookSearch && <ArticleBookSearchModal selectBook={selectBook} />}
     </div>
   );
 };

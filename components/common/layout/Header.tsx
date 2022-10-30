@@ -32,7 +32,10 @@ const Header = ({}: HeaderProps) => {
           </Link>
         )}
         <div className={"w-6 h-6"} />
-        <button className={"w-6 h-6"}>
+        <button
+          className={"w-6 h-6"}
+          onClick={() => router.push("/article/write")}
+        >
           <img src={"/svg/uil_pen.svg"} alt={"pen"} />
         </button>
         <div className={"w-6 h-6"} />

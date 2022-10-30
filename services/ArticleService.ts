@@ -23,7 +23,7 @@ export const ArticleService = {
    * 서평 좋아요 개수 api
    */
   getLikesCount: async (param: number) => {
-    const url = `${domain}/api/vi/articles/likes/${param}`;
+    const url = `${domain}/articles/likes/${param}`;
     const { data } = await axios.get(url);
     return data;
   },
@@ -32,7 +32,9 @@ export const ArticleService = {
    * 서평 작성하기 api
    */
   createArticle: async (param: createArticleRequestData) => {
-    const { data } = await axios.post(`${domain}/api/vi/articles`, param);
+    const { data } = await axios.post(
+      `${domain}/articles?userId=${param.userId}&bookId=${param.bookId}&title=${param.title}&content=${param.content}`
+    );
     return data;
   },
 
@@ -40,7 +42,7 @@ export const ArticleService = {
    * 서평 삭제하기 api
    */
   deleteArticle: async (param: number) => {
-    const { data } = await axios.delete(`${domain}/api/vi/articles/${param}`);
+    const { data } = await axios.delete(`${domain}/articles/${param}`);
     return data;
   },
 
@@ -49,7 +51,7 @@ export const ArticleService = {
    */
   updateArticle: async (param: updateArticleRequestData) => {
     const { data } = await axios.patch(
-      `${domain}/api/vi/articles/${param.articleId}`,
+      `${domain}/articles/${param.articleId}`,
       {
         title: param.title,
         content: param.content,

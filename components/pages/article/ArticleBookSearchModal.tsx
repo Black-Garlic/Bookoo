@@ -1,16 +1,47 @@
 import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import ModalLayoutResizeable from "../../common/modal/ModalLayoutResizeable";
 import ArticleBookImageCardList from "./ArticleBookImageCardList";
+import {
+  BookUnitResponseData,
+  GetBookListRequest,
+} from "../../../typings/Books";
+import { BookService } from "../../../services/BookService";
 
-const ArticleBookSearchModal = () => {
-  const [searchType, setSearchType] = useState("UnWritten");
+interface ArticleBookSearchProps {
+  selectBook: any;
+}
+
+const ArticleBookSearchModal = ({ selectBook }: ArticleBookSearchProps) => {
+  const [searchType, setSearchType] = useState("SearchAll");
   const [popup, setPopup] = useRecoilState(popupState);
   const [searchText, setSearchText] = useState("");
-  const [bookDataList, setBookDataList] = useState<any[]>([]);
+  const [searchList, setSearchList] = useState<BookUnitResponseData[]>([]);
+
+  useEffect(() => {
+    setSearchList([]);
+  }, [searchText]);
+
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      console.log("enter~", searchText);
+      getBookList();
+    }
+  };
+
+  /**
+   * progess 필요
+   */
+  const getBookList = async () => {
+    const getBookListRequest = new GetBookListRequest();
+    getBookListRequest.keyword = searchText;
+    getBookListRequest.display = 10;
+    const { data } = await BookService.getBookList(getBookListRequest);
+    setSearchList(data);
+  };
 
   return (
     <ModalLayoutResizeable width={"[1060px]"} height={"[700px]"}>
@@ -69,16 +100,12 @@ const ArticleBookSearchModal = () => {
             "w-[404px] h-16 title-3 text-text-1 px-4 bg-text-3 placeholder-text-2 outline-0 rounded-l-lg"
           }
           placeholder={"제목을 입력해보세요"}
+          onKeyPress={(e) => onKeyPress(e)}
           onChange={(e) => {
-            const newSearchText = e.target.value;
+            e.preventDefault();
+            e.stopPropagation();
 
-            setSearchText(newSearchText);
-
-            if (newSearchText.length === 0) {
-              setBookDataList([]);
-            } else {
-              setBookDataList([{ title: "title" }]);
-            }
+            setSearchText(e.target.value);
           }}
         />
         <button
@@ -94,7 +121,13 @@ const ArticleBookSearchModal = () => {
           "w-[990px] h-[500px] flex flex-row overflow-auto overflow-x-hidden"
         }
       >
-        {bookDataList.length === 0 ? (
+        {searchList && searchList.length > 0 ? (
+          <ArticleBookImageCardList
+            searchList={searchList}
+            select={true}
+            selectBook={selectBook}
+          />
+        ) : (
           <div className={"flex-1 flex flex-col justify-center"}>
             <div className={"w-[120px] h-[120px] self-center mb-4"}>
               <img src={"/svg/empty_book_list.svg"} alt={"Empty"} />
@@ -105,10 +138,6 @@ const ArticleBookSearchModal = () => {
               저장된 책이 없어요
             </div>
           </div>
-        ) : (
-          <ArticleBookImageCardList
-            searchList={[{}, {}, {}, {}, {}, {}, {}, {}, {}]}
-          />
         )}
       </div>
     </ModalLayoutResizeable>

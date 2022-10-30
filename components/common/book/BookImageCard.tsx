@@ -1,14 +1,26 @@
 import { BookUnitResponseData } from "../../../typings/Books";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface BookInfo {
   bookInfo: BookUnitResponseData;
+  select?: boolean;
+  selectBook?: Function;
 }
 
-const BookImageCard = ({ bookInfo }: BookInfo) => {
+const BookImageCard = ({ bookInfo, select, selectBook }: BookInfo) => {
+  const router = useRouter();
+
+  const clickBookData = () => {
+    if (select && selectBook) {
+      selectBook(bookInfo);
+    } else {
+      router.push(`/search/${bookInfo?.isbn}`);
+    }
+  };
   return (
     // book Simple Info Card
-    <Link href={`/search/${bookInfo?.isbn}`}>
+    <div onClick={clickBookData}>
       <div className={"w-full h-[252px] flex justify-center items-center"}>
         <div className={"w-[12rem] h-[252px] flex flex-col gap-2 items-center"}>
           {/* book Image */}
@@ -50,7 +62,7 @@ const BookImageCard = ({ bookInfo }: BookInfo) => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

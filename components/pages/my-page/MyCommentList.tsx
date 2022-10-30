@@ -1,11 +1,32 @@
 import MyCommentRow from "./MyCommentRow";
 import EmptyList from "./EmptyList";
+import { ReplyService } from "../../../services/ReplyService";
+import { useEffect, useState } from "react";
+import CommentCard from "../article/CommentCard";
+import MyCommentCard from "./MyCommentCard";
 
 interface MyCommentListProps {
   isEmpty: boolean;
 }
 
 const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
+  const [commentList, setCommentList] = useState([]);
+  useEffect(() => {
+    getMyCommentList();
+    getAllCommentList();
+  }, []);
+
+  const getMyCommentList = async () => {
+    const res = await ReplyService.getMyReplyList(0);
+    console.log("res", res);
+    setCommentList(res);
+  };
+
+  const getAllCommentList = async () => {
+    const res = await ReplyService.getReplyList(10);
+    console.log("res", res);
+  };
+
   return (
     <div className={"pr-20"}>
       <div className={"w-full h-9 flex flex-row text-text-1"}>
@@ -20,15 +41,22 @@ const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
         />
       ) : (
         <div className={"mt-12"}>
-          <div className={"flex flex-col"}>
-            {/* Article List Row */}
-            <MyCommentRow />
-            <div className={"mt-[72px]"} />
-            <MyCommentRow />
-            <div className={"mt-[72px]"} />
-            <MyCommentRow />
-            <div className={"mt-[72px]"} />
-            <MyCommentRow />
+          <div
+            className={
+              "w-full flex flex-row justify-start flex-wrap gap-x-8 2xl:gap-x-20 gap-y-20"
+            }
+          >
+            {commentList &&
+              commentList.length > 0 &&
+              commentList.map((element, index) => {
+                return (
+                  <MyCommentCard
+                    key={index}
+                    info={element}
+                    newComment={false}
+                  />
+                );
+              })}
           </div>
         </div>
       )}

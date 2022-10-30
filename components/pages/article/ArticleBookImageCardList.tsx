@@ -3,9 +3,15 @@ import BookImageCard from "../../common/book/BookImageCard";
 
 interface BookImageCardListProps {
   searchList: BookUnitResponseData[];
+  select?: boolean;
+  selectBook?: Function;
 }
 
-const ArticleBookImageCardList = ({ searchList }: BookImageCardListProps) => {
+const ArticleBookImageCardList = ({
+  searchList,
+  select,
+  selectBook,
+}: BookImageCardListProps) => {
   return (
     <div
       className={
@@ -15,7 +21,14 @@ const ArticleBookImageCardList = ({ searchList }: BookImageCardListProps) => {
       {searchList &&
         searchList.length > 0 &&
         searchList.map((element, index) => {
-          return <BookImageCard key={index} bookInfo={element} />;
+          return (
+            <BookImageCard
+              key={index}
+              bookInfo={element}
+              select={select}
+              selectBook={selectBook}
+            />
+          );
         })}
     </div>
   );
