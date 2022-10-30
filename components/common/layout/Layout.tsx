@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   const popup = useRecoilValue(popupState);
 
   return (
-    <div className={"bg-[#292929] bg-cover"}>
+    <div className={"bg-[#292929] bg-cover overflow-hidden"}>
       <Header />
       <div className={cn("book-koo", popup.login && "blur")}>
         <div className={"pt-[80px] w-screen min-h-screen"}>{children}</div>

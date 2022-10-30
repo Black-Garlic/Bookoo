@@ -8,14 +8,14 @@ interface BookInfo {
 const BookImageCard = ({ bookInfo }: BookInfo) => {
   return (
     // book Simple Info Card
-    <Link href={`/search/${bookInfo.isbn}`}>
+    <Link href={`/search/${bookInfo?.isbn}`}>
       <div className={"w-full h-[252px] flex justify-center items-center"}>
         <div className={"w-[12rem] h-[252px] flex flex-col gap-2 items-center"}>
           {/* book Image */}
           <div className={"w-[130px] h-[200px] place-self-center"}>
             <img
               className={"w-[130px] h-[200px] object-fill"}
-              src={bookInfo.image}
+              src={bookInfo?.image}
             />
           </div>
           {/* book Simple Info Center */}
@@ -31,7 +31,7 @@ const BookImageCard = ({ bookInfo }: BookInfo) => {
                   "max-w-[150px] text-sm body-3 text-text-1 text-right self-center truncate"
                 }
               >
-                {bookInfo.title}
+                {bookInfo?.title}
               </div>
               <div className={"w-0 h-5 self-center border border-white mx-1"} />
               {/* book Writer */}
@@ -40,7 +40,7 @@ const BookImageCard = ({ bookInfo }: BookInfo) => {
                   "max-w-[75px] caption-2 self-center text-sm text-text-1 text-left truncate"
                 }
               >
-                {bookInfo.author}
+                {bookInfo?.author}
               </div>
             </div>
             {/* book Score */}

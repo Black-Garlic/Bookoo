@@ -29,5 +29,6 @@ export const popupState = atom({
     bookScore: false,
     withdrawal: false,
     widthdrwalFail: false,
+    bookSearch: false,
   },
 });
