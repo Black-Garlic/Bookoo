@@ -63,9 +63,7 @@ export const ArticleService = {
    */
   getArticleList: async (param: number) => {
     const url = `${domain}/articles/${param}?sortBy=title`;
-    const { data } = await axios.get(url, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(url);
     return data;
   },
 
