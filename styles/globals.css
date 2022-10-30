@@ -134,3 +134,11 @@ a {
   font-size: 12px;
   line-height: 200%;
 }
+
+.box-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height:30px;
+}
