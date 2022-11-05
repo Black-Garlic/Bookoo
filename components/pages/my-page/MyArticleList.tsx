@@ -16,7 +16,6 @@ const MyArticleList = ({ isEmpty }: MyArticleListProps) => {
    */
   const getMyArticleList = async () => {
     const res = await ArticleService.getArticleList(0);
-    console.log("data", res);
     setArticleList(res);
   };
 

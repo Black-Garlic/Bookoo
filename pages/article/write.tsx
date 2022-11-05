@@ -30,6 +30,8 @@ const ArticleWrite: NextPage = () => {
     RecoilUtils.toggleModal("bookSearch", popup, setPopup);
   };
 
+  console.log("selectedBookData", selectedBookData);
+
   const writeArticle = async () => {
     if (!selectedBookData?.isbn) {
       alert("책을 골라주세요.");
@@ -67,8 +69,12 @@ const ArticleWrite: NextPage = () => {
           저장
         </button>
       </div>
-      <div className={"w-full h-auto px-72 mb-16 flex flex-col"}>
-        <div className={"w-full h-auto flex flex-row mb-16 px-10 py-8"}>
+      <div
+        className={
+          "w-full h-auto px-72 mb-16 flex flex-col border border-red-500"
+        }
+      >
+        <div className={"w-full h-auto flex flex-row mb-16 py-8 relative"}>
           <div className={"w-32 h-44 mr-8"}>
             <img
               className={"w-32 h-44 object-fill"}
@@ -103,7 +109,7 @@ const ArticleWrite: NextPage = () => {
           {!selectedBookData && (
             <div
               className={
-                "w-[1234px] h-44 title-3 text-text-1 pt-[86px] absolute z-50 rounded-2xl bg-text-2/50 text-center"
+                "border border-red-500 w-full h-44 title-3 text-text-1 pt-[86px] absolute z-50 rounded-2xl bg-text-2/50 text-center"
               }
               onClick={(e) => {
                 e.preventDefault();

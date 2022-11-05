@@ -25,22 +25,67 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
       onClick={() => goDetailPage()}
     >
       <div className={"w-full h-12 flex flex-row"}>
-        <div className={"w-[30px] h-[46px]"}>
-          <img src={"/image/book_sample.png"} alt={"book"} />
-        </div>
-        <div className={"w-full h-8 flex-1 flex flex-col ml-2"}>
-          <div className={"flex-1 flex flex-row"}>
-            <div className={"caption-1 text-text-1 text-center"}>
-              책 제목입니다.
+        {info.bookList && info.bookList.length > 0 ? (
+          <>
+            <div className={"w-[30px] h-[46px]"}>
+              {info.bookList.length > 0 ? (
+                <img src={info.bookList[0].image} alt={"book"} />
+              ) : (
+                <img src={"/image/book_sample.png"} alt={"book"} />
+              )}
             </div>
-            <div className={"w-0 h-4 border border-white mx-2 self-center"} />
-            <div className={"caption-1 text-text-2"}>책 저자</div>
-          </div>
-          <div className={"w-full h-8 flex flex-row"}>
-            {like && <div className={"pr-1 caption-1 text-text-1"}>닉네임</div>}
-            <StarCount />
-          </div>
-        </div>
+            <div className={"w-full h-8 flex-1 flex flex-col ml-2"}>
+              <div className={"flex-1 flex flex-row"}>
+                <div
+                  className={
+                    "max-w-[150px] truncate caption-1 text-text-1 text-center"
+                  }
+                >
+                  {info.bookList[0].title}
+                </div>
+                <div
+                  className={"w-0 h-4 border border-white mx-2 self-center"}
+                />
+                <div className={"max-w-[75px] truncate caption-1 text-text-2"}>
+                  {info.bookList[0].author}
+                </div>
+              </div>
+              <div className={"w-full h-8 flex flex-row"}>
+                {like && (
+                  <div className={"pr-1 caption-1 text-text-1"}>닉네임</div>
+                )}
+                <StarCount />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={"w-[30px] h-[46px]"}>
+              {info.bookList.length > 0 ? (
+                <img src={info.bookList[0].image} alt={"book"} />
+              ) : (
+                <img src={"/image/book_sample.png"} alt={"book"} />
+              )}
+            </div>
+            <div className={"w-full h-8 flex-1 flex flex-col ml-2"}>
+              <div className={"flex-1 flex flex-row"}>
+                <div className={"caption-1 text-text-1 text-center"}>
+                  책 제목입니다.
+                </div>
+                <div
+                  className={"w-0 h-4 border border-white mx-2 self-center"}
+                />
+                <div className={"caption-1 text-text-2"}>책 저자</div>
+              </div>
+              <div className={"w-full h-8 flex flex-row"}>
+                {like && (
+                  <div className={"pr-1 caption-1 text-text-1"}>닉네임</div>
+                )}
+                <StarCount />
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <div className={"w-[357px] h-[90px]"}>
         <div className={"w-[357px] h-[90px] text-text-1 "}>

@@ -64,7 +64,7 @@ export const ArticleService = {
    * 서평 리스트 가져오기 api
    */
   getArticleList: async (param: number) => {
-    const url = `${domain}/articles/${param}?sortBy=title`;
+    const url = `${domain}/articles/${param}?sortBy=createdAt,asc`;
     const { data } = await axios.get(url);
     return data;
   },
