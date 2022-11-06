@@ -25,11 +25,11 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
       onClick={() => goDetailPage()}
     >
       <div className={"w-full h-12 flex flex-row"}>
-        {info.bookList && info.bookList.length > 0 ? (
+        {info?.bookList && info?.bookList.length > 0 ? (
           <>
             <div className={"w-[30px] h-[46px]"}>
-              {info.bookList.length > 0 ? (
-                <img src={info.bookList[0].image} alt={"book"} />
+              {info?.bookList.length > 0 ? (
+                <img src={info?.bookList[0].image} alt={"book"} />
               ) : (
                 <img src={"/image/book_sample.png"} alt={"book"} />
               )}
@@ -41,13 +41,13 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
                     "max-w-[150px] truncate caption-1 text-text-1 text-center"
                   }
                 >
-                  {info.bookList[0].title}
+                  {info?.bookList[0].title}
                 </div>
                 <div
                   className={"w-0 h-4 border border-white mx-2 self-center"}
                 />
                 <div className={"max-w-[75px] truncate caption-1 text-text-2"}>
-                  {info.bookList[0].author}
+                  {info?.bookList[0].author}
                 </div>
               </div>
               <div className={"w-full h-8 flex flex-row"}>
@@ -61,8 +61,8 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
         ) : (
           <>
             <div className={"w-[30px] h-[46px]"}>
-              {info.bookList.length > 0 ? (
-                <img src={info.bookList[0].image} alt={"book"} />
+              {info?.bookList.length > 0 ? (
+                <img src={info?.bookList[0].image} alt={"book"} />
               ) : (
                 <img src={"/image/book_sample.png"} alt={"book"} />
               )}
