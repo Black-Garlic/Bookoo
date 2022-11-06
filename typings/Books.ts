@@ -22,4 +22,5 @@ export class BookUnitResponseData {
   pubdate?: number;
   publisher?: string;
   title?: string;
+  article?: string;
 }

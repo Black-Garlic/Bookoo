@@ -23,6 +23,15 @@ const BookImageCard = ({ bookInfo, select, selectBook }: BookInfo) => {
     <div onClick={clickBookData}>
       <div className={"w-full h-[252px] flex justify-center items-center"}>
         <div className={"w-[12rem] h-[252px] flex flex-col gap-2 items-center"}>
+          {bookInfo?.article == undefined && (
+            <div
+              className={
+                "w-auto h-auto px-4 py-0 body-1 text-text-1 absolute bg-primary -rotate-[24.57deg] -translate-x-7"
+              }
+            >
+              서평 미작성
+            </div>
+          )}
           {/* book Image */}
           <div className={"w-[130px] h-[200px] place-self-center"}>
             <img

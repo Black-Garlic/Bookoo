@@ -1,9 +1,16 @@
 import BookImageCardList from "../../common/book/BookImageCardList";
 import EmptyList from "./EmptyList";
+import { BookUnitResponseData } from "../../../typings/Books";
 
 interface MyBookListProps {
   isEmpty: boolean;
 }
+
+const testData: BookUnitResponseData[] = [
+  {
+    image: "./image/book_sample.png",
+  },
+];
 
 const MyBookList = ({ isEmpty }: MyBookListProps) => {
   return (
@@ -29,7 +36,7 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
         />
       ) : (
         <div className={"mt-12"}>
-          <BookImageCardList extension={true} searchList={[]} />
+          <BookImageCardList extension={true} searchList={testData} />
         </div>
       )}
     </div>
