@@ -11,9 +11,12 @@ const MyCommentCard = ({ newComment, info }: MyCommentCardProps) => {
           {info?.createdAt[0]}/{info?.createdAt[1]}/{info?.createdAt[2]}
         </div>
         {newComment && (
-          <div className={"caption-3 text-text-1"}>
-            새로운 대댓글이 달렸어요!
-          </div>
+          <>
+            <div className={"w-1 h-1 mt-0.5 bg-[#FF0000] rounded"} />
+            <div className={"caption-3 text-text-1"}>
+              새로운 대댓글이 달렸어요!
+            </div>
+          </>
         )}
       </div>
       <div className={"flex-1"}>
