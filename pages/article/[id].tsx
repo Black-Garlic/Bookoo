@@ -10,6 +10,9 @@ import {
   getArticleDetailRequestData,
   likeRequest,
 } from "../../typings/Article";
+import { CreateReplyRequestData } from "../../typings/Reply";
+import { ReplyService } from "../../services/ReplyService";
+import CommentCard from "../../components/pages/article/CommentCard";
 
 const Article: NextPage = () => {
   const [articleDetail, setArticleDetail] = useState({
@@ -24,14 +27,17 @@ const Article: NextPage = () => {
     liked: false,
     reply: [],
   });
+  const [replyList, setReplyList] = useState([]);
   const [bookInfo, setBookInfo] = useState();
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+  const [replyText, setReplyText] = useState("");
+  const [refresh, setRefresh] = useState(new Date());
 
   useEffect(() => {
     if (id) getArticleDetail();
-  }, [id]);
+  }, [id, refresh]);
 
   const toggleLike = async () => {
     const request = new likeRequest();
@@ -49,6 +55,7 @@ const Article: NextPage = () => {
     const res = await ArticleService.getArticleDetail(getArticleDetailRequest);
     console.log("res", res);
     setArticleDetail(res);
+    setReplyList(res.reply);
     setBookInfo(res.book);
   };
 
@@ -63,6 +70,22 @@ const Article: NextPage = () => {
     } catch {}
   };
 
+  const createReply = async () => {
+    if (id) {
+      if (replyText === "") {
+        alert("댓글 내용이 비어있습니다.");
+      } else {
+        const createReplyRequest = new CreateReplyRequestData();
+        createReplyRequest.articleId = Number(id);
+        createReplyRequest.userId = 0;
+        createReplyRequest.content = replyText;
+        const res = await ReplyService.createReply(createReplyRequest);
+        console.log("res", res);
+        setReplyText("");
+        setRefresh(new Date());
+      }
+    }
+  };
   return (
     <div className={"w-screen h-full flex flex-row px-40 pt-20"}>
       <div className={"w-72 h-auto"}>
@@ -74,7 +97,7 @@ const Article: NextPage = () => {
         </div>
       </div>
       <div className={"w-full h-auto flex-1 ml-32"}>
-        <div className={"flex flex-1 flex-col  px-6"}>
+        <div className={"flex flex-1 flex-col px-6 mb-4"}>
           <div
             className={"w-full h-auto body-3 text-text-1 flex flex-row mb-2"}
           >
@@ -132,16 +155,23 @@ const Article: NextPage = () => {
                 <div className={"w-6 h-6 my-1 mr-2"}>
                   <img src={"/svg/uil_comment-alt-lines.svg"} alt={"comment"} />
                 </div>
-                <div className={"w-auto"}>{articleDetail?.likeCount}</div>
+                <div className={"w-auto "}>{articleDetail?.reply?.length}</div>
               </div>
               {/* Like */}
               <div
                 className={"min-w-16 w-auto mr-2 flex flex-row items-center"}
               >
-                <div className={"w-6 h-6 my-1 mr-2"}>
-                  <img src={"/svg/uil_heart.svg"} alt={"heart"} />
+                <div
+                  className={"w-6 h-6 my-1 mr-2 cursor-pointer"}
+                  onClick={toggleLike}
+                >
+                  {articleDetail.liked ? (
+                    <img src={"/svg/uil_heart-fill.svg"} alt={"heart"} />
+                  ) : (
+                    <img src={"/svg/uil_heart.svg"} alt={"heart"} />
+                  )}
                 </div>
-                <div className={"w-auto "}>{articleDetail?.reply?.length}</div>
+                <div className={"w-auto"}>{articleDetail?.likeCount}</div>
               </div>
             </div>
           </div>
@@ -149,7 +179,6 @@ const Article: NextPage = () => {
 
         {/* 댓글 */}
         <div className={"flex flex-1 flex-col mb-16"}>
-          <CommentCol />
           <div
             className={
               "w-full h-auto flex flex-col px-6 py-4 rounded-lg bg-text-3/50 border-text-2 border"
@@ -163,9 +192,56 @@ const Article: NextPage = () => {
                 "w-full h-full body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
               }
               placeholder={"댓글을 남겨보세요!"}
+              value={replyText}
+              onChange={(e) => setReplyText(e.target.value)}
             />
             <div className={"w-full h-auto flex flex-row-reverse"}>
-              <button className={"caption-1 text-primary"}>제출</button>
+              <button
+                className={"caption-1 text-primary"}
+                onClick={createReply}
+              >
+                제출
+              </button>
+            </div>
+          </div>
+
+          <div className={"w-full h-auto"}>
+            {replyList &&
+              replyList.length > 0 &&
+              replyList.map((element, index) => {
+                return (
+                  <CommentCard
+                    key={index}
+                    info={element}
+                    level={1}
+                    setRefresh={setRefresh}
+                  />
+                );
+              })}
+          </div>
+          <div
+            className={
+              "w-full h-auto flex flex-col px-6 py-4 rounded-lg bg-text-3/50 border-text-2 border"
+            }
+          >
+            <div className={"w-full h-auto body-1 text-text-1 opacity-100"}>
+              닉네임
+            </div>
+            <textarea
+              className={
+                "w-full h-full body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
+              }
+              placeholder={"댓글을 남겨보세요!"}
+              value={replyText}
+              onChange={(e) => setReplyText(e.target.value)}
+            />
+            <div className={"w-full h-auto flex flex-row-reverse"}>
+              <button
+                className={"caption-1 text-primary"}
+                onClick={createReply}
+              >
+                제출
+              </button>
             </div>
           </div>
         </div>

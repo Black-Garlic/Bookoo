@@ -8,6 +8,7 @@ import { RecoilUtils } from "../../utils/RecoilUtils";
 import { ArticleService } from "../../services/ArticleService";
 import { createArticleRequestData } from "../../typings/Article";
 import { useRouter } from "next/router";
+import { CreateReplyRequestData } from "../../typings/Reply";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -50,11 +51,15 @@ const ArticleWrite: NextPage = () => {
   };
 
   return (
-    <div className={"w-screen h-full flex flex-col"}>
-      <div className={"w-full h-auto flex flex-row-reverse pr-20 mb-16"}>
+    <div className={"w-screen h-full flex flex-col  relative"}>
+      <div
+        className={
+          "w-full h-28 flex flex-row-reverse pr-20 items-center fixed top-0 overflow-hidden z-40 bg-[#292929]"
+        }
+      >
         <button
           className={
-            "w-auto h-full body-1 text-text-1 px-6 py-2 rounded-lg bg-text-2"
+            "w-auto h-14 body-1 text-text-1 px-6 py-2 rounded-lg bg-text-2 flex justify-center items-center"
           }
           onClick={() => router.back()}
         >
@@ -62,7 +67,7 @@ const ArticleWrite: NextPage = () => {
         </button>
         <button
           className={
-            "w-auto h-full body-1 text-text-1 mr-8 px-6 py-2 rounded-lg bg-primary"
+            "w-auto h-14 body-1 text-text-1 mr-8 px-6 py-2 rounded-lg bg-primary flex justify-center items-center"
           }
           onClick={writeArticle}
         >
@@ -71,45 +76,54 @@ const ArticleWrite: NextPage = () => {
       </div>
       <div
         className={
-          "w-full h-auto px-72 mb-16 flex flex-col border border-red-500"
+          "w-full h-auto px-20 lg:px-32 xl:px-72 mb-16 flex flex-col mt-28 z-20"
         }
       >
-        <div className={"w-full h-auto flex flex-row mb-16 py-8 relative"}>
-          <div className={"w-32 h-44 mr-8"}>
-            <img
-              className={"w-32 h-44 object-fill"}
-              src={selectedBookData?.image}
-            />
+        <div className={"w-full h-auto flex flex-row mb-16 py-8 relative "}>
+          <div className={"w-32 h-44 mr-8 "}>
+            {selectedBookData && selectedBookData.image ? (
+              <img
+                className={"w-32 h-44 object-fill"}
+                src={selectedBookData?.image}
+              />
+            ) : (
+              <div className={"w-32 h-full py-4 pl-6"}>
+                <div className={"w-full h-full bg-[#E8E8E8]"}></div>
+              </div>
+            )}
           </div>
-          <div className={"w-full h-auto flex-1 flex flex-col"}>
-            <div className={"flex-1 title-3 text-text-1 mb-1"}>
-              {selectedBookData?.title}
+          <div className={"w-full h-auto flex flex-col "}>
+            <div className={"w-full title-3 text-text-1 mb-1"}>
+              {selectedBookData?.title ? selectedBookData?.title : "도서 제목"}
             </div>
-            <div className={"flex-1 flex flex-row"}>
+            <div className={"flex flex-row"}>
               <div className={"w-20 body-1 text-text-2"}>저자</div>
               <div className={"w-auto body-3 text-text-1"}>
                 {selectedBookData?.author}
               </div>
             </div>
-            <div className={"flex-1 flex flex-row"}>
+            <div className={"flex flex-row"}>
               <div className={"w-20 body-1 text-text-2"}>출판사</div>
               <div className={"w-auto body-3 text-text-1"}>
                 {selectedBookData?.publisher}
               </div>
             </div>
-            <div className={"flex-1 flex flex-row"}>
+            <div className={"flex flex-row"}>
               <div className={"w-20 body-1 text-text-2"}>출판일</div>
               <div className={"w-auto body-3 text-text-1"}>
-                {String(selectedBookData?.pubdate)?.slice(0, 4)}.
-                {String(selectedBookData?.pubdate)?.slice(4, 6)}.
-                {String(selectedBookData?.pubdate)?.slice(6, 8)}
+                {selectedBookData &&
+                  String(selectedBookData?.pubdate)?.slice(0, 4) +
+                    "." +
+                    String(selectedBookData?.pubdate)?.slice(4, 6) +
+                    "." +
+                    String(selectedBookData?.pubdate)?.slice(6, 8)}
               </div>
             </div>
           </div>
           {!selectedBookData && (
             <div
               className={
-                "border border-red-500 w-full h-44 title-3 text-text-1 pt-[86px] absolute z-50 rounded-2xl bg-text-2/50 text-center"
+                " w-full h-44 title-3 text-text-1 absolute z-50 rounded-2xl bg-text-2/50 text-center flex justify-center items-center"
               }
               onClick={(e) => {
                 e.preventDefault();

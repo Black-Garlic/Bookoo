@@ -15,7 +15,9 @@ export const ArticleService = {
    * 서평 좋아요 클릭 api
    */
   likeArticle: async (param: likeRequest) => {
-    const { data } = await axios.post(`${domain}/articles/likes`, param);
+    const { data } = await axios.post(
+      `${domain}/articles/likes?articleId=${param.articleId}&userId=${param.userId}`
+    );
     return data;
   },
 

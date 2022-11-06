@@ -19,7 +19,7 @@ const ModalLayoutResizeable = ({
     >
       <div className="w-full h-auto opacity-100 flex-1">
         <div
-          className={`w-${width} h-${height} mx-[422px] rounded-3xl shadow bg-background flex flex-col p-8 border-[3px] border-text-3`}
+          className={`w-${width} h-${height} mx-[150px] lg:mx-[200px] xl:mx-[422px] rounded-3xl shadow bg-background flex flex-col p-8 border-[3px] border-text-3`}
         >
           {children}
         </div>

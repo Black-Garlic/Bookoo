@@ -95,9 +95,13 @@ const ArticleBookSearchModal = ({ selectBook }: ArticleBookSearchProps) => {
         <input
           type={"text"}
           className={
-            "w-[404px] h-16 title-3 text-text-1 px-4 bg-text-3 placeholder-text-2 outline-0 rounded-l-lg"
+            "w-full h-16 title-3 text-text-1 px-4 bg-text-3 placeholder-text-2 outline-0 rounded-l-lg"
           }
-          placeholder={"제목을 입력해보세요"}
+          placeholder={
+            searchType === "UnWritten"
+              ? "제목을 입력하세요"
+              : "도서를 검색하세요"
+          }
           onKeyPress={(e) => onKeyPress(e)}
           onChange={(e) => {
             e.preventDefault();

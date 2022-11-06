@@ -12,7 +12,9 @@ export const ReplyService = {
    * 댓글 작성하기 api
    */
   createReply: async (param: CreateReplyRequestData) => {
-    const { data } = await axios.post(`${domain}/replies`, param);
+    const { data } = await axios.post(
+      `${domain}/replies?articleId=${param.articleId}&userId=${param.userId}&content=${param.content}`
+    );
     return data;
   },
   /**
