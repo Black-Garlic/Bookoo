@@ -179,31 +179,31 @@ const Article: NextPage = () => {
 
         {/* 댓글 */}
         <div className={"flex flex-1 flex-col mb-16"}>
-          <div
-            className={
-              "w-full h-auto flex flex-col px-6 py-4 rounded-lg bg-text-3/50 border-text-2 border"
-            }
-          >
-            <div className={"w-full h-auto body-1 text-text-1 opacity-100"}>
-              닉네임
-            </div>
-            <textarea
-              className={
-                "w-full h-full body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
-              }
-              placeholder={"댓글을 남겨보세요!"}
-              value={replyText}
-              onChange={(e) => setReplyText(e.target.value)}
-            />
-            <div className={"w-full h-auto flex flex-row-reverse"}>
-              <button
-                className={"caption-1 text-primary"}
-                onClick={createReply}
-              >
-                제출
-              </button>
-            </div>
-          </div>
+          {/*<div*/}
+          {/*  className={*/}
+          {/*    "w-full h-auto flex flex-col px-6 py-4 rounded-lg bg-text-3/50 border-text-2 border"*/}
+          {/*  }*/}
+          {/*>*/}
+          {/*  <div className={"w-full h-auto body-1 text-text-1 opacity-100"}>*/}
+          {/*    닉네임*/}
+          {/*  </div>*/}
+          {/*  <textarea*/}
+          {/*    className={*/}
+          {/*      "w-full h-full body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"*/}
+          {/*    }*/}
+          {/*    placeholder={"댓글을 남겨보세요!"}*/}
+          {/*    value={replyText}*/}
+          {/*    onChange={(e) => setReplyText(e.target.value)}*/}
+          {/*  />*/}
+          {/*  <div className={"w-full h-auto flex flex-row-reverse"}>*/}
+          {/*    <button*/}
+          {/*      className={"caption-1 text-primary"}*/}
+          {/*      onClick={createReply}*/}
+          {/*    >*/}
+          {/*      제출*/}
+          {/*    </button>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
           <div className={"w-full h-auto"}>
             {replyList &&
