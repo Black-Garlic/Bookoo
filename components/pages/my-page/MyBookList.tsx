@@ -6,11 +6,7 @@ interface MyBookListProps {
   isEmpty: boolean;
 }
 
-const testData: BookUnitResponseData[] = [
-  {
-    image: "./image/book_sample.png",
-  },
-];
+const testData: BookUnitResponseData[] = [{}];
 
 const MyBookList = ({ isEmpty }: MyBookListProps) => {
   return (

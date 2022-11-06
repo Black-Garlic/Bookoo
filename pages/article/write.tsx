@@ -84,11 +84,15 @@ const ArticleWrite: NextPage = () => {
             {selectedBookData && selectedBookData.image ? (
               <img
                 className={"w-32 h-44 object-fill"}
-                src={selectedBookData?.image}
+                src={
+                  selectedBookData?.image
+                    ? selectedBookData.image
+                    : "./svg/empty_book.svg"
+                }
               />
             ) : (
               <div className={"w-32 h-full py-4 pl-6"}>
-                <div className={"w-full h-full bg-[#E8E8E8]"}></div>
+                <div className={"w-full h-full bg-[#E8E8E8]"} />
               </div>
             )}
           </div>

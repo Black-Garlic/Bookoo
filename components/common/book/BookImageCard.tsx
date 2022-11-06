@@ -36,7 +36,7 @@ const BookImageCard = ({ bookInfo, select, selectBook }: BookInfo) => {
           <div className={"w-[130px] h-[200px] place-self-center"}>
             <img
               className={"w-[130px] h-[200px] object-fill"}
-              src={bookInfo?.image}
+              src={bookInfo?.image ? bookInfo.image : "./svg/empty_book.svg"}
             />
           </div>
           {/* book Simple Info Center */}

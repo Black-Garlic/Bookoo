@@ -13,7 +13,10 @@ const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {
   return (
     <div className={"flex flex-col"}>
       <div className={"w-[130px] h-[200px] mb-8 place-self-center"}>
-        <img className={"w-full h-full"} src={bookInfo?.image} />
+        <img
+          className={"w-full h-full"}
+          src={bookInfo?.image ? bookInfo.image : "./svg/empty_book.svg"}
+        />
       </div>
       <div className={"title-3 text-text-1 flex-1 mb-1"}>{bookInfo?.title}</div>
       <div className={"w-full h-auto flex flex-col mb-10"}>
