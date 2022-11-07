@@ -21,7 +21,7 @@ const CommentUpdate = ({ info, toggleUpdateMode }: CommentInfoProps) => {
   const updateReply = async () => {
     const updateReplyRequest = new AddReplyRequestData();
     updateReplyRequest.replyId = info?.replyId;
-    updateReplyRequest.content = replyText;
+    updateReplyRequest.content = updateText;
 
     const res = await ReplyService.updateReply(updateReplyRequest);
     console.log(res);

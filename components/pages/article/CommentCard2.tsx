@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CommentUpdate from "./CommentUpdate";
 import CommentInfo from "./CommentInfo";
 import { ReplyUnitResponseData } from "../../../typings/Reply";
+import CommentInfo2 from "./CommentInfo2";
 
 interface CommentItemProps {
   info: any;
@@ -10,7 +11,7 @@ interface CommentItemProps {
   replyList: ReplyUnitResponseData[];
 }
 
-const CommentCard = ({
+const CommentCard2 = ({
   info,
   level,
   setRefresh,
@@ -28,7 +29,7 @@ const CommentCard = ({
   return isUpdateMode ? (
     <CommentUpdate info={info} toggleUpdateMode={toggleUpdateMode} />
   ) : (
-    <CommentInfo
+    <CommentInfo2
       info={info}
       level={level}
       setRefresh={setRefresh}
@@ -38,4 +39,4 @@ const CommentCard = ({
   );
 };
 
-export default CommentCard;
+export default CommentCard2;

@@ -1,12 +1,18 @@
 import React, { useRef, useState } from "react";
-import { AddReplyRequestData } from "../../../typings/Reply";
+import {
+  AddReplyRequestData,
+  ReplyUnitResponseData,
+} from "../../../typings/Reply";
 import { ReplyService } from "../../../services/ReplyService";
+import CommentCard from "./CommentCard";
+import CommentCard2 from "./CommentCard2";
 
 interface CommentInfoProps {
   info: any;
   level: number;
   setRefresh: Function;
   toggleUpdateMode: Function;
+  replyList: ReplyUnitResponseData[];
 }
 
 const CommentInfo = ({
@@ -14,6 +20,7 @@ const CommentInfo = ({
   level,
   setRefresh,
   toggleUpdateMode,
+  replyList,
 }: CommentInfoProps) => {
   const [replyText, setReplyText] = useState("");
   const [isOpenReply, setIsOpenReply] = useState(false);
@@ -28,6 +35,7 @@ const CommentInfo = ({
 
     const res = await ReplyService.addReply(addReplyRequest);
     setReplyText("");
+    setIsOpenReply(false);
   };
 
   const deleteReply = async () => {
@@ -72,6 +80,23 @@ const CommentInfo = ({
           </div>
         </div>
       </div>
+      <div className={"w-full h-auto "}>
+        {replyList &&
+          replyList.length > 0 &&
+          replyList.map((element, index) => {
+            if (element.level === 1 && element.reReplyId === info.replyId)
+              return (
+                <CommentCard2
+                  key={index}
+                  info={element}
+                  level={1}
+                  setRefresh={setRefresh}
+                  replyList={replyList}
+                />
+              );
+          })}
+      </div>
+
       {isOpenReply && (
         <div
           className={

@@ -26,4 +26,5 @@ export class ReplyUnitResponseData {
   content?: string;
   // rePlyId?: number;
   level?: number;
+  reReplyId?: number;
 }

@@ -10,7 +10,10 @@ import {
   getArticleDetailRequestData,
   likeRequest,
 } from "../../typings/Article";
-import { CreateReplyRequestData } from "../../typings/Reply";
+import {
+  CreateReplyRequestData,
+  ReplyUnitResponseData,
+} from "../../typings/Reply";
 import { ReplyService } from "../../services/ReplyService";
 import CommentCard from "../../components/pages/article/CommentCard";
 
@@ -27,7 +30,7 @@ const Article: NextPage = () => {
     liked: false,
     reply: [],
   });
-  const [replyList, setReplyList] = useState([]);
+  const [replyList, setReplyList] = useState<ReplyUnitResponseData[]>([]);
   const [bookInfo, setBookInfo] = useState();
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
@@ -45,6 +48,7 @@ const Article: NextPage = () => {
     request.articleId = Number(id);
     const res = await ArticleService.likeArticle(request);
     console.log("res", res);
+    getArticleDetail();
   };
 
   const getArticleDetail = async () => {
@@ -159,16 +163,24 @@ const Article: NextPage = () => {
               </div>
               {/* Like */}
               <div
-                className={"min-w-16 w-auto mr-2 flex flex-row items-center"}
+                className={
+                  "min-w-16 w-auto mr-2 flex flex-row items-center cursor-pointer"
+                }
+                onClick={toggleLike}
               >
-                <div
-                  className={"w-6 h-6 my-1 mr-2 cursor-pointer"}
-                  onClick={toggleLike}
-                >
+                <div className={"w-6 h-6 my-1 mr-2"}>
                   {articleDetail.liked ? (
-                    <img src={"/svg/uil_heart-fill.svg"} alt={"heart"} />
+                    <img
+                      src={"/svg/uil_heart-fill.svg"}
+                      className={"w-6 h-6"}
+                      alt={"heart"}
+                    />
                   ) : (
-                    <img src={"/svg/uil_heart.svg"} alt={"heart"} />
+                    <img
+                      src={"/svg/uil_heart.svg"}
+                      className={"w-6 h-6"}
+                      alt={"heart"}
+                    />
                   )}
                 </div>
                 <div className={"w-auto"}>{articleDetail?.likeCount}</div>
@@ -209,14 +221,16 @@ const Article: NextPage = () => {
             {replyList &&
               replyList.length > 0 &&
               replyList.map((element, index) => {
-                return (
-                  <CommentCard
-                    key={index}
-                    info={element}
-                    level={1}
-                    setRefresh={setRefresh}
-                  />
-                );
+                if (element.level === 0)
+                  return (
+                    <CommentCard
+                      key={index}
+                      info={element}
+                      level={1}
+                      setRefresh={setRefresh}
+                      replyList={replyList}
+                    />
+                  );
               })}
           </div>
           <div

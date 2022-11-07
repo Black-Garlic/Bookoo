@@ -29,12 +29,9 @@ export const ReplyService = {
    * 대댓글 작성하기 api
    */
   addReply: async (param: AddReplyRequestData) => {
-    const { data } = await axios.post(`${domain}/replies/${param.replyId}`, {
-      articleId: param.articleId,
-      userId: param.userId,
-      content: param.content,
-      level: param.level,
-    });
+    const { data } = await axios.post(
+      `${domain}/replies/${param.replyId}?articleId=${param.articleId}&userId=${param.userId}&content=${param.content}&level=${param.level}`
+    );
     return data;
   },
 
@@ -50,9 +47,9 @@ export const ReplyService = {
    * 댓글 수정하기 / 대댓글 삭제하기 api
    */
   updateReply: async (param: UpdateReplyRequestData) => {
-    const { data } = await axios.patch(`${domain}/replies/${param.replyId}`, {
-      content: param.content,
-    });
+    const { data } = await axios.patch(
+      `${domain}/replies/${param.replyId}&content=${param.content}`
+    );
     return data;
   },
 
