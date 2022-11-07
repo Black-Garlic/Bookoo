@@ -5,9 +5,14 @@ import { ReplyService } from "../../../services/ReplyService";
 interface CommentInfoProps {
   info: any;
   toggleUpdateMode: Function;
+  setRefresh: Function;
 }
 
-const CommentUpdate = ({ info, toggleUpdateMode }: CommentInfoProps) => {
+const CommentUpdate = ({
+  info,
+  toggleUpdateMode,
+  setRefresh,
+}: CommentInfoProps) => {
   const textareaRef = useRef(null);
   const [replyText, setReplyText] = useState("");
   const [updateText, setUpdateText] = useState(info?.content);
@@ -24,8 +29,9 @@ const CommentUpdate = ({ info, toggleUpdateMode }: CommentInfoProps) => {
     updateReplyRequest.content = updateText;
 
     const res = await ReplyService.updateReply(updateReplyRequest);
-    console.log(res);
-    setReplyText("");
+
+    toggleUpdateMode();
+    setRefresh(new Date());
   };
 
   return (
@@ -48,9 +54,9 @@ const CommentUpdate = ({ info, toggleUpdateMode }: CommentInfoProps) => {
               "w-full h-full body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
             }
             placeholder={"댓글을 남겨보세요!"}
-            value={updateText}
+            value={replyText}
             ref={textareaRef}
-            onChange={(e) => setUpdateText(e.target.value)}
+            onChange={(e) => setReplyText(e.target.value)}
           />
           <div className={"w-full h-auto flex flex-row-reverse"}>
             <button
