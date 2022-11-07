@@ -50,9 +50,9 @@ export const ReplyService = {
    * 댓글 수정하기 / 대댓글 삭제하기 api
    */
   updateReply: async (param: UpdateReplyRequestData) => {
-    const { data } = await axios.patch(`${domain}/replies/${param.replyId}`, {
-      content: param.content,
-    });
+    const { data } = await axios.patch(
+      `${domain}/replies/${param.replyId}?content=${param.content}`
+    );
     return data;
   },
 

@@ -19,7 +19,11 @@ const CommentCard = ({ info, level, setRefresh }: CommentItemProps) => {
   };
 
   return isUpdateMode ? (
-    <CommentUpdate info={info} toggleUpdateMode={toggleUpdateMode} />
+    <CommentUpdate
+      info={info}
+      toggleUpdateMode={toggleUpdateMode}
+      setRefresh={setRefresh}
+    />
   ) : (
     <CommentInfo
       info={info}
