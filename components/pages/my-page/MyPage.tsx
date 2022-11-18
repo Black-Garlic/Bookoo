@@ -73,7 +73,7 @@ const MyPage = () => {
         {/* Left Area */}
         <div
           className={
-            "w-[480px] h-full p-14 flex flex-col fixed top-0 right-0 left-0 bg-[#363636]"
+            "w-[480px] h-full p-14 flex flex-col fixed top-0 right-0 left-0 bg-[#363636] overflow-y-scroll scrollbar-hide"
           }
         >
           {/* 닉네임 Area */}

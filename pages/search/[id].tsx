@@ -40,19 +40,11 @@ const Search: NextPage = () => {
 
   return (
     <div className={"w-screen h-full flex flex-row px-40 pt-20"}>
-      <div
-        className={cn(
-          "w-72 h-auto ml-40 fixed top-40 left-0",
-          bookScoreOpen && "blur"
-        )}
-      >
+      <div className={cn("w-72 h-auto", bookScoreOpen && "blur")}>
         <BookDetailInfo bookInfo={bookInfo} />
       </div>
       <div
-        className={cn(
-          "w-full h-auto flex-1 ml-[432px]",
-          bookScoreOpen && "blur"
-        )}
+        className={cn("w-full h-auto flex-1 ml-32", bookScoreOpen && "blur")}
       >
         <div className={"flex flex-1 flex-col mb-16"}>
           <div className={"w-full h-auto body-1 text-text-3 mb-1 px-3"}>
