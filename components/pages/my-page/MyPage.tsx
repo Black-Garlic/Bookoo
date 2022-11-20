@@ -73,11 +73,11 @@ const MyPage = () => {
         {/* Left Area */}
         <div
           className={
-            "w-[480px] h-full p-14 flex flex-col fixed top-0 right-0 left-0 bg-[#363636] overflow-y-scroll scrollbar-hide"
+            "w-[420px] h-full p-14 flex flex-col fixed top-0 right-0 left-0 bg-[#363636] overflow-y-scroll scrollbar-hide"
           }
         >
           {/* 닉네임 Area */}
-          <div className={"w-full h-[122px] mt-4 text-text-1 "}>
+          <div className={"w-full h-auto mt-4 text-text-1"}>
             {editNickname ? (
               <>
                 <div className={"title-2"}>
@@ -101,10 +101,12 @@ const MyPage = () => {
               </>
             ) : (
               <>
-                <div className={"title-2"}>
-                  {nickName}님,
-                  <br />
-                  안녕하세요
+                <div className={"title-2 "}>
+                  <p className={"break-words"}>
+                    {nickName}님,
+                    <br />
+                    안녕하세요
+                  </p>
                 </div>
               </>
             )}
@@ -123,7 +125,7 @@ const MyPage = () => {
           {/* 메뉴 Area */}
           <div
             className={
-              "w-full h-auto mt-[66px] flex-1 flex flex-col sub-title-1"
+              "w-full h-auto mt-[50px] flex-1 flex flex-col sub-title-1"
             }
           >
             {menuItemList.map((menuItem, index) => (
@@ -163,7 +165,7 @@ const MyPage = () => {
           </div>
         </div>
         {/* Right Area */}
-        <div className={"w-full h-auth ml-[480px] py-8 pl-28 pr-8"}>
+        <div className={"w-full h-auth ml-[480px] py-8 pl-16 pr-8"}>
           <button
             className={"w-full h-6 flex flex-row"}
             onClick={(e) => {
