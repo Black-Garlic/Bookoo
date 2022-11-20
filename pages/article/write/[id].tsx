@@ -1,14 +1,14 @@
 import { NextPage } from "next";
-import { useState } from "react";
-import StarCount from "../../components/common/star/StarCount";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { popupState } from "../../states/states";
-import ArticleBookSearchModal from "../../components/pages/article/ArticleBookSearchModal";
-import { RecoilUtils } from "../../utils/RecoilUtils";
-import { ArticleService } from "../../services/ArticleService";
-import { createArticleRequestData } from "../../typings/Article";
+import { popupState } from "../../../states/states";
+import ArticleBookSearchModal from "../../../components/pages/article/ArticleBookSearchModal";
+import { RecoilUtils } from "../../../utils/RecoilUtils";
+import { ArticleService } from "../../../services/ArticleService";
+import { createArticleRequestData } from "../../../typings/Article";
 import { useRouter } from "next/router";
-import { CreateReplyRequestData } from "../../typings/Reply";
+import { CreateReplyRequestData } from "../../../typings/Reply";
+import { BookService } from "../../../services/BookService";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -20,33 +20,44 @@ const scoreMessage = [
 
 const ArticleWrite: NextPage = () => {
   const router = useRouter();
+  const { id } = router.query;
+  const [bookId, setBookId] = useState("");
   const [selectedBookData, setSelectedBookData] = useState<any>();
   const [starCount, setStarCount] = useState<number>(3);
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const [popup, setPopup] = useRecoilState(popupState);
 
-  const selectBook = async (obj: any) => {
-    setSelectedBookData(obj);
-    RecoilUtils.toggleModal("bookSearch", popup, setPopup);
+  useEffect(() => {
+    getBookInfo();
+  }, [id]);
+
+  const getBookInfo = async () => {
+    const res = await BookService.getBookDetail(Number(id));
+    setSelectedBookData(res);
   };
 
-  console.log("selectedBookData", selectedBookData);
-
   const writeArticle = async () => {
-    if (!selectedBookData?.isbn) {
-      alert("책을 골라주세요.");
-    } else if (content.length === 0) {
-      alert("내용을 적어주세요.");
-    } else {
-      const createArticleRequest = new createArticleRequestData();
-      createArticleRequest.userId = 0;
-      createArticleRequest.bookId = selectedBookData.isbn;
-      createArticleRequest.title = selectedBookData.title;
-      createArticleRequest.content = content;
+    try {
+      if (!selectedBookData?.isbn) {
+        alert("책을 골라주세요.");
+      } else if (title.length === 0) {
+        alert("제목을 적어주세요.");
+      } else if (content.length === 0) {
+        alert("내용을 적어주세요.");
+      } else {
+        const createArticleRequest = new createArticleRequestData();
+        createArticleRequest.userId = 0;
+        createArticleRequest.bookId = selectedBookData.isbn;
+        createArticleRequest.title = title;
+        createArticleRequest.content = content;
 
-      const res = await ArticleService.createArticle(createArticleRequest);
-      router.push("/main");
+        const res = await ArticleService.createArticle(createArticleRequest);
+        router.push(`/search/${id}`);
+      }
+    } catch {
+      router.push(`/search/${id}`);
     }
   };
 
@@ -76,10 +87,10 @@ const ArticleWrite: NextPage = () => {
       </div>
       <div
         className={
-          "w-full h-auto px-20 lg:px-32 xl:px-72 mb-16 flex flex-col mt-28 z-20"
+          "w-full h-auto px-20 lg:px-32 xl:px-72 mb-16 flex flex-col mt-28 z-20 gap-16"
         }
       >
-        <div className={"w-full h-auto flex flex-row mb-16 py-8 relative "}>
+        <div className={"w-full h-auto flex flex-row py-8 relative "}>
           <div className={"w-32 h-44 mr-8 "}>
             {selectedBookData && selectedBookData.image ? (
               <img
@@ -124,28 +135,12 @@ const ArticleWrite: NextPage = () => {
               </div>
             </div>
           </div>
-          {!selectedBookData && (
-            <div
-              className={
-                " w-full h-44 title-3 text-text-1 absolute z-50 rounded-2xl bg-text-2/50 text-center flex justify-center items-center"
-              }
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                // setSelectedBookData("data");
-                RecoilUtils.toggleModal("bookSearch", popup, setPopup);
-              }}
-            >
-              서평을 작성할 도서를 골라주세요
-            </div>
-          )}
         </div>
-        <div className={"w-96 h-auto flex flex-col mb-16"}>
+        <div className={"w-96 h-auto flex flex-col "}>
           <div className={"flex-1 mb-2 sub-title-1 text-text-1"}>평점</div>
           <div
             className={
-              "w-full h-auto title-3 text-text-1 placeholder-text-2 outline-0 mb-8 px-4 pb-4 rounded-lg flex flex-col"
+              "w-full h-auto title-3 text-text-1 placeholder-text-2 outline-0 px-4 pb-4 rounded-lg flex flex-col"
             }
           >
             <div className={"w-auto h-auto flex flex-row mb-1 justify-center"}>
@@ -219,7 +214,26 @@ const ArticleWrite: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className={"w-full h-auto flex flex-col"}>
+        <div className={"w-full h-auto flex flex-col gap-4"}>
+          <div className={"flex-1 mb-2 sub-title-1 text-text-1"}>제목</div>
+          <div
+            className={
+              "w-full h-auto flex flex-col px-6 py-4 rounded-lg bg-text-3/50 border-text-2 border"
+            }
+          >
+            <input
+              type={"text"}
+              className={
+                "w-full h-full min-h-[40px] body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
+              }
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder={"제목을 입력해주세요"}
+            />
+          </div>
+        </div>
+
+        <div className={"w-full h-auto flex flex-col gap-4"}>
           <div className={"flex-1 mb-2 sub-title-1 text-text-1"}>서평 작성</div>
           <div
             className={
@@ -230,14 +244,13 @@ const ArticleWrite: NextPage = () => {
               className={
                 "w-full h-full min-h-[200px] body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
               }
-              placeholder={"댓글을 남겨보세요!"}
+              placeholder={"서평을 작성해주세요"}
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
         </div>
       </div>
-      {popup.bookSearch && <ArticleBookSearchModal selectBook={selectBook} />}
     </div>
   );
 };

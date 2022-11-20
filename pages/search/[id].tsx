@@ -9,6 +9,7 @@ import { BookService } from "../../services/BookService";
 import { BookUnitResponseData } from "../../typings/Books";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { popupState } from "../../states/states";
+import { UserService } from "../../services/UserService";
 
 const Search: NextPage = () => {
   const [bookScoreOpen, setBookScoreOpen] = useState(false);
