@@ -21,109 +21,100 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
 
   return (
     <div
-      className={"w-[357px] h-[200px] flex flex-col cursor-pointer gap-2"}
+      className={
+        "w-full max-w-screen h-[200px] flex flex-row cursor-pointer gap-[30px]"
+      }
       onClick={() => goDetailPage()}
     >
-      <div className={"w-full h-12 flex flex-row"}>
-        {info?.bookList && info?.bookList.length > 0 ? (
-          <>
-            <div className={"w-[30px] h-[46px]"}>
-              {info?.bookList.length > 0 ? (
-                <img src={info?.bookList[0].image} alt={"book"} />
-              ) : (
-                <img src={"/image/book_sample.png"} alt={"book"} />
-              )}
-            </div>
-            <div className={"w-full h-8 flex-1 flex flex-col ml-2"}>
-              <div className={"flex-1 flex flex-row"}>
-                <div
-                  className={
-                    "max-w-[150px] truncate caption-1 text-text-1 text-center"
-                  }
-                >
-                  {info?.bookList[0].title}
-                </div>
-                <div
-                  className={"w-0 h-4 border border-white mx-2 self-center"}
-                />
-                <div className={"max-w-[75px] truncate caption-1 text-text-2"}>
-                  {info?.bookList[0].author}
-                </div>
-              </div>
-              <div className={"w-full h-8 flex flex-row"}>
-                {like && (
-                  <div className={"pr-1 caption-1 text-text-1"}>닉네임</div>
-                )}
-                <StarCount />
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className={"w-[30px] h-[46px]"}>
-              {info?.bookList.length > 0 ? (
-                <img src={info?.bookList[0].image} alt={"book"} />
-              ) : (
-                <img src={"/image/book_sample.png"} alt={"book"} />
-              )}
-            </div>
-            <div className={"w-full h-8 flex-1 flex flex-col ml-2"}>
-              <div className={"flex-1 flex flex-row"}>
-                <div className={"caption-1 text-text-1 text-center"}>
-                  책 제목입니다.
-                </div>
-                <div
-                  className={"w-0 h-4 border border-white mx-2 self-center"}
-                />
-                <div className={"caption-1 text-text-2"}>책 저자</div>
-              </div>
-              <div className={"w-full h-8 flex flex-row"}>
-                {like && (
-                  <div className={"pr-1 caption-1 text-text-1"}>닉네임</div>
-                )}
-                <StarCount />
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-      <div className={"w-[357px] h-[90px]"}>
-        <div className={"w-[357px] h-[90px] text-text-1 "}>
-          <p className={" h-[90px] box-truncate"}>
-            {info?.content}
-            {/*섞어야 한다. 사람들이 좋아하도록 섞어야 한다. 그러면 히트한다. 그래.*/}
-            {/*쉬운 이야기지만 처음 이야기하기는 쉽지 않은 신선힌말이다. 책을*/}
-            {/*읽는다는 것은 지혜를 가지기 위함이고, 이 지혜는 지식의 통합과*/}
-            {/*통섭에서 일어나는 힘이다. 이것도 섞음 일런지 모른다. 객관적인*/}
-            {/*사실이라도 다른 관*/}
-          </p>
-        </div>
-      </div>
+      {/* Left : Book Info */}
       <div
         className={
-          "w-full flex flex-row caption-3 text-text-2 gap-2 items-center"
+          "flex flex-col h-[200px] w-[100px] justify-start items-center"
         }
       >
-        <div className={"w-16 h-5 mr-2 items-center flex flex-row"}>
-          {info?.createdAt[0]}/{info?.createdAt[1]}/{info?.createdAt[2]}
+        <div className={"h-[130px]"}>
+          {info?.bookList.length > 0 ? (
+            <img
+              src={info?.bookList[0].image}
+              alt={"book"}
+              className={"h-full object-cover"}
+            />
+          ) : (
+            <img
+              src={"/image/book_sample.png"}
+              alt={"book"}
+              className={"h-full object-cover"}
+            />
+          )}
         </div>
-        {/* Like */}
-        <div className={"w-16 h-5 mr-2 flex flex-row items-center gap-1"}>
-          <div className={"w-3 h-3 my-1 mr-1"}>
-            {like ? (
-              <img src={"/svg/uil_heart-fill.svg"} alt={"heart"} />
-            ) : (
-              <img src={"/svg/uil_heart.svg"} alt={"heart"} />
-            )}
-          </div>
-          <div className={"flex-1"}>{info?.likesList?.length}</div>
+        <div
+          className={"max-w-[100px] truncate caption-1 text-text-1 text-center"}
+        >
+          {info?.bookList[0].title}
         </div>
-        {/* Comment */}
-        <div className={"w-16 h-5 mr-2 flex flex-row items-center gap-1"}>
-          <div className={"w-3 h-3 my-1 mr-1"}>
-            <img src={"/svg/uil_comment-alt-lines.svg"} alt={"comment"} />
+        <div
+          className={
+            "max-w-[75px] truncate caption-3 text-text-2 flex items-center"
+          }
+        >
+          {info?.bookList[0].author}
+        </div>
+        <StarCount />
+      </div>
+
+      {/* 서평 내용 */}
+      <div
+        className={
+          "flex flex-col h-[200px] w-auto justify-between items-center py-1"
+        }
+      >
+        <div className={"h-[65px] w-full"}>
+          <div className={"w-full h-[65px] text-text-1 text-lg"}>
+            <p className={"h-[65px] box-truncate-2 "}>
+              {/*{info?.content}*/}
+              {info?.title}
+            </p>
           </div>
-          <div className={"flex-1"}>{info?.replyList?.length}</div>
+        </div>
+        <div className={"w-full h-[95px]"}>
+          <div className={"w-full h-[95px] text-text-2 text-sm"}>
+            <p className={" h-[95px] box-truncate-3 "}>{info?.content}</p>
+          </div>
+        </div>
+        <div
+          className={
+            "w-full flex flex-row caption-3 text-text-2 gap-2 items-center"
+          }
+        >
+          <div className={"w-16 h-5 mr-2 items-center flex flex-row"}>
+            {info?.createdAt[0]}/{info?.createdAt[1]}/{info?.createdAt[2]}
+          </div>
+          {/* Like */}
+          <div
+            className={
+              "w-auto max-w-20 h-5 mr-2 flex flex-row items-center gap-1"
+            }
+          >
+            <div className={"w-3 h-3 my-1 mr-1"}>
+              {like ? (
+                <img src={"/svg/uil_heart-fill.svg"} alt={"heart"} />
+              ) : (
+                <img src={"/svg/uil_heart.svg"} alt={"heart"} />
+              )}
+            </div>
+            <div className={"flex-1"}>{info?.likesList?.length}</div>
+          </div>
+          {/* Comment */}
+          <div
+            className={
+              "w-auto max-w-20 h-5 mr-2 flex flex-row items-center gap-1"
+            }
+          >
+            <div className={"w-3 h-3 my-1 mr-1"}>
+              <img src={"/svg/uil_comment-alt-lines.svg"} alt={"comment"} />
+            </div>
+            <div className={"flex-1"}>{info?.replyList?.length}</div>
+          </div>
         </div>
       </div>
     </div>

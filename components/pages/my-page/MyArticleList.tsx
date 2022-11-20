@@ -48,7 +48,8 @@ const MyArticleList = ({ isEmpty }: MyArticleListProps) => {
         <div className={"mt-12"}>
           <div
             className={
-              "w-full flex flex-row justify-start flex-wrap gap-x-8 gap-y-12"
+              // "w-full flex flex-row justify-start flex-wrap gap-x-8 gap-y-12"
+              "w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-x-8 gap-y-16"
             }
           >
             {articleList &&
