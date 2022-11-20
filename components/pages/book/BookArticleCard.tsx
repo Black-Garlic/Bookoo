@@ -2,7 +2,11 @@ import StarCount from "../../common/star/StarCount";
 
 const BookArticleCard = () => {
   return (
-    <div className={"w-full h-full p-3 rounded-lg hover:bg-text-3"}>
+    <div
+      className={
+        "w-full h-full p-3 rounded-lg hover:bg-text-3 transition delay-100 duration-150 cursor-pointer"
+      }
+    >
       <div className={"flex flex-row"}>
         <div className={"body-1 text-text-1 mr-1"}>닉네임</div>
         <div className={"h-5 my-1.5"}>

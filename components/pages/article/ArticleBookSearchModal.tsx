@@ -45,7 +45,7 @@ const ArticleBookSearchModal = ({ selectBook }: ArticleBookSearchProps) => {
 
   return (
     <ModalLayoutResizeable width={"[1060px]"} height={"[700px]"}>
-      <div className={"w-full h-auto flex flex-row mb-8"}>
+      <div className={"w-full h-auto flex flex-row mb-8 "}>
         <div
           className={
             "w-[990px] h-full flex-1 sub-title-1 flex flex-row justify-center"
