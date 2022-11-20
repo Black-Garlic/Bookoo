@@ -1,4 +1,3 @@
-import { likeRequest } from "../typings/Article";
 import axios from "axios";
 import {
   AddReplyRequestData,

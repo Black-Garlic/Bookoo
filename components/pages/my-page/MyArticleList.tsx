@@ -1,4 +1,3 @@
-import MyArticleRow from "./MyArticleRow";
 import EmptyList from "./EmptyList";
 import { useEffect, useState } from "react";
 import { ArticleService } from "../../../services/ArticleService";
