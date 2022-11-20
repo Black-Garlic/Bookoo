@@ -5,7 +5,7 @@ import {
   UpdateReplyRequestData,
 } from "../typings/Reply";
 import { addShelfRequest, checkShelfRequest } from "../typings/User";
-const domain = "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
+const domain = "http://ec2-34-237-181-231.compute-1.amazonaws.com/api/vi";
 
 export const UserService = {
   /**
