@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import CommentCard from "../article/CommentCard";
 import MyCommentCard from "./MyCommentCard";
 
-interface MyCommentListProps {
-  isEmpty: boolean;
-}
-
-const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
+const MyCommentList = () => {
   const [commentList, setCommentList] = useState([]);
   useEffect(() => {
     getMyCommentList();
@@ -30,10 +26,12 @@ const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
     <div className={"pr-20"}>
       <div className={"w-full h-9 flex flex-row text-text-1"}>
         <div className={"flex-1 title-3"}>
-          {isEmpty ? "내 댓글" : "총 99개의 댓글"}
+          {commentList.length === 0
+            ? "내 댓글"
+            : `총 ${commentList.length}개의 댓글`}
         </div>
       </div>
-      {isEmpty ? (
+      {commentList.length === 0 ? (
         <EmptyList
           imageFileName={"empty_comment_list"}
           comment={"작성된 댓글이 없어요"}

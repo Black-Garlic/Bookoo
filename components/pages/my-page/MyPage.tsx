@@ -20,13 +20,6 @@ const menuItemList = [
   { menuTitleKor: "내 댓글", menuTitleEng: "MyComment" },
   { menuTitleKor: "내 서평", menuTitleEng: "MyArticle" },
   { menuTitleKor: "내가 좋아하는 서평", menuTitleEng: "MyFavorite" },
-  { menuTitleKor: "내 책장 Empty", menuTitleEng: "MyBook-Empty" },
-  { menuTitleKor: "내 댓글 Empty", menuTitleEng: "MyComment-Empty" },
-  { menuTitleKor: "내 서평 Empty", menuTitleEng: "MyArticle-Empty" },
-  {
-    menuTitleKor: "내가 좋아하는 서평 Empty",
-    menuTitleEng: "MyFavorite-Empty",
-  },
 ];
 
 const MyPage = () => {
@@ -44,19 +37,11 @@ const MyPage = () => {
   if (selectedMenu === "MyBook") {
     view = <MyBookList isEmpty={false} />;
   } else if (selectedMenu === "MyComment") {
-    view = <MyCommentList isEmpty={false} />;
+    view = <MyCommentList />;
   } else if (selectedMenu === "MyArticle") {
-    view = <MyArticleList isEmpty={false} />;
+    view = <MyArticleList />;
   } else if (selectedMenu === "MyFavorite") {
     view = <MyFavoriteList isEmpty={false} />;
-  } else if (selectedMenu === "MyBook-Empty") {
-    view = <MyBookList isEmpty={true} />;
-  } else if (selectedMenu === "MyComment-Empty") {
-    view = <MyCommentList isEmpty={true} />;
-  } else if (selectedMenu === "MyArticle-Empty") {
-    view = <MyArticleList isEmpty={true} />;
-  } else if (selectedMenu === "MyFavorite-Empty") {
-    view = <MyFavoriteList isEmpty={true} />;
   }
 
   return (

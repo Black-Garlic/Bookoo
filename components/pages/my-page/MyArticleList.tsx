@@ -3,11 +3,7 @@ import { useEffect, useState } from "react";
 import { ArticleService } from "../../../services/ArticleService";
 import ArticleCard from "./ArticleCard";
 
-interface MyArticleListProps {
-  isEmpty: boolean;
-}
-
-const MyArticleList = ({ isEmpty }: MyArticleListProps) => {
+const MyArticleList = () => {
   const [articleList, setArticleList] = useState([]);
 
   /**
