@@ -2,6 +2,7 @@ import ModalLayout from "../modal/ModalLayout";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
+import { setCookie } from "../../../utils/cookies";
 
 interface LoginPopupProps {}
 
@@ -34,7 +35,16 @@ const LoginModal = () => {
         회원 정보가 없는 경우 자동으로 회원가입으로 넘어갑니다.
       </div>
       <div className={"w-full h-auto body-1 text-text-1 flex flex-row"}>
-        <button className={"flex-1 bg-primary rounded-lg py-2"}>
+        <button
+          className={"flex-1 bg-primary rounded-lg py-2"}
+          onClick={() => {
+            // window.location.href =
+            //   "http://ec2-34-237-181-231.compute-1.amazonaws.com:8080/oauth2/authorization/naver?redirect_uri=http://localhost:3000";
+
+            setCookie("login", "true", { path: "/", secure: true });
+            RecoilUtils.toggleModal("login", popup, setPopup);
+          }}
+        >
           네이버 로그인 하러가기
         </button>
       </div>

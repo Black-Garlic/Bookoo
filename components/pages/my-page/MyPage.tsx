@@ -11,6 +11,7 @@ import WithdrawalFailModal from "../../common/auth/WithdrawalFailModal";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
+import { removeCookie } from "../../../utils/cookies";
 
 interface MyPageProps {}
 
@@ -149,7 +150,18 @@ const MyPage = () => {
             </div>
             <div className={"w-full h-auto mt-4"}>버전 정보 0.0.1</div>
             <div className={"w-full h-auto mt-4 flex flex-row"}>
-              <button className={"flex-1 text-start"}>로그아웃</button>
+              <button
+                className={"flex-1 text-start"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  removeCookie("login");
+                  window.location.href = "/main";
+                }}
+              >
+                로그아웃
+              </button>
               <button
                 className={"flex-1 text-start"}
                 onClick={(e) => {
