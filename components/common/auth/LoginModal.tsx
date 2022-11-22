@@ -25,7 +25,7 @@ const LoginModal = () => {
             RecoilUtils.toggleModal("login", popup, setPopup);
           }}
         >
-          <img className={"w-6 h-6 mr-2"} src={"svg/x-outline.svg"} alt="x" />
+          <img className={"w-6 h-6 mr-2"} src={"/svg/x-outline.svg"} alt="x" />
         </button>
       </div>
       <div className={"w-full h-auto flex-1 body-3 text-text-1 mt-2 mb-8"}>

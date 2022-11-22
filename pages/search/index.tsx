@@ -3,11 +3,18 @@ import React, { useEffect, useState } from "react";
 import BookImageCardList from "../../components/common/book/BookImageCardList";
 import { BookUnitResponseData, GetBookListRequest } from "../../typings/Books";
 import { BookService } from "../../services/BookService";
+import { useRouter } from "next/router";
+import cn from "classnames";
 
 const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchList, setSearchList] = useState<BookUnitResponseData[]>([]);
   const [isFocus, setIsFocus] = useState(false);
+
+  const router = useRouter();
+  const { keyword } = router.query;
+
+  console.log(keyword);
 
   useEffect(() => {
     setSearchList([]);
@@ -16,20 +23,27 @@ const Home: NextPage = () => {
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       console.log("enter~", searchText);
-      getBookList();
+      getBookList(searchText);
     }
   };
 
   /**
    * progess 필요
    */
-  const getBookList = async () => {
+  const getBookList = async (searchText: string) => {
     const getBookListRequest = new GetBookListRequest();
     getBookListRequest.keyword = searchText;
     getBookListRequest.display = 10;
     const { data } = await BookService.getBookList(getBookListRequest);
     setSearchList(data);
   };
+
+  useEffect(() => {
+    if (keyword && typeof keyword === "string") {
+      getBookList(keyword);
+      setSearchText(keyword);
+    }
+  }, [keyword, setSearchText]);
 
   return (
     <div className={"flex flex-col px-40 w-full h-full"}>
@@ -42,12 +56,13 @@ const Home: NextPage = () => {
 
         <input
           type={"text"}
-          className={
-            "w-full h-24 title-1 text-text-1 border-white  bg-transparent placeholder-text-2 outline-0 " +
-            (isFocus ? "pl-6" : "border-l-2 ml-6")
-          }
+          className={cn(
+            "w-full h-24 title-1 text-text-1 border-white  bg-transparent placeholder-text-2 outline-0 ",
+            searchText === "" ? "border-l-2 ml-6" : "pl-12"
+          )}
           onKeyPress={(e) => onKeyPress(e)}
           placeholder={" 도서 검색"}
+          value={searchText}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={(e) => {
