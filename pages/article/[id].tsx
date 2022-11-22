@@ -47,7 +47,6 @@ const Article: NextPage = () => {
     request.userId = 0;
     request.articleId = Number(id);
     const res = await ArticleService.likeArticle(request);
-    console.log("res", res);
     getArticleDetail();
   };
 
@@ -57,7 +56,6 @@ const Article: NextPage = () => {
     getArticleDetailRequest.userId = 0;
     getArticleDetailRequest.bookId = 9788960213180;
     const res = await ArticleService.getArticleDetail(getArticleDetailRequest);
-    console.log("res", res);
     setArticleDetail(res);
     setReplyList(res.reply);
     setBookInfo(res.book);
@@ -84,7 +82,6 @@ const Article: NextPage = () => {
         createReplyRequest.userId = 0;
         createReplyRequest.content = replyText;
         const res = await ReplyService.createReply(createReplyRequest);
-        console.log("res", res);
         setReplyText("");
         setRefresh(new Date());
       }

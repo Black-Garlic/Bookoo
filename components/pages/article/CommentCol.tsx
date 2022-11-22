@@ -4,8 +4,8 @@ import ReCommentCol from "./ReCommentCol";
 const CommentCol = () => {
   return (
     <div className={"w-full h-auto"}>
-      <CommentCard />
-      <CommentCard />
+      {/*<CommentCard />*/}
+      {/*<CommentCard />*/}
       <ReCommentCol />
     </div>
   );
