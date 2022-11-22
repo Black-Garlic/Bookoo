@@ -55,7 +55,10 @@ const MyArticleList = ({ isEmpty }: MyArticleListProps) => {
             {articleList &&
               articleList.length > 0 &&
               articleList.map((element, index) => {
-                return <ArticleCard key={index} like={false} info={element} />;
+                if (element !== null)
+                  return (
+                    <ArticleCard key={index} like={false} info={element} />
+                  );
               })}
           </div>
         </div>

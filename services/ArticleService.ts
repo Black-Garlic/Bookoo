@@ -9,7 +9,7 @@ import axios from "axios";
 const domain = "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
 // axios.defaults.baseURL =
 //   "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
-
+// http://ec2-54-204-214-164.compute-1.amazonaws.com/swagger-ui/index.html
 export const ArticleService = {
   /**
    * 서평 좋아요 클릭 api

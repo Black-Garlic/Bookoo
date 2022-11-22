@@ -1,4 +1,3 @@
-import MyCommentRow from "./MyCommentRow";
 import EmptyList from "./EmptyList";
 import { ReplyService } from "../../../services/ReplyService";
 import { useEffect, useState } from "react";

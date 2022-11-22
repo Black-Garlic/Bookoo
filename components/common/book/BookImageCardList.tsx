@@ -1,4 +1,3 @@
-import BookImageCardRow from "./BookImageCardRow";
 import BookImageCard from "./BookImageCard";
 import { BookUnitResponseData } from "../../../typings/Books";
 

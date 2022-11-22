@@ -27,40 +27,65 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
       onClick={() => goDetailPage()}
     >
       {/* Left : Book Info */}
-      <div
-        className={
-          "flex flex-col h-[200px] w-[100px] justify-start items-center"
-        }
-      >
-        <div className={"h-[130px]"}>
-          {info?.bookList.length > 0 ? (
+      {info?.book ? (
+        <div
+          className={
+            "flex flex-col h-[200px] w-[100px] justify-start items-center"
+          }
+        >
+          <div className={"h-[130px]"}>
             <img
-              src={info?.bookList[0].image}
+              src={info?.book?.image}
               alt={"book"}
               className={"h-full object-cover"}
             />
-          ) : (
+          </div>
+          <div
+            className={
+              "max-w-[100px] truncate caption-1 text-text-1 text-center"
+            }
+          >
+            {info?.book?.title}
+          </div>
+          <div
+            className={
+              "max-w-[75px] truncate caption-3 text-text-2 flex items-center"
+            }
+          >
+            {info?.book?.author}
+          </div>
+          <StarCount />
+        </div>
+      ) : (
+        <div
+          className={
+            "flex flex-col h-[200px] w-[100px] justify-start items-center"
+          }
+        >
+          <div className={"h-[130px]"}>
             <img
               src={"/image/book_sample.png"}
               alt={"book"}
               className={"h-full object-cover"}
             />
-          )}
+          </div>
+          <div
+            className={
+              "max-w-[100px] truncate caption-1 text-text-1 text-center"
+            }
+          >
+            책 제목입니다.
+          </div>
+          <div
+            className={
+              "max-w-[75px] truncate caption-3 text-text-2 flex items-center"
+            }
+          >
+            책 저자입니다.
+          </div>
+          <StarCount />
         </div>
-        <div
-          className={"max-w-[100px] truncate caption-1 text-text-1 text-center"}
-        >
-          {info?.bookList[0].title}
-        </div>
-        <div
-          className={
-            "max-w-[75px] truncate caption-3 text-text-2 flex items-center"
-          }
-        >
-          {info?.bookList[0].author}
-        </div>
-        <StarCount />
-      </div>
+      )}
 
       {/* 서평 내용 */}
       <div

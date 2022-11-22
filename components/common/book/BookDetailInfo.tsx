@@ -20,8 +20,7 @@ const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {
 
   const checkMyShelf = async () => {
     // checkShelf 결과에 따라 DEFAULT, SAVE, WRITTEN으로 분류하기
-    console.log("bookInfo", bookInfo);
-    if (bookInfo.isbn) {
+    if (bookInfo?.isbn) {
       const res = await UserService.checkShelf({
         userId: "0",
         bookId: Number(bookInfo.isbn),
