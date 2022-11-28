@@ -33,7 +33,9 @@ const MyCommentCard = ({ newComment, info }: MyCommentCardProps) => {
         </div>
       </div>
       <div
-        className={"w-full h-16 flex flex-row px-2 py-1 mt-[14px] bg-[#363636]"}
+        className={
+          "w-full h-16 flex flex-row px-2 py-1 mt-[14px] bg-[#363636] rounded-xl"
+        }
       >
         <div className={"w-[30px] h-[46px] self-center"}>
           <img src={"/image/book_sample.png"} alt={"book"} />

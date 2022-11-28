@@ -29,7 +29,7 @@ const Search: NextPage = () => {
   const popup = useRecoilValue(popupState);
 
   useEffect(() => {
-    getBookDetail();
+    if (id) getBookDetail();
   }, [id]);
 
   // 예시 : 9791158511432
