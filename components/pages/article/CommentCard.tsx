@@ -8,6 +8,7 @@ interface CommentItemProps {
   level: number;
   setRefresh: Function;
   replyList: ReplyUnitResponseData[];
+  loginCookie: any;
 }
 
 const CommentCard = ({
@@ -15,6 +16,7 @@ const CommentCard = ({
   level,
   setRefresh,
   replyList,
+  loginCookie,
 }: CommentItemProps) => {
   const [isUpdateMode, setIsUpdateMode] = useState(false);
   const toggleUpdateMode = () => {
@@ -38,6 +40,7 @@ const CommentCard = ({
       setRefresh={setRefresh}
       toggleUpdateMode={toggleUpdateMode}
       replyList={replyList}
+      loginCookie={loginCookie}
     />
   );
 };

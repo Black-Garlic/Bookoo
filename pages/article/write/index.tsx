@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import ArticleBookSearchModal from "../../../components/pages/article/ArticleBookSearchModal";
@@ -8,6 +8,8 @@ import { ArticleService } from "../../../services/ArticleService";
 import { createArticleRequestData } from "../../../typings/Article";
 import { useRouter } from "next/router";
 import { CreateReplyRequestData } from "../../../typings/Reply";
+import { getCookie } from "../../../utils/cookies";
+import { NAVER_LOGIN_URL } from "../../../constant/login";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -25,6 +27,16 @@ const ArticleWrite: NextPage = () => {
   const [content, setContent] = useState("");
 
   const [popup, setPopup] = useRecoilState(popupState);
+
+  // if (!getCookie("login")) {
+  //   router.push("/main");
+  // }
+
+  useEffect(() => {
+    if (!getCookie("login")) {
+      router.push(NAVER_LOGIN_URL);
+    }
+  }, [router]);
 
   const selectBook = async (obj: any) => {
     setSelectedBookData(obj);

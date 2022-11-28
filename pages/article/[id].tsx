@@ -16,8 +16,10 @@ import {
 } from "../../typings/Reply";
 import { ReplyService } from "../../services/ReplyService";
 import CommentCard from "../../components/pages/article/CommentCard";
+import { getCookie } from "../../utils/cookies";
 
 const Article: NextPage = () => {
+  const [loginCookie, setLoginCookie] = useState();
   const [articleDetail, setArticleDetail] = useState({
     articleId: 0,
     bookArticleId: 0,
@@ -37,6 +39,10 @@ const Article: NextPage = () => {
   const { id } = router.query;
   const [replyText, setReplyText] = useState("");
   const [refresh, setRefresh] = useState(new Date());
+
+  useEffect(() => {
+    setLoginCookie(getCookie("login"));
+  }, [getCookie, setLoginCookie]);
 
   useEffect(() => {
     if (id) getArticleDetail();
@@ -90,7 +96,7 @@ const Article: NextPage = () => {
   return (
     <div className={"w-screen h-full flex flex-row px-40 pt-20"}>
       <div className={"w-72 h-auto"}>
-        <BookDetailInfo bookInfo={bookInfo} />
+        <BookDetailInfo bookInfo={bookInfo} loginCookie={loginCookie} />
         <div className={"my-10"} />
         <div className={"w-full h-auto"}>
           <div className={"body-1 text-text-3 mb-1 px-3"}>서평 리스트</div>
@@ -108,7 +114,7 @@ const Article: NextPage = () => {
               <div>1회차</div>
             </div>
             <div className={"flex-1"} />
-            {articleDetail.userId === "0" && (
+            {loginCookie && articleDetail.userId === "0" && (
               <div className={"flex flex-row caption-1"}>
                 <button
                   className={
@@ -159,11 +165,12 @@ const Article: NextPage = () => {
                 <div className={"w-auto "}>{articleDetail?.reply?.length}</div>
               </div>
               {/* Like */}
-              <div
+              <button
                 className={
                   "min-w-16 w-auto mr-2 flex flex-row items-center cursor-pointer"
                 }
                 onClick={toggleLike}
+                disabled={!loginCookie}
               >
                 <div className={"w-6 h-6 my-1 mr-2"}>
                   {articleDetail.liked ? (
@@ -181,7 +188,7 @@ const Article: NextPage = () => {
                   )}
                 </div>
                 <div className={"w-auto"}>{articleDetail?.likeCount}</div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -226,35 +233,38 @@ const Article: NextPage = () => {
                       level={1}
                       setRefresh={setRefresh}
                       replyList={replyList}
+                      loginCookie={loginCookie}
                     />
                   );
               })}
           </div>
-          <div
-            className={
-              "w-full h-auto flex flex-col px-6 py-4 rounded-lg bg-text-3/50 border-text-2 border"
-            }
-          >
-            <div className={"w-full h-auto body-1 text-text-1 opacity-100"}>
-              닉네임
-            </div>
-            <textarea
+          {loginCookie && (
+            <div
               className={
-                "w-full h-full body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
+                "w-full h-auto flex flex-col px-6 py-4 rounded-lg bg-text-3/50 border-text-2 border"
               }
-              placeholder={"댓글을 남겨보세요!"}
-              value={replyText}
-              onChange={(e) => setReplyText(e.target.value)}
-            />
-            <div className={"w-full h-auto flex flex-row-reverse"}>
-              <button
-                className={"caption-1 text-primary"}
-                onClick={createReply}
-              >
-                제출
-              </button>
+            >
+              <div className={"w-full h-auto body-1 text-text-1 opacity-100"}>
+                닉네임
+              </div>
+              <textarea
+                className={
+                  "w-full h-full body-3 text-text-1 placeholder:text-text-3 resize-none bg-transparent outline-0"
+                }
+                placeholder={"댓글을 남겨보세요!"}
+                value={replyText}
+                onChange={(e) => setReplyText(e.target.value)}
+              />
+              <div className={"w-full h-auto flex flex-row-reverse"}>
+                <button
+                  className={"caption-1 text-primary"}
+                  onClick={createReply}
+                >
+                  제출
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

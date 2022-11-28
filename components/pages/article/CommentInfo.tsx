@@ -13,6 +13,7 @@ interface CommentInfoProps {
   setRefresh: Function;
   toggleUpdateMode: Function;
   replyList: ReplyUnitResponseData[];
+  loginCookie: any;
 }
 
 const CommentInfo = ({
@@ -21,6 +22,7 @@ const CommentInfo = ({
   setRefresh,
   toggleUpdateMode,
   replyList,
+  loginCookie,
 }: CommentInfoProps) => {
   const [replyText, setReplyText] = useState("");
   const [isOpenReply, setIsOpenReply] = useState(false);
@@ -69,15 +71,19 @@ const CommentInfo = ({
         </div>
         <div className={"flex-1"} />
         <div className={"flex flex-row"}>
-          <div
-            className={"mr-3 cursor-pointer"}
-            onClick={() => toggleUpdateMode()}
-          >
-            수정
-          </div>
-          <div className={"cursor-pointer"} onClick={() => deleteReply()}>
-            삭제
-          </div>
+          {loginCookie && (
+            <>
+              <div
+                className={"mr-3 cursor-pointer"}
+                onClick={() => toggleUpdateMode()}
+              >
+                수정
+              </div>
+              <div className={"cursor-pointer"} onClick={() => deleteReply()}>
+                삭제
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className={"w-full h-auto "}>
@@ -92,6 +98,7 @@ const CommentInfo = ({
                   level={1}
                   setRefresh={setRefresh}
                   replyList={replyList}
+                  loginCookie={loginCookie}
                 />
               );
           })}

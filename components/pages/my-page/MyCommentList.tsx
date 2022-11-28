@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import CommentCard from "../article/CommentCard";
 import MyCommentCard from "./MyCommentCard";
 
-interface MyCommentListProps {
-  isEmpty: boolean;
-}
-
-const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
+const MyCommentList = () => {
   const [commentList, setCommentList] = useState([]);
   useEffect(() => {
     getMyCommentList();

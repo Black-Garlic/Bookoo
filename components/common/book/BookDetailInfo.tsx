@@ -7,9 +7,10 @@ import { useRouter } from "next/router";
 
 interface BookDetailInfoProps {
   bookInfo: any;
+  loginCookie: any;
 }
 
-const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {
+const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
   const router = useRouter();
   const [popup, setPopup] = useRecoilState(popupState);
   const [inMyShelf, setInMyShelf] = useState("DEFAULT"); // DEFAULT(기본), SAVE(내 책장에 저장한 상태), WRITTEN(저장하고 서평까지 쓴 상태)
@@ -81,94 +82,102 @@ const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {
           )}
         </div>
       </div>
-      {inMyShelf === "DEFAULT" && (
-        <div className={"flex flex-col gap-4"}>
-          <button
-            className={"w-full h-14 body-1 text-text-1 bg-primary rounded-lg"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              //  서평 팝업이면 사용하고, 페이지 이동이면 Link 사용
-              // RecoilUtils.toggleModal("bookStar", popup, setPopup);
-              router.push(`/article/write/${bookInfo.isbn}`);
-            }}
-          >
-            서평 쓰기
-          </button>
-          {isSave ? (
-            <button
-              className={
-                "w-full h-14 body-1 text-text-2 bg-[#75E086] rounded-lg text-white flex flex-row items-center justify-center"
-              }
-              disabled={true}
-            >
-              <span className={"flex flex-row items-center gap-2"}>
-                <img
-                  src={"/image/icon/white_check.png"}
-                  className={"h-8 object-cover"}
-                />
-                책 저장 완료
-              </span>
-            </button>
-          ) : (
-            <button
-              className={
-                "w-full h-14 body-1 text-text-2 bg-text-2 rounded-lg text-white"
-              }
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                addInMyShelf();
-              }}
-            >
-              내 책장에 저장하기
-            </button>
+      {loginCookie && (
+        <>
+          {inMyShelf === "DEFAULT" && (
+            <div className={"flex flex-col gap-4"}>
+              <button
+                className={
+                  "w-full h-14 body-1 text-text-1 bg-primary rounded-lg"
+                }
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  //  서평 팝업이면 사용하고, 페이지 이동이면 Link 사용
+                  // RecoilUtils.toggleModal("bookStar", popup, setPopup);
+                  router.push(`/article/write/${bookInfo.isbn}`);
+                }}
+              >
+                서평 쓰기
+              </button>
+              {isSave ? (
+                <button
+                  className={
+                    "w-full h-14 body-1 text-text-2 bg-[#75E086] rounded-lg text-white flex flex-row items-center justify-center"
+                  }
+                  disabled={true}
+                >
+                  <span className={"flex flex-row items-center gap-2"}>
+                    <img
+                      src={"/image/icon/white_check.png"}
+                      className={"h-8 object-cover"}
+                    />
+                    책 저장 완료
+                  </span>
+                </button>
+              ) : (
+                <button
+                  className={
+                    "w-full h-14 body-1 text-text-2 bg-text-2 rounded-lg text-white"
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    addInMyShelf();
+                  }}
+                >
+                  내 책장에 저장하기
+                </button>
+              )}
+            </div>
           )}
-        </div>
-      )}
-      {inMyShelf === "SAVE" && (
-        <div className={"flex flex-col gap-4"}>
-          <button
-            className={"w-full h-14 body-1 text-text-1 bg-primary rounded-lg"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              //  서평 팝업이면 사용하고, 페이지 이동이면 Link 사용
-              // RecoilUtils.toggleModal("bookStar", popup, setPopup);
-            }}
-          >
-            서평 쓰기
-          </button>
+          {inMyShelf === "SAVE" && (
+            <div className={"flex flex-col gap-4"}>
+              <button
+                className={
+                  "w-full h-14 body-1 text-text-1 bg-primary rounded-lg"
+                }
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  //  서평 팝업이면 사용하고, 페이지 이동이면 Link 사용
+                  // RecoilUtils.toggleModal("bookStar", popup, setPopup);
+                }}
+              >
+                서평 쓰기
+              </button>
 
-          <button
-            className={
-              "w-full h-14 body-1 text-text-2 bg-text-2 rounded-lg text-white"
-            }
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              deleteInMyShelf();
-            }}
-          >
-            내 책장에서 삭제하기
-          </button>
-        </div>
-      )}
-      {inMyShelf === "WRITTEN" && (
-        <div className={"flex flex-col gap-4"}>
-          <button
-            className={
-              "w-full h-14 body-1 text-text-2 bg-text-2 rounded-lg text-white"
-            }
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              deleteInMyShelf();
-            }}
-          >
-            내 책장에서 삭제하기
-          </button>
-        </div>
+              <button
+                className={
+                  "w-full h-14 body-1 text-text-2 bg-text-2 rounded-lg text-white"
+                }
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  deleteInMyShelf();
+                }}
+              >
+                내 책장에서 삭제하기
+              </button>
+            </div>
+          )}
+          {inMyShelf === "WRITTEN" && (
+            <div className={"flex flex-col gap-4"}>
+              <button
+                className={
+                  "w-full h-14 body-1 text-text-2 bg-text-2 rounded-lg text-white"
+                }
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  deleteInMyShelf();
+                }}
+              >
+                내 책장에서 삭제하기
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
