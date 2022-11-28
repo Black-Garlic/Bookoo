@@ -30,10 +30,12 @@ const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
     <div className={"pr-20"}>
       <div className={"w-full h-9 flex flex-row text-text-1"}>
         <div className={"flex-1 title-3"}>
-          {isEmpty ? "내 댓글" : `총 ${commentList.length}개의 댓글`}
+          {commentList.length === 0
+            ? "내 댓글"
+            : `총 ${commentList.length}개의 댓글`}
         </div>
       </div>
-      {isEmpty ? (
+      {commentList.length === 0 ? (
         <EmptyList
           imageFileName={"empty_comment_list"}
           comment={"작성된 댓글이 없어요"}

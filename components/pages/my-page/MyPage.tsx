@@ -11,6 +11,7 @@ import WithdrawalFailModal from "../../common/auth/WithdrawalFailModal";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
+import { removeCookie } from "../../../utils/cookies";
 
 interface MyPageProps {}
 
@@ -19,13 +20,6 @@ const menuItemList = [
   { menuTitleKor: "내 댓글", menuTitleEng: "MyComment" },
   { menuTitleKor: "내 서평", menuTitleEng: "MyArticle" },
   { menuTitleKor: "내가 좋아하는 서평", menuTitleEng: "MyFavorite" },
-  { menuTitleKor: "내 책장 Empty", menuTitleEng: "MyBook-Empty" },
-  { menuTitleKor: "내 댓글 Empty", menuTitleEng: "MyComment-Empty" },
-  { menuTitleKor: "내 서평 Empty", menuTitleEng: "MyArticle-Empty" },
-  {
-    menuTitleKor: "내가 좋아하는 서평 Empty",
-    menuTitleEng: "MyFavorite-Empty",
-  },
 ];
 
 const MyPage = () => {
@@ -43,19 +37,11 @@ const MyPage = () => {
   if (selectedMenu === "MyBook") {
     view = <MyBookList isEmpty={false} />;
   } else if (selectedMenu === "MyComment") {
-    view = <MyCommentList isEmpty={false} />;
+    view = <MyCommentList />;
   } else if (selectedMenu === "MyArticle") {
-    view = <MyArticleList isEmpty={false} />;
+    view = <MyArticleList />;
   } else if (selectedMenu === "MyFavorite") {
     view = <MyFavoriteList isEmpty={false} />;
-  } else if (selectedMenu === "MyBook-Empty") {
-    view = <MyBookList isEmpty={true} />;
-  } else if (selectedMenu === "MyComment-Empty") {
-    view = <MyCommentList isEmpty={true} />;
-  } else if (selectedMenu === "MyArticle-Empty") {
-    view = <MyArticleList isEmpty={true} />;
-  } else if (selectedMenu === "MyFavorite-Empty") {
-    view = <MyFavoriteList isEmpty={true} />;
   }
 
   return (
@@ -149,7 +135,18 @@ const MyPage = () => {
             </div>
             <div className={"w-full h-auto mt-4"}>버전 정보 0.0.1</div>
             <div className={"w-full h-auto mt-4 flex flex-row"}>
-              <button className={"flex-1 text-start"}>로그아웃</button>
+              <button
+                className={"flex-1 text-start"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  removeCookie("login");
+                  window.location.href = "/main";
+                }}
+              >
+                로그아웃
+              </button>
               <button
                 className={"flex-1 text-start"}
                 onClick={(e) => {
