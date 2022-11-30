@@ -13,6 +13,7 @@ import { UserService } from "../../services/UserService";
 
 const Search: NextPage = () => {
   const [bookScoreOpen, setBookScoreOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [bookInfo, setBookInfo] = useState<BookUnitResponseData>({
     author: "",
     description: "",
@@ -35,8 +36,10 @@ const Search: NextPage = () => {
   // 예시 : 9791158511432
   // 예시 : 9788955866117 (안되는 예시)
   const getBookDetail = async () => {
-    const res = await BookService.getBookDetail(Number(id));
-    if (res) setBookInfo(res);
+    await BookService.getBookDetail(Number(id)).then((res) => {
+      setBookInfo(res);
+      setLoading(false);
+    });
   };
 
   return (

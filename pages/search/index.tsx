@@ -10,7 +10,8 @@ const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchList, setSearchList] = useState<BookUnitResponseData[]>([]);
   const [isFocus, setIsFocus] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [isDone, setIsDone] = useState(false);
   const router = useRouter();
   const { keyword } = router.query;
 
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setSearchList([]);
+    setIsDone(false);
   }, [searchText]);
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -31,11 +33,15 @@ const Home: NextPage = () => {
    * progess 필요
    */
   const getBookList = async (searchText: string) => {
+    setLoading(true);
     const getBookListRequest = new GetBookListRequest();
     getBookListRequest.keyword = searchText;
     getBookListRequest.display = 10;
-    const { data } = await BookService.getBookList(getBookListRequest);
-    setSearchList(data);
+    await BookService.getBookList(getBookListRequest).then((res) => {
+      setSearchList(res.data);
+      setLoading(false);
+      setIsDone(true);
+    });
   };
 
   useEffect(() => {
@@ -61,7 +67,7 @@ const Home: NextPage = () => {
             searchText === "" ? "border-l-2 ml-6" : "pl-12"
           )}
           onKeyPress={(e) => onKeyPress(e)}
-          placeholder={" 도서 검색"}
+          placeholder={"도서 검색"}
           value={searchText}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
@@ -74,18 +80,26 @@ const Home: NextPage = () => {
         />
       </div>
 
-      {searchText === "" ? (
-        <div className={"mt-52 mb-12"}></div>
-      ) : (
-        <div className={"mt-36 mb-12"}>
-          {searchList && searchList.length > 0 ? (
+      {loading ? (
+        <div
+          className={
+            "w-full h-96 flex flex-row justify-center title-2 items-center text-white"
+          }
+        >
+          로딩중...
+        </div>
+      ) : isDone ? (
+        searchList && searchList.length > 0 ? (
+          <div className={"mt-36 mb-12"}>
             <div className={"w-full"}>
               <BookImageCardList extension={true} searchList={searchList} />
             </div>
-          ) : (
+          </div>
+        ) : (
+          <div className={""}>
             <div
               className={
-                "w-full text-center h-96 flex flex-col justify-center items-center"
+                "w-full text-center h-96 flex flex-col justify-center items-center "
               }
             >
               {/*<div className={"text-white font-bold text-4xl"}>*/}
@@ -99,8 +113,10 @@ const Home: NextPage = () => {
                 <p className={"text-white title-3"}>찾으시는 책이 없어요.</p>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )
+      ) : (
+        <div className={"mt-36 mb-12"}></div>
       )}
       {/*<BookImageCardList />*/}
     </div>

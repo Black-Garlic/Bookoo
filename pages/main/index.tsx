@@ -6,6 +6,8 @@ import { BookUnitResponseData, GetBookListRequest } from "../../typings/Books";
 import { BookService } from "../../services/BookService";
 import ArticleImageCard from "../../components/common/article/ArticleImageCard";
 import cn from "classnames";
+import { ArticleService } from "../../services/ArticleService";
+import useDidMountEffect from "../../hooks/useDidMountEffect";
 
 const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");
@@ -15,6 +17,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     setSearchList([]);
   }, [searchText]);
+
+  useDidMountEffect(() => {
+    getBookList();
+  }, []);
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -27,11 +33,9 @@ const Home: NextPage = () => {
    * progess 필요
    */
   const getBookList = async () => {
-    const getBookListRequest = new GetBookListRequest();
-    getBookListRequest.keyword = searchText;
-    getBookListRequest.display = 10;
-    const { data } = await BookService.getBookList(getBookListRequest);
-    setSearchList(data);
+    await ArticleService.getPopularArticles().then((res) => {
+      setSearchList(res);
+    });
   };
 
   return (
@@ -80,8 +84,8 @@ const Home: NextPage = () => {
               "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-1 h-40 overflow-hidden"
             }
           >
-            {[0, 1, 3].map((element, index) => {
-              return <ArticleImageCard key={index} />;
+            {searchList.map((element, index) => {
+              return <ArticleImageCard key={index} info={element} />;
             })}
           </div>
           {/*<ArticleImageCardList extension={extension} />*/}

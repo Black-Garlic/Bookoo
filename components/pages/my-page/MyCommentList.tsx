@@ -1,29 +1,25 @@
 import EmptyList from "./EmptyList";
 import { ReplyService } from "../../../services/ReplyService";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommentCard from "../article/CommentCard";
 import MyCommentCard from "./MyCommentCard";
 
-interface MyCommentListProps {
-  isEmpty: boolean;
-}
+interface MyCommentListProps {}
 
-const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
+const MyCommentList = ({}: MyCommentListProps) => {
   const [commentList, setCommentList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     getMyCommentList();
-    getAllCommentList();
   }, []);
 
   const getMyCommentList = async () => {
-    const res = await ReplyService.getMyReplyList(0);
-    console.log("res", res);
-    setCommentList(res);
-  };
-
-  const getAllCommentList = async () => {
-    const res = await ReplyService.getReplyList(10);
-    console.log("res", res);
+    setLoading(false);
+    await ReplyService.getMyReplyList(0).then((res) => {
+      setCommentList(res);
+      setLoading(true);
+    });
   };
 
   return (
@@ -35,7 +31,15 @@ const MyCommentList = ({ isEmpty }: MyCommentListProps) => {
             : `총 ${commentList.length}개의 댓글`}
         </div>
       </div>
-      {commentList.length === 0 ? (
+      {!loading ? (
+        <div
+          className={
+            " w-full h-96 flex flex-row justify-center title-2 items-center text-white"
+          }
+        >
+          로딩중...
+        </div>
+      ) : commentList.length === 0 ? (
         <EmptyList
           imageFileName={"empty_comment_list"}
           comment={"작성된 댓글이 없어요"}

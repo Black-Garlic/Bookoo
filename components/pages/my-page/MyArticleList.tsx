@@ -1,17 +1,24 @@
 import EmptyList from "./EmptyList";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArticleService } from "../../../services/ArticleService";
 import ArticleCard from "./ArticleCard";
 
 const MyArticleList = () => {
   const [articleList, setArticleList] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   /**
    * 나의 서평 리스트
    */
   const getMyArticleList = async () => {
-    const res = await ArticleService.getArticleList(0);
-    setArticleList(res);
+    setLoading(false);
+    await ArticleService.getArticleList(0)
+      .then((res) => {
+        setLoading(true);
+        setArticleList(res);
+      })
+      .catch((error) => {
+        setLoading(true);
+      });
   };
 
   useEffect(() => {
@@ -35,7 +42,15 @@ const MyArticleList = () => {
             : `총 ${articleList.length}개의 서평`}
         </div>
       </div>
-      {articleList.length === 0 ? (
+      {!loading ? (
+        <div
+          className={
+            " w-full h-96 flex flex-row justify-center title-2 items-center text-white"
+          }
+        >
+          로딩중...
+        </div>
+      ) : articleList.length === 0 ? (
         <EmptyList
           imageFileName={"empty_book_list"}
           comment={"작성된 서평이 없어요"}

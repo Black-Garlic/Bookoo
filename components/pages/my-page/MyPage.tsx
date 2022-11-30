@@ -41,7 +41,7 @@ const MyPage = () => {
   } else if (selectedMenu === "MyArticle") {
     view = <MyArticleList />;
   } else if (selectedMenu === "MyFavorite") {
-    view = <MyFavoriteList isEmpty={false} />;
+    view = <MyFavoriteList />;
   }
 
   return (
@@ -180,7 +180,23 @@ const MyPage = () => {
             />
           </button>
           {/* Header */}
-          <div className={"w-full h-auto mt-24 pb-6"}>{view}</div>
+          <div className={"w-full h-auto mt-24 pb-6"}>
+            {
+              //   if (selectedMenu === "MyBook") {
+              //   view = <MyBookList isEmpty={false} />;
+              // } else if (selectedMenu === "MyComment") {
+              //   view = <MyCommentList />;
+              // } else if (selectedMenu === "MyArticle") {
+              //   view = <MyArticleList />;
+              // } else if (selectedMenu === "MyFavorite") {
+              //   view = <MyFavoriteList />;
+              // }
+              selectedMenu === "MyBook" && <MyBookList isEmpty={false} />
+            }
+            {selectedMenu === "MyComment" && <MyCommentList />}
+            {selectedMenu === "MyArticle" && <MyArticleList />}
+            {selectedMenu === "MyFavorite" && <MyFavoriteList />}
+          </div>
         </div>
       </div>
       {withdrawalOpen && (

@@ -2,9 +2,9 @@ import { GetBookListRequest, searchBookRequest } from "../typings/Books";
 import axios from "axios";
 import { instance } from "../hooks/useAxiosLoader";
 import API from "../utils/api";
-// const domain = `http://ec2-34-194-74-124.compute-1.amazonaws.com/api/v1/books/`;
-axios.defaults.baseURL =
-  "http://ec2-34-194-74-124.compute-1.amazonaws.com/api/v1";
+const domain = `http://ec2-34-194-74-124.compute-1.amazonaws.com/api/v1`;
+// axios.defaults.baseURL =
+//   "http://ec2-34-194-74-124.compute-1.amazonaws.com/api/v1";
 
 export const BookService = {
   /**
@@ -16,7 +16,7 @@ export const BookService = {
       param.display
     }&start=${param.start}`;
 
-    const url = `/books/` + query;
+    const url = `${domain}/books/` + query;
     const res = await axios.get(url);
     return res;
   },
@@ -29,7 +29,7 @@ export const BookService = {
       param.display
     }&start=${param.start}`;
 
-    const url = `/total/` + query;
+    const url = `${domain}/total/` + query;
     const res = await axios.post(url);
     return res;
   },
@@ -38,7 +38,7 @@ export const BookService = {
    * 도서 세부 정보 조회
    */
   getBookDetail: async (param: number) => {
-    const { data } = await axios.get(`/book/${param}`);
+    const { data } = await axios.get(`${domain}/book/${param}`);
     return data;
   },
 };

@@ -4,8 +4,12 @@ import {
   CreateReplyRequestData,
   UpdateReplyRequestData,
 } from "../typings/Reply";
-import { addShelfRequest, checkShelfRequest } from "../typings/User";
-const domain = "http://ec2-34-237-181-231.compute-1.amazonaws.com/api/vi";
+import {
+  addShelfRequest,
+  checkShelfRequest,
+  deleteShelfRequest,
+} from "../typings/User";
+const domain = "http://ec2-34-237-181-231.compute-1.amazonaws.com/api/v1";
 
 export const UserService = {
   /**
@@ -15,7 +19,7 @@ export const UserService = {
     const { data } = await axios.get(
       `${domain}/shelf/${param.userId}/${param.bookId}`
     );
-    return data;
+    return { data };
   },
 
   /**
@@ -25,6 +29,18 @@ export const UserService = {
     const { data } = await axios.post(
       `${domain}/shelf/${param.userId}/${param.bookId}`
     );
+    return data;
+  },
+
+  deleteShelf: async (param: deleteShelfRequest) => {
+    const { data } = await axios.delete(
+      `${domain}/shelf/${param.userId}/${param.bookId}`
+    );
+    return data;
+  },
+
+  getMyReplies: async () => {
+    const { data } = await axios.get(`${domain}/myPage/replies/0`);
     return data;
   },
 
@@ -40,8 +56,8 @@ export const UserService = {
   /**
    * 내 책장 모아보기
    */
-  getMyShelfBook: async (param: string) => {
-    const { data } = await axios.post(`${domain}/shelf/${param}`);
+  getMyShelfBook: async (userId: number) => {
+    const { data } = await axios.get(`${domain}/shelf/${userId}`);
     return data;
   },
 };

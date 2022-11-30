@@ -1,6 +1,6 @@
 import StarCount from "../star/StarCount";
 
-const ArticleImageCard = () => {
+const ArticleImageCard = ({ info }: any) => {
   return (
     // Article Info Card
     <div className={"w-[357px] h-40 flex flex-row flex-1"}>

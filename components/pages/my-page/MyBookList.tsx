@@ -1,6 +1,10 @@
 import BookImageCardList from "../../common/book/BookImageCardList";
 import EmptyList from "./EmptyList";
 import { BookUnitResponseData } from "../../../typings/Books";
+import React, { useEffect, useState } from "react";
+import { ArticleService } from "../../../services/ArticleService";
+import { UserService } from "../../../services/UserService";
+import ArticleCard from "./ArticleCard";
 
 interface MyBookListProps {
   isEmpty: boolean;
@@ -9,30 +13,52 @@ interface MyBookListProps {
 const testData: BookUnitResponseData[] = [{}];
 
 const MyBookList = ({ isEmpty }: MyBookListProps) => {
+  const [myBookList, setMyBookList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  /**
+   * 나의 서평 리스트
+   */
+  const getMyArticleList = async () => {
+    setLoading(false);
+    await UserService.getMyShelfBook(0)
+      .then((res) => {
+        setLoading(true);
+        setMyBookList(res.books);
+      })
+      .catch((error) => {
+        setLoading(true);
+      });
+  };
+
+  useEffect(() => {
+    getMyArticleList();
+  }, []);
+
   return (
     <div className={"pr-20"}>
       <div className={"w-full h-9 flex flex-row text-text-1"}>
         <div className={"flex-1 title-3"}>
-          {isEmpty ? "내 책장" : "총 99권 읽음"}
-        </div>
-        <div className={"flex flex-row justify-end"}>
-          <button className={"w-6 h-6"}>
-            <img src={"/svg/uil_search-alt.svg"} alt={"search"} />
-          </button>
-          <div className={"w-6 h-6"} />
-          <button className={"w-6 h-6"}>
-            <img src={"/svg/uil_filter.svg"} alt={"filter"} />
-          </button>
+          {myBookList.length === 0
+            ? "내 책"
+            : `총 ${myBookList.length}개의 서평`}
         </div>
       </div>
-      {isEmpty ? (
+      {!loading ? (
+        <div
+          className={
+            " w-full h-96 flex flex-row justify-center title-2 items-center text-white"
+          }
+        >
+          로딩중...
+        </div>
+      ) : myBookList.length === 0 ? (
         <EmptyList
           imageFileName={"empty_book_list"}
-          comment={"저장된 책이 없어요"}
+          comment={"작성된 서평이 없어요"}
         />
       ) : (
         <div className={"mt-12"}>
-          <BookImageCardList extension={true} searchList={testData} />
+          <BookImageCardList extension={true} searchList={myBookList} />
         </div>
       )}
     </div>

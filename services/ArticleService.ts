@@ -10,6 +10,7 @@ const domain = "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
 // axios.defaults.baseURL =
 //   "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
 // http://ec2-54-204-214-164.compute-1.amazonaws.com/swagger-ui/index.html
+
 export const ArticleService = {
   /**
    * 서평 좋아요 클릭 api
@@ -27,6 +28,14 @@ export const ArticleService = {
   getLikesCount: async (param: number) => {
     const url = `${domain}/articles/likes/${param}`;
     const { data } = await axios.get(url);
+    return data;
+  },
+
+  /**
+   * 좋아요 한 리스트
+   */
+  getLikeArticles: async (userId: number) => {
+    const { data } = await axios.get(`${domain}/articles/likes/list/${userId}`);
     return data;
   },
 
@@ -68,6 +77,11 @@ export const ArticleService = {
   getArticleList: async (param: number) => {
     const url = `${domain}/articles/${param}?sortBy=createdAt,asc`;
     const { data } = await axios.get(url);
+    return data;
+  },
+
+  getPopularArticles: async () => {
+    const { data } = await axios.get(`${domain}/articles`);
     return data;
   },
 

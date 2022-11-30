@@ -21,25 +21,32 @@ const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {
   const checkMyShelf = async () => {
     // checkShelf 결과에 따라 DEFAULT, SAVE, WRITTEN으로 분류하기
     if (bookInfo?.isbn) {
-      const res = await UserService.checkShelf({
+      const { data } = await UserService.checkShelf({
         userId: "0",
         bookId: Number(bookInfo.isbn),
       });
-      console.log("res", res);
-      // setInMyShelf(res.id);
+      console.log("res", data);
+      // 경엽님께서 API 수정 (책장 저장 여부, 서평 작성 여부까지 같이 주시면 가능)
+      setInMyShelf(data);
     }
   };
 
   const addInMyShelf = async () => {
-    // const res = await UserService.addShelf({
-    //   userId: "0",
-    //   bookId: Number(bookInfo.isbn),
-    // });
-    setIsSave(true);
+    await UserService.addShelf({
+      userId: "0",
+      bookId: Number(bookInfo.isbn),
+    }).then((res) => {
+      setIsSave(true);
+    });
   };
 
   const deleteInMyShelf = async () => {
-    setIsSave(false);
+    await UserService.deleteShelf({
+      userId: "0",
+      bookId: Number(bookInfo.isbn),
+    }).then((res) => {
+      setIsSave(false);
+    });
   };
 
   return (
@@ -134,7 +141,7 @@ const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {
               e.preventDefault();
               e.stopPropagation();
               //  서평 팝업이면 사용하고, 페이지 이동이면 Link 사용
-              // RecoilUtils.toggleModal("bookStar", popup, setPopup);
+              router.push(`/article/write/${bookInfo.isbn}`);
             }}
           >
             서평 쓰기
