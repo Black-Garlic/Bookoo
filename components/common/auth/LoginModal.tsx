@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { setCookie } from "../../../utils/cookies";
+import { NAVER_LOGIN_URL } from "../../../constant/login";
 
 interface LoginPopupProps {}
 
@@ -38,8 +39,9 @@ const LoginModal = () => {
         <button
           className={"flex-1 bg-primary rounded-lg py-2"}
           onClick={() => {
-            // window.location.href =
-            //   "http://ec2-34-237-181-231.compute-1.amazonaws.com:8080/oauth2/authorization/naver?redirect_uri=http://localhost:3000";
+            window.location.href = NAVER_LOGIN_URL;
+
+            // href="http://ec2-34-237-181-231.compute-1.amazonaws.com/oauth2/authorization/naver?redirect_uri=http://ec2-184-72-99-150.compute-1.amazonaws.com"
 
             setCookie("login", "true", { path: "/", secure: true });
             RecoilUtils.toggleModal("login", popup, setPopup);

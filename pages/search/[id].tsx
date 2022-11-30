@@ -10,8 +10,10 @@ import { BookUnitResponseData } from "../../typings/Books";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { popupState } from "../../states/states";
 import { UserService } from "../../services/UserService";
+import { getCookie } from "../../utils/cookies";
 
 const Search: NextPage = () => {
+  const [loginCookie, setLoginCookie] = useState();
   const [bookScoreOpen, setBookScoreOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [bookInfo, setBookInfo] = useState<BookUnitResponseData>({
@@ -30,6 +32,10 @@ const Search: NextPage = () => {
   const popup = useRecoilValue(popupState);
 
   useEffect(() => {
+    setLoginCookie(getCookie("login"));
+  }, [getCookie, setLoginCookie]);
+
+  useEffect(() => {
     if (id) getBookDetail();
   }, [id]);
 
@@ -45,7 +51,7 @@ const Search: NextPage = () => {
   return (
     <div className={"w-screen h-full flex flex-row px-40 pt-20"}>
       <div className={cn("w-72 h-auto", bookScoreOpen && "blur")}>
-        <BookDetailInfo bookInfo={bookInfo} />
+        <BookDetailInfo bookInfo={bookInfo} loginCookie={loginCookie} />
       </div>
       <div
         className={cn("w-full h-auto flex-1 ml-32", bookScoreOpen && "blur")}
