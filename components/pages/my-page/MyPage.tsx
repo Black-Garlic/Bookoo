@@ -141,7 +141,8 @@ const MyPage = () => {
                   e.preventDefault();
                   e.stopPropagation();
 
-                  removeCookie("login");
+                  removeCookie("accessToken");
+                  removeCookie("refreshToken");
                   window.location.href = "/main";
                 }}
               >

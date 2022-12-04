@@ -9,20 +9,18 @@ import { useEffect, useState } from "react";
 interface HeaderProps {}
 
 const Header = ({}: HeaderProps) => {
-  const loginCookie = getCookie("login");
+  const loginCookie = getCookie("accessToken");
   const [popup, setPopup] = useRecoilState(popupState);
   const [login, setLogin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    if (loginCookie && loginCookie === "true") {
+    if (loginCookie) {
       setLogin(true);
     } else {
       setLogin(false);
     }
   }, [loginCookie, setLogin]);
-
-  console.log(loginCookie);
 
   return (
     // GNB
