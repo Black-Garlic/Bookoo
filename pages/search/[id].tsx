@@ -33,7 +33,7 @@ const Search: NextPage = () => {
   const popup = useRecoilValue(popupState);
 
   useEffect(() => {
-    setLoginCookie(getCookie("login"));
+    setLoginCookie(getCookie("accessToken"));
   }, [getCookie, setLoginCookie]);
 
   useDidMountEffect(() => {

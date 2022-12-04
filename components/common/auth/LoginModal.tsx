@@ -36,19 +36,22 @@ const LoginModal = () => {
         회원 정보가 없는 경우 자동으로 회원가입으로 넘어갑니다.
       </div>
       <div className={"w-full h-auto body-1 text-text-1 flex flex-row"}>
-        <button
+        <a
           className={"flex-1 bg-primary rounded-lg py-2"}
-          onClick={() => {
-            window.location.href = NAVER_LOGIN_URL;
-
-            // href="http://ec2-34-237-181-231.compute-1.amazonaws.com/oauth2/authorization/naver?redirect_uri=http://ec2-184-72-99-150.compute-1.amazonaws.com"
-
-            setCookie("login", "true", { path: "/", secure: true });
-            RecoilUtils.toggleModal("login", popup, setPopup);
-          }}
+          href={NAVER_LOGIN_URL}
+          rel={"noreferrer"}
+          role={"button"}
+          // onClick={() => {
+          //   // window.location.href = NAVER_LOGIN_URL;
+          //
+          //   // href="http://ec2-34-237-181-231.compute-1.amazonaws.com/oauth2/authorization/naver?redirect_uri=http://ec2-184-72-99-150.compute-1.amazonaws.com"
+          //
+          //   setCookie("login", "true", { path: "/", secure: true });
+          //   RecoilUtils.toggleModal("login", popup, setPopup);
+          // }}
         >
           네이버 로그인 하러가기
-        </button>
+        </a>
       </div>
     </ModalLayout>
   );

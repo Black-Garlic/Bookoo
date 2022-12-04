@@ -28,12 +28,12 @@ const ArticleWrite: NextPage = () => {
 
   const [popup, setPopup] = useRecoilState(popupState);
 
-  // if (!getCookie("login")) {
+  // if (!getCookie("accessToken")) {
   //   router.push("/main");
   // }
 
   useEffect(() => {
-    if (!getCookie("login")) {
+    if (!getCookie("accessToken")) {
       router.push(NAVER_LOGIN_URL);
     }
   }, [router]);

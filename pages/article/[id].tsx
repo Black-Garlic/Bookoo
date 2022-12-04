@@ -45,7 +45,7 @@ const Article: NextPage = () => {
   const [refresh, setRefresh] = useState(new Date());
 
   useEffect(() => {
-    setLoginCookie(getCookie("login"));
+    setLoginCookie(getCookie("accessToken"));
   }, [getCookie, setLoginCookie]);
 
   useEffect(() => {
