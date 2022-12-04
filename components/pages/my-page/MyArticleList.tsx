@@ -2,9 +2,11 @@ import EmptyList from "./EmptyList";
 import React, { useEffect, useState } from "react";
 import { ArticleService } from "../../../services/ArticleService";
 import ArticleCard from "./ArticleCard";
+import { Article } from "../../../typings/Article";
+import useDidMountEffect from "../../../hooks/useDidMountEffect";
 
 const MyArticleList = () => {
-  const [articleList, setArticleList] = useState([]);
+  const [articleList, setArticleList] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
   /**
    * 나의 서평 리스트
@@ -21,21 +23,13 @@ const MyArticleList = () => {
       });
   };
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     getMyArticleList();
-    getArticelDetail();
   }, []);
 
-  const getArticelDetail = async () => {
-    const res = await ArticleService.getArticleDetail({
-      articleId: 8,
-      userId: 0,
-      bookId: 9788960213180,
-    });
-  };
   return (
     <div className={"pr-20"}>
-      <div className={"w-full h-9 flex flex-row text-text-1"}>
+      <div className={"w-full h-auto flex flex-row text-text-1"}>
         <div className={"flex-1 title-3"}>
           {articleList.length === 0
             ? "내 서평"

@@ -11,11 +11,12 @@ import useDidMountEffect from "../../hooks/useDidMountEffect";
 
 const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");
-  const [searchList, setSearchList] = useState<BookUnitResponseData[]>([]);
+  const [popularList, setPopularList] = useState<BookUnitResponseData[]>([]);
   const [isFocus, setIsFocus] = useState(false);
+  const [mainArticles, setMainArticles] = useState([]);
 
   useEffect(() => {
-    setSearchList([]);
+    setPopularList([]);
   }, [searchText]);
 
   useDidMountEffect(() => {
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
    */
   const getBookList = async () => {
     await ArticleService.getPopularArticles().then((res) => {
-      setSearchList(res);
+      setPopularList(res);
     });
   };
 
@@ -84,7 +85,7 @@ const Home: NextPage = () => {
               "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-1 h-40 overflow-hidden"
             }
           >
-            {searchList.map((element, index) => {
+            {popularList.map((element, index) => {
               return <ArticleImageCard key={index} info={element} />;
             })}
           </div>
@@ -95,10 +96,11 @@ const Home: NextPage = () => {
             className={"w-full h-5 mt-14 mb-12 flex flex-row justify-center"}
           >
             <button
-              className={"flex flex-row"}
+              className={"flex flex-row items-center"}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                alert("API 개발 필요");
               }}
             >
               <div className={"body-1 text-text-2 text-center"}>더보기</div>

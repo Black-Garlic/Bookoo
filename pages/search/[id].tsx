@@ -11,6 +11,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { popupState } from "../../states/states";
 import { UserService } from "../../services/UserService";
 import { getCookie } from "../../utils/cookies";
+import useDidMountEffect from "../../hooks/useDidMountEffect";
 
 const Search: NextPage = () => {
   const [loginCookie, setLoginCookie] = useState();
@@ -35,7 +36,7 @@ const Search: NextPage = () => {
     setLoginCookie(getCookie("login"));
   }, [getCookie, setLoginCookie]);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     if (id) getBookDetail();
   }, [id]);
 

@@ -104,6 +104,12 @@ a {
   font-size: 20px;
   line-height: 40px;
 }
+.body-4 {
+  font-family: 'NanumSquareOTFExtraBold';
+  font-size: 18px;
+  line-height: 25px;
+}
+
 
 .caption-1 {
   font-family: 'NanumSquareOTFBold';

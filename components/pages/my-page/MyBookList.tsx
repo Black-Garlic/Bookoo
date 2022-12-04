@@ -5,6 +5,9 @@ import React, { useEffect, useState } from "react";
 import { ArticleService } from "../../../services/ArticleService";
 import { UserService } from "../../../services/UserService";
 import ArticleCard from "./ArticleCard";
+import useDidMountEffect from "../../../hooks/useDidMountEffect";
+import BookImageCard from "../../common/book/BookImageCard";
+import MyBookUnit from "./MyBookUnit";
 
 interface MyBookListProps {
   isEmpty: boolean;
@@ -30,13 +33,13 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
       });
   };
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     getMyArticleList();
   }, []);
 
   return (
     <div className={"pr-20"}>
-      <div className={"w-full h-9 flex flex-row text-text-1"}>
+      <div className={"w-full h-auto flex flex-row text-text-1"}>
         <div className={"flex-1 title-3"}>
           {myBookList.length === 0
             ? "내 책"
@@ -58,7 +61,13 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
         />
       ) : (
         <div className={"mt-12"}>
-          <BookImageCardList extension={true} searchList={myBookList} />
+          <div className={"w-full flex flex-row flex-wrap gap-y-8 gap-x-24 "}>
+            {myBookList &&
+              myBookList.length > 0 &&
+              myBookList.map((element, index) => {
+                return <MyBookUnit key={index} bookInfo={element} />;
+              })}
+          </div>
         </div>
       )}
     </div>

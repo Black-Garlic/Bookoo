@@ -1,11 +1,29 @@
+import { RecoilUtils } from "../../../utils/RecoilUtils";
+import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { popupState } from "../../../states/states";
+
 interface MyCommentCardProps {
   newComment: boolean;
   info: any;
 }
 
 const MyCommentCard = ({ newComment, info }: MyCommentCardProps) => {
+  const router = useRouter();
+  const [popup, setPopup] = useRecoilState(popupState);
+
+  const clickBookData = () => {
+    router.push(`/article/${info?.article?.articleId}`);
+    RecoilUtils.toggleModal("mypage", popup, setPopup);
+  };
+
   return (
-    <div className={"w-[357px] h-[200px] flex flex-col cursor-pointer gap-2"}>
+    <div
+      className={
+        "w-[280px] xl:w-[357px] h-[200px] flex flex-col cursor-pointer gap-2"
+      }
+      onClick={() => clickBookData()}
+    >
       <div className={"w-full h-5 flex flex-row"}>
         <div className={"flex-1 caption-3 text-text-2"}>
           {info?.createdAt[0]}/{info?.createdAt[1]}/{info?.createdAt[2]}
@@ -34,17 +52,33 @@ const MyCommentCard = ({ newComment, info }: MyCommentCardProps) => {
       </div>
       <div
         className={
-          "w-full h-16 flex flex-row px-2 py-1 mt-[14px] bg-[#363636] rounded-xl"
+          "w-[280px] xl:w-[357px] h-16 flex flex-row px-2 py-1 mt-[14px] bg-[#363636] rounded-xl"
         }
       >
-        <div className={"w-[30px] h-[46px] self-center"}>
-          <img src={"/image/book_sample.png"} alt={"book"} />
+        <div
+          className={
+            "w-[30px] h-[46px] self-center justify-center items-center"
+          }
+        >
+          <img
+            src={
+              info.article.book.image
+                ? info.article.book.image
+                : "/image/book_sample.png"
+            }
+            alt={"book"}
+            className={"h-full w-full object-cover"}
+          />
         </div>
         <div
-          className={"flex flex-col justify-around caption-1 text-text-1 ml-4"}
+          className={
+            "w-[220px] xl:w-[290px] flex flex-col justify-around text-text-1 ml-4"
+          }
         >
-          <div className={"leading-4"}>책 제목</div>
-          <div className={"leading-4"}>닉네임님의 글</div>
+          <p className={"w-[220px] xl:w-[290px] truncate caption-1"}>
+            {info.article.title ? info.article.title : "서평 제목"}
+          </p>
+          <div className={"leading-4 caption-3"}>닉네임님의 글</div>
         </div>
       </div>
     </div>

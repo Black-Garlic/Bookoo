@@ -3,6 +3,7 @@ import EmptyList from "./EmptyList";
 import React, { useEffect, useState } from "react";
 import { ArticleService } from "../../../services/ArticleService";
 import ArticleCard from "./ArticleCard";
+import useDidMountEffect from "../../../hooks/useDidMountEffect";
 
 interface MyFavoriteListProps {}
 
@@ -10,7 +11,7 @@ const MyFavoriteList = ({}: MyFavoriteListProps) => {
   const [favoriteList, setFavoriteList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     getFavoriteList();
   }, []);
 
@@ -24,7 +25,7 @@ const MyFavoriteList = ({}: MyFavoriteListProps) => {
 
   return (
     <div className={"pr-20"}>
-      <div className={"w-full h-9 flex flex-row text-text-1"}>
+      <div className={"w-full h-auto flex flex-row text-text-1"}>
         <div className={"flex-1 title-3"}>
           {favoriteList.length === 0
             ? "내가 좋아하는 서평"
@@ -55,14 +56,16 @@ const MyFavoriteList = ({}: MyFavoriteListProps) => {
             {favoriteList &&
               favoriteList.length > 0 &&
               favoriteList.map((element, index) => {
-                if (element !== null)
+                if (element !== null) {
                   return (
                     <ArticleCard
                       key={index}
                       like={false}
+                      // @ts-ignore
                       info={element.article}
                     />
                   );
+                }
               })}
           </div>
         </div>

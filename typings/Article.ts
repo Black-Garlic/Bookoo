@@ -37,3 +37,17 @@ export class getArticleDetailRequestData {
   userId: number = 0;
   bookId?: number;
 }
+
+export class Article {
+  articleId?: number;
+  book?: {};
+  content?: string;
+  createdAt?: [];
+  likeCount?: number;
+  liked?: boolean;
+  reply?: any;
+  replyCount?: number;
+  title?: string;
+  updatedAt?: [];
+  userId?: string;
+}

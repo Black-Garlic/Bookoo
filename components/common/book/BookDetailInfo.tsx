@@ -4,17 +4,20 @@ import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { UserService } from "../../../services/UserService";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import useDidMountEffect from "../../../hooks/useDidMountEffect";
 
 interface BookDetailInfoProps {
   bookInfo: any;
+  loginCookie: any;
 }
 
-const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {
+const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
   const router = useRouter();
   const [popup, setPopup] = useRecoilState(popupState);
   const [inMyShelf, setInMyShelf] = useState("DEFAULT"); // DEFAULT(기본), SAVE(내 책장에 저장한 상태), WRITTEN(저장하고 서평까지 쓴 상태)
   const [isSave, setIsSave] = useState(false); // DEFAULT 상태에서 저장했을 떄 (SAVE는 아닌 상태 - UI 변경을 위함)
-  useEffect(() => {
+
+  useDidMountEffect(() => {
     checkMyShelf();
   }, [bookInfo]);
 
@@ -28,6 +31,8 @@ const BookDetailInfo = ({ bookInfo }: BookDetailInfoProps) => {
       console.log("res", data);
       // 경엽님께서 API 수정 (책장 저장 여부, 서평 작성 여부까지 같이 주시면 가능)
       setInMyShelf(data);
+    } else {
+      alert("책 정보가 없습니다. (API 수정 필요)");
     }
   };
 

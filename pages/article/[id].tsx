@@ -17,8 +17,12 @@ import {
 import { ReplyService } from "../../services/ReplyService";
 import CommentCard from "../../components/pages/article/CommentCard";
 import { getCookie } from "../../utils/cookies";
+import { RecoilUtils } from "../../utils/RecoilUtils";
+import { useRecoilState } from "recoil";
+import { popupState } from "../../states/states";
 
 const Article: NextPage = () => {
+  const [popup, setPopup] = useRecoilState(popupState);
   const [loginCookie, setLoginCookie] = useState();
   const [articleDetail, setArticleDetail] = useState({
     articleId: 0,
@@ -74,6 +78,7 @@ const Article: NextPage = () => {
       if (id) {
         const res = await ArticleService.deleteArticle(Number(articleId));
         router.push("/search");
+        RecoilUtils.toggleModal("mypage", popup, setPopup);
       }
     } catch {}
   };

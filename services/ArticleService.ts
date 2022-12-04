@@ -80,6 +80,15 @@ export const ArticleService = {
     return data;
   },
 
+  /**
+   * 실시간 서평 리스트 가져오기
+   */
+  getMainArticle: async () => {
+    const url = `${domain}/articles`;
+    const { data } = await axios.get(url);
+    return data;
+  },
+
   getPopularArticles: async () => {
     const { data } = await axios.get(`${domain}/articles`);
     return data;

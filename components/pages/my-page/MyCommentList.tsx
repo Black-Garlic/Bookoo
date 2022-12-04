@@ -3,6 +3,7 @@ import { ReplyService } from "../../../services/ReplyService";
 import React, { useEffect, useState } from "react";
 import CommentCard from "../article/CommentCard";
 import MyCommentCard from "./MyCommentCard";
+import useDidMountEffect from "../../../hooks/useDidMountEffect";
 
 interface MyCommentListProps {}
 
@@ -10,7 +11,7 @@ const MyCommentList = ({}: MyCommentListProps) => {
   const [commentList, setCommentList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     getMyCommentList();
   }, []);
 
@@ -48,7 +49,7 @@ const MyCommentList = ({}: MyCommentListProps) => {
         <div className={"mt-12"}>
           <div
             className={
-              "w-full flex flex-row justify-start flex-wrap gap-x-8 2xl:gap-x-20 gap-y-20"
+              "w-full flex flex-row justify-start flex-wrap gap-x-8 2xl:gap-x-20 gap-y-10"
             }
           >
             {commentList &&
