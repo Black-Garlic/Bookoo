@@ -62,7 +62,6 @@ const ArticleWrite: NextPage = () => {
       router.push("/main");
     }
   };
-  ㅊ;
 
   return (
     <div className={"w-screen h-fullㅊflex flex-col  relative"}>
