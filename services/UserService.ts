@@ -9,6 +9,8 @@ import {
   checkShelfRequest,
   deleteShelfRequest,
 } from "../typings/User";
+import { getCookie } from "../utils/cookies";
+import { axiosHeader } from "../constant/axiosHeader";
 const domain = "http://ec2-34-237-181-231.compute-1.amazonaws.com/api/v1";
 
 export const UserService = {
@@ -17,7 +19,8 @@ export const UserService = {
    */
   checkShelf: async (param: checkShelfRequest) => {
     const { data } = await axios.get(
-      `${domain}/shelf/${param.userId}/${param.bookId}`
+      `${domain}/shelf/${param.userId}/${param.bookId}`,
+      axiosHeader
     );
     return { data };
   },
@@ -27,20 +30,22 @@ export const UserService = {
    */
   addShelf: async (param: addShelfRequest) => {
     const { data } = await axios.post(
-      `${domain}/shelf/${param.userId}/${param.bookId}`
+      `${domain}/shelf/${param.userId}/${param.bookId}`,
+      axiosHeader
     );
     return data;
   },
 
   deleteShelf: async (param: deleteShelfRequest) => {
     const { data } = await axios.delete(
-      `${domain}/shelf/${param.userId}/${param.bookId}`
+      `${domain}/shelf/${param.userId}/${param.bookId}`,
+      axiosHeader
     );
     return data;
   },
 
   getMyReplies: async () => {
-    const { data } = await axios.get(`${domain}/myPage/replies/0`);
+    const { data } = await axios.get(`${domain}/myPage/replies/0`, axiosHeader);
     return data;
   },
 
@@ -57,7 +62,7 @@ export const UserService = {
    * 내 책장 모아보기
    */
   getMyShelfBook: async (userId: number) => {
-    const { data } = await axios.get(`${domain}/shelf/${userId}`);
+    const { data } = await axios.get(`${domain}/shelf/${userId}`, axiosHeader);
     return data;
   },
 };

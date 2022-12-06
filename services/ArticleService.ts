@@ -6,6 +6,7 @@ import {
 } from "../typings/Article";
 import API from "../utils/api";
 import axios from "axios";
+import { axiosHeader } from "../constant/axiosHeader";
 const domain = "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
 // axios.defaults.baseURL =
 //   "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
@@ -17,7 +18,8 @@ export const ArticleService = {
    */
   likeArticle: async (param: likeRequest) => {
     const { data } = await axios.post(
-      `${domain}/articles/likes?articleId=${param.articleId}&userId=${param.userId}`
+      `${domain}/articles/likes?articleId=${param.articleId}&userId=${param.userId}`,
+      axiosHeader
     );
     return data;
   },
@@ -27,7 +29,7 @@ export const ArticleService = {
    */
   getLikesCount: async (param: number) => {
     const url = `${domain}/articles/likes/${param}`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, axiosHeader);
     return data;
   },
 
@@ -35,7 +37,10 @@ export const ArticleService = {
    * 좋아요 한 리스트
    */
   getLikeArticles: async (userId: number) => {
-    const { data } = await axios.get(`${domain}/articles/likes/list/${userId}`);
+    const { data } = await axios.get(
+      `${domain}/articles/likes/list/${userId}`,
+      axiosHeader
+    );
     return data;
   },
 
@@ -44,7 +49,8 @@ export const ArticleService = {
    */
   createArticle: async (param: createArticleRequestData) => {
     const { data } = await axios.post(
-      `${domain}/articles?userId=${param.userId}&bookId=${param.bookId}&title=${param.title}&content=${param.content}`
+      `${domain}/articles?userId=${param.userId}&bookId=${param.bookId}&title=${param.title}&content=${param.content}`,
+      axiosHeader
     );
     return data;
   },
@@ -53,7 +59,10 @@ export const ArticleService = {
    * 서평 삭제하기 api
    */
   deleteArticle: async (param: number) => {
-    const { data } = await axios.delete(`${domain}/articles/${param}`);
+    const { data } = await axios.delete(
+      `${domain}/articles/${param}`,
+      axiosHeader
+    );
     return data;
   },
 
@@ -66,7 +75,8 @@ export const ArticleService = {
       {
         title: param.title,
         content: param.content,
-      }
+      },
+      axiosHeader
     );
     return data;
   },
@@ -76,7 +86,7 @@ export const ArticleService = {
    */
   getArticleList: async (param: number) => {
     const url = `${domain}/articles/${param}?sortBy=createdAt,asc`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, axiosHeader);
     return data;
   },
 
@@ -85,18 +95,20 @@ export const ArticleService = {
    */
   getMainArticle: async () => {
     const url = `${domain}/articles`;
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, axiosHeader);
     return data;
   },
 
   getPopularArticles: async () => {
-    const { data } = await axios.get(`${domain}/articles`);
+    const { data } = await axios.get(`${domain}/articles`, axiosHeader);
     return data;
   },
 
   /**
    * 서평 상세보기 api
    */
+  // TODO param이 config에 들어감
+  // axiosHeader 추가 필요
   getArticleDetail: async (param: getArticleDetailRequestData) => {
     const url = `${domain}/articles/article/${param.articleId}`;
     const { data } = await axios.get(url, {

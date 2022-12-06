@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { getCookie } from "../utils/cookies";
 
 export const instance = axios.create({
   headers: {
     "Content-Type": "application/json",
+    accessToken: `${getCookie("accessToken")}`,
+    refreshToken: `${getCookie("refreshToken")}`,
   },
 });
 
