@@ -28,7 +28,6 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
         userId: "0",
         bookId: Number(bookInfo.isbn),
       });
-      console.log("res", data);
       // 경엽님께서 API 수정 (책장 저장 여부, 서평 작성 여부까지 같이 주시면 가능)
       setInMyShelf(data);
     } else {

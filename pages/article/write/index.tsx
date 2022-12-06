@@ -43,8 +43,6 @@ const ArticleWrite: NextPage = () => {
     RecoilUtils.toggleModal("bookSearch", popup, setPopup);
   };
 
-  console.log("selectedBookData", selectedBookData);
-
   const writeArticle = async () => {
     if (!selectedBookData?.isbn) {
       alert("책을 골라주세요.");
@@ -58,6 +56,7 @@ const ArticleWrite: NextPage = () => {
       createArticleRequest.bookId = selectedBookData.isbn;
       createArticleRequest.title = title;
       createArticleRequest.content = content;
+      createArticleRequest.rating = starCount;
 
       const res = await ArticleService.createArticle(createArticleRequest);
       router.push("/main");
@@ -65,7 +64,7 @@ const ArticleWrite: NextPage = () => {
   };
 
   return (
-    <div className={"w-screen h-full flex flex-col  relative"}>
+    <div className={"w-screen h-fullㅊflex flex-col  relative"}>
       <div
         className={
           "w-full h-28 flex flex-row-reverse pr-20 items-center fixed top-0 overflow-hidden z-40 bg-[#292929]"

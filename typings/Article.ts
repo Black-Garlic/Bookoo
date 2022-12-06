@@ -11,6 +11,7 @@ export class createArticleRequestData {
   bookId?: number;
   title?: string;
   content?: string;
+  rating?: number;
 }
 
 export class updateArticleRequestData {

@@ -24,7 +24,6 @@ const Home: NextPage = () => {
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      console.log("enter~", searchText);
       getBookList(searchText);
     }
   };
