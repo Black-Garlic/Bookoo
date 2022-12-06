@@ -4,10 +4,12 @@ import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { setCookie } from "../../../utils/cookies";
 import { NAVER_LOGIN_URL } from "../../../constant/login";
+import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 
 interface LoginPopupProps {}
 
 const LoginModal = () => {
+  useDisableBodyScroll();
   const [popup, setPopup] = useRecoilState(popupState);
 
   return (
@@ -35,7 +37,9 @@ const LoginModal = () => {
         <br />
         회원 정보가 없는 경우 자동으로 회원가입으로 넘어갑니다.
       </div>
-      <div className={"w-full h-auto body-1 text-text-1 flex flex-row"}>
+      <div
+        className={"w-full h-auto body-1 text-text-1 flex flex-row text-center"}
+      >
         <a
           className={"flex-1 bg-primary rounded-lg py-2"}
           href={NAVER_LOGIN_URL}
