@@ -41,9 +41,9 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
     <div className={"pr-20"}>
       <div className={"w-full h-auto flex flex-row text-text-1"}>
         <div className={"flex-1 title-3"}>
-          {myBookList.length === 0
+          {myBookList?.length === 0
             ? "내 책"
-            : `총 ${myBookList.length}개의 서평`}
+            : `총 ${myBookList?.length}개의 서평`}
         </div>
       </div>
       {!loading ? (
@@ -54,10 +54,10 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
         >
           로딩중...
         </div>
-      ) : myBookList.length === 0 ? (
+      ) : myBookList?.length === 0 ? (
         <EmptyList
           imageFileName={"empty_book_list"}
-          comment={"작성된 서평이 없어요"}
+          comment={"등록된 책이 없어요"}
         />
       ) : (
         <div className={"mt-12"}>

@@ -22,17 +22,18 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
   }, [bookInfo]);
 
   const checkMyShelf = async () => {
+    console.log("bookInfo", bookInfo);
     // checkShelf 결과에 따라 DEFAULT, SAVE, WRITTEN으로 분류하기
-    if (bookInfo?.isbn) {
-      const { data } = await UserService.checkShelf({
-        userId: "0",
-        bookId: Number(bookInfo.isbn),
-      });
-      // 경엽님께서 API 수정 (책장 저장 여부, 서평 작성 여부까지 같이 주시면 가능)
-      setInMyShelf(data);
-    } else {
-      alert("책 정보가 없습니다. (API 수정 필요)");
-    }
+    // if (bookInfo?.isbn) {
+    const { data } = await UserService.checkShelf({
+      userId: "0",
+      bookId: Number(bookInfo.isbn),
+    });
+    // 경엽님께서 API 수정 (책장 저장 여부, 서평 작성 여부까지 같이 주시면 가능)
+    setInMyShelf(data);
+    // } else {
+    //   alert("책 정보가 없습니다. (API 수정 필요)");
+    // }
   };
 
   const addInMyShelf = async () => {

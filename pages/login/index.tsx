@@ -16,7 +16,7 @@ const Login: NextPage = () => {
         path: "/",
         secure: true,
       });
-      router.replace("/main").then();
+      router.push("/main").then();
     }
   }, [router, setCookie]);
 

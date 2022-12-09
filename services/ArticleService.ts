@@ -49,7 +49,7 @@ export const ArticleService = {
    */
   createArticle: async (param: createArticleRequestData) => {
     const { data } = await axios.post(
-      `${domain}/articles?userId=${param.userId}&bookId=${param.bookId}&title=${param.title}&content=${param.content}`,
+      `${domain}/articles?userId=${param.userId}&bookId=${param.bookId}&title=${param.title}&content=${param.content}&rating=${param.rating}`,
       axiosHeader
     );
     return data;

@@ -163,3 +163,22 @@ a {
   overflow: hidden;
   line-height:30px;
 }
+
+
+.noti-animation {
+  animation-duration: 0.5s;
+  animation-name: noti-animation;
+  animation-iteration-count: initial;
+  animation-direction: initial;
+  animation-timing-function:ease-in-out;
+}
+
+@keyframes noti-animation {
+  from {
+    top: -100%;
+  }
+
+  to {
+    top : 0;
+  }
+}

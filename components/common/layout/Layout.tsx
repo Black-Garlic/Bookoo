@@ -20,7 +20,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <div className={"bg-[#292929] bg-cover overflow-hidden"}>
+    <div className={"bg-[#292929] bg-cover overflow-hidden relative"}>
       {includeHeader() && <Header />}
       <div className={cn("book-koo", popup.login && "blur")}>
         <div

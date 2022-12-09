@@ -37,7 +37,7 @@ const Article: NextPage = () => {
     reply: [],
   });
   const [replyList, setReplyList] = useState<ReplyUnitResponseData[]>([]);
-  const [bookInfo, setBookInfo] = useState();
+  const [bookInfo, setBookInfo] = useState({});
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
   const { id } = router.query;

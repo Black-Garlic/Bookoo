@@ -24,12 +24,19 @@ const Header = ({}: HeaderProps) => {
 
   return (
     // GNB
-    <div className={"w-full h-[80px] flex flex-row bg-[#292929] p-7 fixed"}>
+    <div
+      className={"w-full h-[80px] flex flex-row bg-[#292929] py-8 px-12 fixed"}
+    >
       {/* Left Area */}
       <div className={"flex text-text-1 justify-star"}>
         {/* Logo */}
         <div className={"w-40 sub-title-2 font-bold"}>
-          <Link href={"/main"}>Book-koo</Link>
+          <Link href={"/main"}>
+            <img
+              src={"/image/logo.png"}
+              className={"h-[36px] object-contain cursor-pointer"}
+            />
+          </Link>
         </div>
       </div>
       {/* Search Bar */}
