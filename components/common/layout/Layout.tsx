@@ -5,11 +5,29 @@ import MyPage from "../../pages/my-page/MyPage";
 import NotificationPage from "../../pages/notification/NotificationPage";
 import LoginModal from "../auth/LoginModal";
 import cn from "classnames";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { popupState } from "../../../states/states";
 import { useRouter } from "next/router";
+import { userInfoState } from "../../../states/userInfoState";
+import useDidMountEffect from "../../../hooks/useDidMountEffect";
+import { getCookie } from "../../../utils/cookies";
+import { UserService } from "../../../services/UserService";
 
 const Layout = ({ children }: { children: ReactNode }) => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
+  useDidMountEffect(async () => {
+    const authorization = getCookie("accessToken");
+    if (authorization !== undefined) {
+      await UserService.getUserInfo(authorization).then((data) => {
+        console.log(data.data);
+        setUserInfo(data.data);
+      });
+    }
+  }, [setUserInfo]);
+
+  console.log(userInfo);
+
   const popup = useRecoilValue(popupState);
   const router = useRouter();
 

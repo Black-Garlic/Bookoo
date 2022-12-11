@@ -1,3 +1,8 @@
+export interface UserInfo {
+  userId: number;
+  nickName: string;
+}
+
 export class checkShelfRequest {
   userId?: string;
   bookId?: number;

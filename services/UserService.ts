@@ -14,6 +14,13 @@ import { axiosHeader } from "../constant/axiosHeader";
 const domain = "http://ec2-34-237-181-231.compute-1.amazonaws.com/api/v1";
 
 export const UserService = {
+  getUserInfo: async (param: { accessToken: string }) => {
+    const { data } = await axios.get(
+      `http://ec2-34-237-181-231.compute-1.amazonaws.com/user/me`,
+      axiosHeader
+    );
+    return { data };
+  },
   /**
    * 내 책장에 책이 있는지 확인하기
    */
