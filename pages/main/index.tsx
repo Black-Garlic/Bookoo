@@ -80,11 +80,7 @@ const Home: NextPage = () => {
         }
         {/* Article List Area*/}
         <div className={"w-full"}>
-          <div
-            className={
-              "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-1 h-40 overflow-hidden"
-            }
-          >
+          <div className={"flex flex-row flex-wrap gap-4 h-40 overflow-hidden"}>
             {popularList.map((element, index) => {
               return <ArticleImageCard key={index} info={element} />;
             })}

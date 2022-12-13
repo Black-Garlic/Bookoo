@@ -92,7 +92,7 @@ const Article: NextPage = () => {
       } else {
         const createReplyRequest = new CreateReplyRequestData();
         createReplyRequest.articleId = Number(id);
-        createReplyRequest.userId = 0;
+        createReplyRequest.userId = userInfo.id;
         createReplyRequest.content = replyText;
         const res = await ReplyService.createReply(createReplyRequest);
         setReplyText("");
