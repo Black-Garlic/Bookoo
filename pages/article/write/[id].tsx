@@ -9,6 +9,9 @@ import { createArticleRequestData } from "../../../typings/Article";
 import { useRouter } from "next/router";
 import { CreateReplyRequestData } from "../../../typings/Reply";
 import { BookService } from "../../../services/BookService";
+import { userInfoState } from "../../../states/userInfoState";
+import { UserService } from "../../../services/UserService";
+import { checkShelfRequest } from "../../../typings/User";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -19,6 +22,7 @@ const scoreMessage = [
 ];
 
 const ArticleWrite: NextPage = () => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const router = useRouter();
   const { id } = router.query;
   const [bookId, setBookId] = useState("");
@@ -47,16 +51,32 @@ const ArticleWrite: NextPage = () => {
       } else if (content.length === 0) {
         alert("내용을 적어주세요.");
       } else {
+        const checkRequest = new checkShelfRequest();
+        checkRequest.userId = userInfo.id;
+        checkRequest.bookId = selectedBookData.isbn;
+
+        await UserService.checkShelf(checkRequest).then(async (res) => {
+          if (res.data === "DEFAULT") {
+            await UserService.addShelf({
+              userId: userInfo.id,
+              bookId: selectedBookData.isbn,
+            });
+          }
+        });
         const createArticleRequest = new createArticleRequestData();
-        createArticleRequest.userId = 0;
+        createArticleRequest.userId = userInfo.id;
         createArticleRequest.bookId = selectedBookData.isbn;
         createArticleRequest.title = title;
         createArticleRequest.content = content;
 
-        const res = await ArticleService.createArticle(createArticleRequest);
-        router.push(`/search/${id}`);
+        createArticleRequest.rating = starCount;
+
+        await ArticleService.createArticle(createArticleRequest).then(() => {
+          router.push(`/search/${id}`);
+        });
       }
     } catch {
+      alert("작성에 오류가 있습니다.");
       router.push(`/search/${id}`);
     }
   };

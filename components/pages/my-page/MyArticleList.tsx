@@ -4,8 +4,12 @@ import { ArticleService } from "../../../services/ArticleService";
 import ArticleCard from "./ArticleCard";
 import { Article } from "../../../typings/Article";
 import useDidMountEffect from "../../../hooks/useDidMountEffect";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../states/userInfoState";
 
 const MyArticleList = () => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
   const [articleList, setArticleList] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
   /**
@@ -13,7 +17,7 @@ const MyArticleList = () => {
    */
   const getMyArticleList = async () => {
     setLoading(false);
-    await ArticleService.getArticleList(0)
+    await ArticleService.getArticleList(userInfo.id)
       .then((res) => {
         setLoading(true);
         setArticleList(res);

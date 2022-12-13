@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MyBookList from "./MyBookList";
 import MyCommentList from "./MyCommentList";
 import MyArticleList from "./MyArticleList";
@@ -25,8 +25,8 @@ const menuItemList = [
 
 const MyPage = () => {
   useDisableBodyScroll();
-  const userInfo = useRecoilValue(userInfoState);
   const [popup, setPopup] = useRecoilState(popupState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   const [editNickname, setEditNickname] = useState(false);
   const [nickName, setNickname] = useState(userInfo.name);
@@ -34,6 +34,20 @@ const MyPage = () => {
   const [withdrawalOpen, setWithdrawalOpen] = useState(false);
   const [withdrawalFailOpen, setWithdrawalFailOpen] = useState(false);
 
+  const resetInfo = async () => {
+    setUserInfo({
+      id: 0,
+      email: "",
+      name: "",
+      role: "",
+      picture: "",
+      accessToken: "",
+      refreshToken: "",
+      authProvider: "",
+      createdDate: "",
+      modifiedDate: "",
+    });
+  };
   let view = <MyBookList isEmpty={true} />;
 
   if (selectedMenu === "MyBook") {
@@ -145,6 +159,7 @@ const MyPage = () => {
 
                   removeCookie("accessToken");
                   removeCookie("refreshToken");
+                  resetInfo();
                   window.location.href = "/main";
                 }}
               >

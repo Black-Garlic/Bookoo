@@ -4,10 +4,13 @@ import React, { useEffect, useState } from "react";
 import { ArticleService } from "../../../services/ArticleService";
 import ArticleCard from "./ArticleCard";
 import useDidMountEffect from "../../../hooks/useDidMountEffect";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../states/userInfoState";
 
 interface MyFavoriteListProps {}
 
 const MyFavoriteList = ({}: MyFavoriteListProps) => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [favoriteList, setFavoriteList] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +20,8 @@ const MyFavoriteList = ({}: MyFavoriteListProps) => {
 
   const getFavoriteList = async () => {
     setLoading(false);
-    await ArticleService.getLikeArticles(0).then((res) => {
+    await ArticleService.getLikeArticles(userInfo.id).then((res) => {
+      console.log("res", res);
       setFavoriteList(res);
       setLoading(true);
     });

@@ -5,6 +5,7 @@ import { UserService } from "../../../services/UserService";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useDidMountEffect from "../../../hooks/useDidMountEffect";
+import { userInfoState } from "../../../states/userInfoState";
 
 interface BookDetailInfoProps {
   bookInfo: any;
@@ -13,12 +14,13 @@ interface BookDetailInfoProps {
 
 const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
   const router = useRouter();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [popup, setPopup] = useRecoilState(popupState);
   const [inMyShelf, setInMyShelf] = useState("DEFAULT"); // DEFAULT(기본), SAVE(내 책장에 저장한 상태), WRITTEN(저장하고 서평까지 쓴 상태)
   const [isSave, setIsSave] = useState(false); // DEFAULT 상태에서 저장했을 떄 (SAVE는 아닌 상태 - UI 변경을 위함)
 
   useDidMountEffect(() => {
-    checkMyShelf();
+    if (bookInfo.isbn !== 0 && bookInfo.isbn) checkMyShelf();
   }, [bookInfo]);
 
   const checkMyShelf = async () => {
@@ -26,7 +28,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
     // checkShelf 결과에 따라 DEFAULT, SAVE, WRITTEN으로 분류하기
     // if (bookInfo?.isbn) {
     const { data } = await UserService.checkShelf({
-      userId: "0",
+      userId: userInfo.id,
       bookId: Number(bookInfo.isbn),
     });
     // 경엽님께서 API 수정 (책장 저장 여부, 서평 작성 여부까지 같이 주시면 가능)
@@ -38,7 +40,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
 
   const addInMyShelf = async () => {
     await UserService.addShelf({
-      userId: "0",
+      userId: userInfo.id,
       bookId: Number(bookInfo.isbn),
     }).then((res) => {
       setIsSave(true);
@@ -47,10 +49,11 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
 
   const deleteInMyShelf = async () => {
     await UserService.deleteShelf({
-      userId: "0",
+      userId: userInfo.id,
       bookId: Number(bookInfo.isbn),
     }).then((res) => {
       setIsSave(false);
+      router.push("/main");
     });
   };
 
@@ -140,18 +143,6 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
       )}
       {inMyShelf === "SAVE" && (
         <div className={"flex flex-col gap-4"}>
-          <button
-            className={"w-full h-14 body-1 text-text-1 bg-primary rounded-lg"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              //  서평 팝업이면 사용하고, 페이지 이동이면 Link 사용
-              router.push(`/article/write/${bookInfo.isbn}`);
-            }}
-          >
-            서평 쓰기
-          </button>
-
           <button
             className={
               "w-full h-14 body-1 text-text-2 bg-text-2 rounded-lg text-white"

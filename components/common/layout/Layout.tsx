@@ -31,8 +31,6 @@ const Layout = ({ children }: { children: ReactNode }) => {
     }
   }, [router, getCookie, setUserInfo]);
 
-  console.log(userInfo);
-
   const popup = useRecoilValue(popupState);
 
   const includeHeader = () => {

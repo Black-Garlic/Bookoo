@@ -4,7 +4,7 @@ export interface UserInfo {
 }
 
 export class checkShelfRequest {
-  userId?: string;
+  userId?: number;
   bookId?: number;
 }
 
