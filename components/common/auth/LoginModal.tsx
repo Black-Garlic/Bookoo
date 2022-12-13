@@ -2,8 +2,10 @@ import ModalLayout from "../modal/ModalLayout";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
-import { setCookie } from "../../../utils/cookies";
-import { NAVER_LOGIN_URL } from "../../../constant/login";
+import {
+  NAVER_LOGIN_URL_LOCAL,
+  NAVER_LOGIN_URL_PROD,
+} from "../../../constant/login";
 import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 
 interface LoginPopupProps {}
@@ -42,11 +44,12 @@ const LoginModal = () => {
       >
         <a
           className={"flex-1 bg-primary rounded-lg py-2"}
-          href={NAVER_LOGIN_URL}
+          // href={NAVER_LOGIN_URL_LOCAL}
+          href={NAVER_LOGIN_URL_PROD}
           rel={"noreferrer"}
           role={"button"}
           // onClick={() => {
-          //   // window.location.href = NAVER_LOGIN_URL;
+          //   // window.location.href = NAVER_LOGIN_URL_LOCAL;
           //
           //   // href="http://ec2-34-237-181-231.compute-1.amazonaws.com/oauth2/authorization/naver?redirect_uri=http://ec2-184-72-99-150.compute-1.amazonaws.com"
           //
