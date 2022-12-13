@@ -49,8 +49,7 @@ export const ArticleService = {
    */
   createArticle: async (param: createArticleRequestData) => {
     const { data } = await axios.post(
-      `${domain}/articles?userId=${param.userId}&bookId=${param.bookId}&title=${param.title}&content=${param.content}&rating=${param.rating}`,
-      axiosHeader
+      `${domain}/articles?userId=${param.userId}&bookId=${param.bookId}&title=${param.title}&content=${param.content}&rating=${param.rating}`
     );
     return data;
   },
@@ -102,6 +101,13 @@ export const ArticleService = {
   getPopularArticles: async () => {
     const { data } = await axios.get(`${domain}/articles`, axiosHeader);
     return data;
+  },
+
+  getOtherArticles: async (bookId: number) => {
+    const { data } = await axios.get(
+      `${domain}/articles/other/${bookId}`,
+      axiosHeader
+    );
   },
 
   /**

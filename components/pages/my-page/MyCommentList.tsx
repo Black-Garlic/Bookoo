@@ -1,13 +1,15 @@
 import EmptyList from "./EmptyList";
 import { ReplyService } from "../../../services/ReplyService";
 import React, { useEffect, useState } from "react";
-import CommentCard from "../article/CommentCard";
 import MyCommentCard from "./MyCommentCard";
 import useDidMountEffect from "../../../hooks/useDidMountEffect";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../states/userInfoState";
 
 interface MyCommentListProps {}
 
 const MyCommentList = ({}: MyCommentListProps) => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [commentList, setCommentList] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +19,7 @@ const MyCommentList = ({}: MyCommentListProps) => {
 
   const getMyCommentList = async () => {
     setLoading(false);
-    await ReplyService.getMyReplyList(0).then((res) => {
+    await ReplyService.getMyReplyList(userInfo.id).then((res) => {
       setCommentList(res);
       setLoading(true);
     });

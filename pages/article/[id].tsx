@@ -20,8 +20,10 @@ import { getCookie } from "../../utils/cookies";
 import { RecoilUtils } from "../../utils/RecoilUtils";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../states/states";
+import { userInfoState } from "../../states/userInfoState";
 
 const Article: NextPage = () => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [popup, setPopup] = useRecoilState(popupState);
   const [loginCookie, setLoginCookie] = useState();
   const [articleDetail, setArticleDetail] = useState({
@@ -54,7 +56,7 @@ const Article: NextPage = () => {
 
   const toggleLike = async () => {
     const request = new likeRequest();
-    request.userId = 0;
+    request.userId = userInfo.id;
     request.articleId = Number(id);
     const res = await ArticleService.likeArticle(request);
     getArticleDetail();
@@ -63,7 +65,7 @@ const Article: NextPage = () => {
   const getArticleDetail = async () => {
     const getArticleDetailRequest = new getArticleDetailRequestData();
     getArticleDetailRequest.articleId = Number(id);
-    getArticleDetailRequest.userId = 0;
+    getArticleDetailRequest.userId = userInfo.id;
     getArticleDetailRequest.bookId = 9788960213180;
     const res = await ArticleService.getArticleDetail(getArticleDetailRequest);
     setArticleDetail(res);

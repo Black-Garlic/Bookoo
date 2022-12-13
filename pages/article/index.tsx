@@ -8,7 +8,7 @@ const Article: NextPage = () => {
   return (
     <div className={"w-screen h-full flex flex-row px-40 pt-20"}>
       <div className={"w-72 h-auto"}>
-        <BookDetailInfo bookInfo={{}} />
+        <BookDetailInfo bookInfo={{}} loginCookie={""} />
         <div className={"my-10"} />
         <div className={"w-full h-auto"}>
           <div className={"body-1 text-text-3 mb-1 px-3"}>서평 리스트</div>

@@ -8,6 +8,8 @@ import ArticleCard from "./ArticleCard";
 import useDidMountEffect from "../../../hooks/useDidMountEffect";
 import BookImageCard from "../../common/book/BookImageCard";
 import MyBookUnit from "./MyBookUnit";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../states/userInfoState";
 
 interface MyBookListProps {
   isEmpty: boolean;
@@ -16,6 +18,7 @@ interface MyBookListProps {
 const testData: BookUnitResponseData[] = [{}];
 
 const MyBookList = ({ isEmpty }: MyBookListProps) => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [myBookList, setMyBookList] = useState([]);
   const [loading, setLoading] = useState(false);
   /**
@@ -23,7 +26,7 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
    */
   const getMyArticleList = async () => {
     setLoading(false);
-    await UserService.getMyShelfBook(0)
+    await UserService.getMyShelfBook(userInfo.id)
       .then((res) => {
         setLoading(true);
         setMyBookList(res.books);

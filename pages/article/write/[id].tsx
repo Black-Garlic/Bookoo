@@ -9,6 +9,7 @@ import { createArticleRequestData } from "../../../typings/Article";
 import { useRouter } from "next/router";
 import { CreateReplyRequestData } from "../../../typings/Reply";
 import { BookService } from "../../../services/BookService";
+import { userInfoState } from "../../../states/userInfoState";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -19,6 +20,7 @@ const scoreMessage = [
 ];
 
 const ArticleWrite: NextPage = () => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const router = useRouter();
   const { id } = router.query;
   const [bookId, setBookId] = useState("");
@@ -48,15 +50,18 @@ const ArticleWrite: NextPage = () => {
         alert("내용을 적어주세요.");
       } else {
         const createArticleRequest = new createArticleRequestData();
-        createArticleRequest.userId = 0;
+        createArticleRequest.userId = userInfo.id;
         createArticleRequest.bookId = selectedBookData.isbn;
         createArticleRequest.title = title;
         createArticleRequest.content = content;
+        createArticleRequest.rating = starCount;
 
-        const res = await ArticleService.createArticle(createArticleRequest);
-        router.push(`/search/${id}`);
+        await ArticleService.createArticle(createArticleRequest).then(() => {
+          router.push(`/search/${id}`);
+        });
       }
     } catch {
+      alert("작성에 오류가 있습니다.");
       router.push(`/search/${id}`);
     }
   };

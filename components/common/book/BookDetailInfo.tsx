@@ -5,6 +5,7 @@ import { UserService } from "../../../services/UserService";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useDidMountEffect from "../../../hooks/useDidMountEffect";
+import { userInfoState } from "../../../states/userInfoState";
 
 interface BookDetailInfoProps {
   bookInfo: any;
@@ -13,6 +14,7 @@ interface BookDetailInfoProps {
 
 const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
   const router = useRouter();
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [popup, setPopup] = useRecoilState(popupState);
   const [inMyShelf, setInMyShelf] = useState("DEFAULT"); // DEFAULT(기본), SAVE(내 책장에 저장한 상태), WRITTEN(저장하고 서평까지 쓴 상태)
   const [isSave, setIsSave] = useState(false); // DEFAULT 상태에서 저장했을 떄 (SAVE는 아닌 상태 - UI 변경을 위함)
@@ -26,7 +28,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
     // checkShelf 결과에 따라 DEFAULT, SAVE, WRITTEN으로 분류하기
     // if (bookInfo?.isbn) {
     const { data } = await UserService.checkShelf({
-      userId: "0",
+      userId: userInfo.id,
       bookId: Number(bookInfo.isbn),
     });
     // 경엽님께서 API 수정 (책장 저장 여부, 서평 작성 여부까지 같이 주시면 가능)
@@ -38,7 +40,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
 
   const addInMyShelf = async () => {
     await UserService.addShelf({
-      userId: "0",
+      userId: userInfo.id,
       bookId: Number(bookInfo.isbn),
     }).then((res) => {
       setIsSave(true);
@@ -47,7 +49,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
 
   const deleteInMyShelf = async () => {
     await UserService.deleteShelf({
-      userId: "0",
+      userId: userInfo.id,
       bookId: Number(bookInfo.isbn),
     }).then((res) => {
       setIsSave(false);
