@@ -20,7 +20,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
   const [isSave, setIsSave] = useState(false); // DEFAULT 상태에서 저장했을 떄 (SAVE는 아닌 상태 - UI 변경을 위함)
 
   useDidMountEffect(() => {
-    checkMyShelf();
+    if (bookInfo.isbn !== 0 && bookInfo.isbn) checkMyShelf();
   }, [bookInfo]);
 
   const checkMyShelf = async () => {
@@ -53,6 +53,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
       bookId: Number(bookInfo.isbn),
     }).then((res) => {
       setIsSave(false);
+      router.push("/main");
     });
   };
 
@@ -142,18 +143,6 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
       )}
       {inMyShelf === "SAVE" && (
         <div className={"flex flex-col gap-4"}>
-          <button
-            className={"w-full h-14 body-1 text-text-1 bg-primary rounded-lg"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              //  서평 팝업이면 사용하고, 페이지 이동이면 Link 사용
-              router.push(`/article/write/${bookInfo.isbn}`);
-            }}
-          >
-            서평 쓰기
-          </button>
-
           <button
             className={
               "w-full h-14 body-1 text-text-2 bg-text-2 rounded-lg text-white"

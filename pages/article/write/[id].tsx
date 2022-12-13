@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import { CreateReplyRequestData } from "../../../typings/Reply";
 import { BookService } from "../../../services/BookService";
 import { userInfoState } from "../../../states/userInfoState";
+import { UserService } from "../../../services/UserService";
+import { checkShelfRequest } from "../../../typings/User";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -49,11 +51,24 @@ const ArticleWrite: NextPage = () => {
       } else if (content.length === 0) {
         alert("내용을 적어주세요.");
       } else {
+        const checkRequest = new checkShelfRequest();
+        checkRequest.userId = userInfo.id;
+        checkRequest.bookId = selectedBookData.isbn;
+
+        await UserService.checkShelf(checkRequest).then(async (res) => {
+          if (res.data === "DEFAULT") {
+            await UserService.addShelf({
+              userId: userInfo.id,
+              bookId: selectedBookData.isbn,
+            });
+          }
+        });
         const createArticleRequest = new createArticleRequestData();
         createArticleRequest.userId = userInfo.id;
         createArticleRequest.bookId = selectedBookData.isbn;
         createArticleRequest.title = title;
         createArticleRequest.content = content;
+
         createArticleRequest.rating = starCount;
 
         await ArticleService.createArticle(createArticleRequest).then(() => {

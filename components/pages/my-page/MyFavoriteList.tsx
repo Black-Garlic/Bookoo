@@ -21,6 +21,7 @@ const MyFavoriteList = ({}: MyFavoriteListProps) => {
   const getFavoriteList = async () => {
     setLoading(false);
     await ArticleService.getLikeArticles(userInfo.id).then((res) => {
+      console.log("res", res);
       setFavoriteList(res);
       setLoading(true);
     });

@@ -48,9 +48,7 @@ export const ArticleService = {
    * 서평 작성하기 api
    */
   createArticle: async (param: createArticleRequestData) => {
-    const { data } = await axios.post(
-      `${domain}/articles?userId=${param.userId}&bookId=${param.bookId}&title=${param.title}&content=${param.content}&rating=${param.rating}`
-    );
+    const { data } = await axios.post(`${domain}/articles`, param);
     return data;
   },
 

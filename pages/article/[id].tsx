@@ -117,18 +117,18 @@ const Article: NextPage = () => {
           >
             <div className={"flex flex-row"}>
               <div>2022/08/22</div>
-              <div className={"mx-2.5"}>*</div>
-              <div>1회차</div>
+              {/*<div className={"mx-2.5"}>*</div>*/}
+              {/*<div>1회차</div>*/}
             </div>
             <div className={"flex-1"} />
-            {loginCookie && articleDetail.userId === "0" && (
+            {Number(articleDetail.userId) === userInfo.id && (
               <div className={"flex flex-row caption-1"}>
                 <button
                   className={
                     "px-2 py-1 border border-primary rounded-lg bg-primary"
                   }
                 >
-                  수정
+                  수정{}
                 </button>
                 <div className={"mx-1.5"} />
                 <button
@@ -252,7 +252,7 @@ const Article: NextPage = () => {
               }
             >
               <div className={"w-full h-auto body-1 text-text-1 opacity-100"}>
-                닉네임
+                {userInfo.name}
               </div>
               <textarea
                 className={
