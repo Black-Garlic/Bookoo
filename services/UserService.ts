@@ -17,7 +17,11 @@ export const UserService = {
   getUserInfo: async (param: { accessToken: string }) => {
     const { data } = await axios.get(
       `http://ec2-34-237-181-231.compute-1.amazonaws.com/user/me`,
-      axiosHeader
+      {
+        headers: {
+          Authorization: `${param.accessToken}`,
+        },
+      }
     );
     return { data };
   },

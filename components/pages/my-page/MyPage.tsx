@@ -8,10 +8,11 @@ import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 import cn from "classnames";
 import WithdrawalModal from "../../common/auth/WithdrawalModal";
 import WithdrawalFailModal from "../../common/auth/WithdrawalFailModal";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { removeCookie } from "../../../utils/cookies";
+import { userInfoState } from "../../../states/userInfoState";
 
 interface MyPageProps {}
 
@@ -24,10 +25,11 @@ const menuItemList = [
 
 const MyPage = () => {
   useDisableBodyScroll();
+  const userInfo = useRecoilValue(userInfoState);
   const [popup, setPopup] = useRecoilState(popupState);
 
   const [editNickname, setEditNickname] = useState(false);
-  const [nickName, setNickname] = useState("닉네임");
+  const [nickName, setNickname] = useState(userInfo.name);
   const [selectedMenu, setSelectedMenu] = useState("MyBook");
   const [withdrawalOpen, setWithdrawalOpen] = useState(false);
   const [withdrawalFailOpen, setWithdrawalFailOpen] = useState(false);

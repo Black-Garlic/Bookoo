@@ -1,6 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import MyPage from "../../pages/my-page/MyPage";
 import NotificationPage from "../../pages/notification/NotificationPage";
 import LoginModal from "../auth/LoginModal";
@@ -14,22 +14,26 @@ import { getCookie } from "../../../utils/cookies";
 import { UserService } from "../../../services/UserService";
 
 const Layout = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   useDidMountEffect(async () => {
-    const authorization = getCookie("accessToken");
-    if (authorization !== undefined) {
-      await UserService.getUserInfo(authorization).then((data) => {
-        console.log(data.data);
-        setUserInfo(data.data);
-      });
+    if (!router.pathname.includes("/login")) {
+      const authorization = getCookie("accessToken");
+
+      if (authorization !== undefined) {
+        await UserService.getUserInfo({ accessToken: authorization }).then(
+          (data) => {
+            setUserInfo(data.data);
+          }
+        );
+      }
     }
-  }, [setUserInfo]);
+  }, [router, getCookie, setUserInfo]);
 
   console.log(userInfo);
 
   const popup = useRecoilValue(popupState);
-  const router = useRouter();
 
   const includeHeader = () => {
     return (

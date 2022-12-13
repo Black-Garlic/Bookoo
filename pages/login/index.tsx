@@ -8,6 +8,7 @@ const Login: NextPage = () => {
 
   useEffect(() => {
     if (router.query) {
+      console.log(router.query);
       setCookie("accessToken", router.query?.accessToken as string, {
         path: "/",
         secure: true,
@@ -16,9 +17,9 @@ const Login: NextPage = () => {
         path: "/",
         secure: true,
       });
-      router.push("/main").then();
+      router.push("/main", undefined, { shallow: true }).then();
     }
-  }, [router, setCookie]);
+  }, [setCookie, router]);
 
   return <></>;
 };
