@@ -25,6 +25,14 @@ export const UserService = {
     );
     return { data };
   },
+  withdrawalUser: async (param: { userId: string }) => {
+    const { data } = await axios.get(`${domain}/myPage/${param.userId}`, {
+      headers: {
+        Authorization: `${param.userId}`,
+      },
+    });
+    return { data };
+  },
   /**
    * 내 책장에 책이 있는지 확인하기
    */

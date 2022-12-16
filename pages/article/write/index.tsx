@@ -9,7 +9,10 @@ import { createArticleRequestData } from "../../../typings/Article";
 import { useRouter } from "next/router";
 import { CreateReplyRequestData } from "../../../typings/Reply";
 import { getCookie } from "../../../utils/cookies";
-import { NAVER_LOGIN_URL } from "../../../constant/login";
+import {
+  NAVER_LOGIN_URL_LOCAL,
+  NAVER_LOGIN_URL_PROD,
+} from "../../../constant/login";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -34,7 +37,8 @@ const ArticleWrite: NextPage = () => {
 
   useEffect(() => {
     if (!getCookie("accessToken")) {
-      router.push(NAVER_LOGIN_URL);
+      // router.push(NAVER_LOGIN_URL_LOCAL);
+      router.push(NAVER_LOGIN_URL_PROD);
     }
   }, [router]);
 
