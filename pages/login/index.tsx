@@ -7,16 +7,21 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(router.query);
     if (router.query) {
+      console.log(router.query);
       setCookie("accessToken", router.query?.accessToken as string, {
         path: "/",
         secure: true,
+      }).then(() => {
+        console.log(router.query);
+        setCookie("refreshToken", router.query?.refreshToken as string, {
+          path: "/",
+          secure: true,
+        }).then(() => {
+          window.location.replace("/main");
+        });
       });
-      setCookie("refreshToken", router.query?.refreshToken as string, {
-        path: "/",
-        secure: true,
-      });
-      router.push("/main", undefined, { shallow: true }).then();
     }
   }, [setCookie, router]);
 
