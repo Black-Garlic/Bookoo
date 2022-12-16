@@ -48,14 +48,12 @@ const LoginModal = () => {
           href={NAVER_LOGIN_URL_PROD}
           rel={"noreferrer"}
           role={"button"}
-          // onClick={() => {
-          //   // window.location.href = NAVER_LOGIN_URL_LOCAL;
-          //
-          //   // href="http://ec2-34-237-181-231.compute-1.amazonaws.com/oauth2/authorization/naver?redirect_uri=http://ec2-184-72-99-150.compute-1.amazonaws.com"
-          //
-          //   setCookie("login", "true", { path: "/", secure: true });
-          //   RecoilUtils.toggleModal("login", popup, setPopup);
-          // }}
+          onClick={() => {
+            window.location.href = `${process.env.LOGIN_URL}/oauth2/authorization/naver?redirect_uri=${process.env.LOGIN_REDIRECT_URL}`
+          
+            setCookie("login", "true", { path: "/", secure: true });
+            RecoilUtils.toggleModal("login", popup, setPopup);
+          }}
         >
           네이버 로그인 하러가기
         </a>
