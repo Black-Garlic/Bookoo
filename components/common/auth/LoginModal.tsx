@@ -2,13 +2,7 @@ import ModalLayout from "../modal/ModalLayout";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
-import {
-  NAVER_LOGIN_URL_LOCAL,
-  NAVER_LOGIN_URL_PROD,
-} from "../../../constant/login";
 import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
-
-interface LoginPopupProps {}
 
 const LoginModal = () => {
   useDisableBodyScroll();
@@ -44,16 +38,14 @@ const LoginModal = () => {
       >
         <a
           className={"flex-1 bg-primary rounded-lg py-2"}
-          // href={NAVER_LOGIN_URL_LOCAL}
-          href={NAVER_LOGIN_URL_PROD}
+          href={`${process.env.LOGIN_URL}/oauth2/authorization/naver?redirect_uri=${process.env.LOGIN_REDIRECT_URL}`}
           rel={"noreferrer"}
           role={"button"}
-          onClick={() => {
-            window.location.href = `${process.env.LOGIN_URL}/oauth2/authorization/naver?redirect_uri=${process.env.LOGIN_REDIRECT_URL}`
-          
-            setCookie("login", "true", { path: "/", secure: true });
-            RecoilUtils.toggleModal("login", popup, setPopup);
-          }}
+          // onClick={() => {
+          //
+          //   setCookie("login", "true", { path: "/", secure: true });
+          //   RecoilUtils.toggleModal("login", popup, setPopup);
+          // }}
         >
           네이버 로그인 하러가기
         </a>

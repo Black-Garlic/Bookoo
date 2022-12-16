@@ -7,12 +7,7 @@ import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { ArticleService } from "../../../services/ArticleService";
 import { createArticleRequestData } from "../../../typings/Article";
 import { useRouter } from "next/router";
-import { CreateReplyRequestData } from "../../../typings/Reply";
 import { getCookie } from "../../../utils/cookies";
-import {
-  NAVER_LOGIN_URL_LOCAL,
-  NAVER_LOGIN_URL_PROD,
-} from "../../../constant/login";
 
 const scoreMessage = [
   '1 - "너무 재밌었어요!"',
@@ -38,7 +33,9 @@ const ArticleWrite: NextPage = () => {
   useEffect(() => {
     if (!getCookie("accessToken")) {
       // router.push(NAVER_LOGIN_URL_LOCAL);
-      router.push(NAVER_LOGIN_URL_PROD);
+      router.push(
+        `${process.env.LOGIN_URL}/oauth2/authorization/naver?redirect_uri=${process.env.LOGIN_REDIRECT_URL}`
+      );
     }
   }, [router]);
 
