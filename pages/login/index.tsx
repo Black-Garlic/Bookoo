@@ -12,12 +12,10 @@ const Login: NextPage = () => {
       console.log(router.query);
       setCookie("accessToken", router.query?.accessToken as string, {
         path: "/",
-        secure: true,
       }).then(() => {
         console.log(router.query);
         setCookie("refreshToken", router.query?.refreshToken as string, {
           path: "/",
-          secure: true,
         }).then(() => {
           window.location.replace("/main");
         });
