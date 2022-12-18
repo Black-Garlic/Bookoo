@@ -21,7 +21,7 @@ const WithdrawalModal = ({
   const withdrawalUser = async () => {
     await UserService.withdrawalUser({
       userId: userInfo.id,
-      accessToken: getCookie("accessToken"),
+      accessToken: userInfo.accessToken,
     }).then((data) => {
       return data;
     });

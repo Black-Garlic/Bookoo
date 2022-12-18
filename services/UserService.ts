@@ -25,6 +25,21 @@ export const UserService = {
     );
     return { data };
   },
+  updateNickname: async (param: {
+    userId: string;
+    nickname: string;
+    accessToken: string;
+  }) => {
+    const { data } = await axios.patch(
+      `${domain}/myPage/nickname/${param.userId}/${param.nickname}`,
+      {
+        headers: {
+          Authorization: `${param.accessToken}`,
+        },
+      }
+    );
+    return { data };
+  },
   withdrawalUser: async (param: { userId: string; accessToken: string }) => {
     const { data } = await axios.delete(`${domain}/myPage/${param.userId}`, {
       headers: {
