@@ -15,21 +15,6 @@ const Home: NextPage = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [mainArticles, setMainArticles] = useState([]);
 
-  useEffect(() => {
-    setPopularList([]);
-  }, [searchText]);
-
-  useDidMountEffect(() => {
-    getBookList();
-  }, []);
-
-  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      console.log("enter~", searchText);
-      getBookList();
-    }
-  };
-
   /**
    * progess 필요
    */
@@ -37,6 +22,21 @@ const Home: NextPage = () => {
     await ArticleService.getPopularArticles().then((res) => {
       setPopularList(res);
     });
+  };
+
+  useEffect(() => {
+    setPopularList([]);
+  }, [searchText]);
+
+  useDidMountEffect(() => {
+    getBookList();
+  }, [getBookList]);
+
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      console.log("enter~", searchText);
+      getBookList();
+    }
   };
 
   return (

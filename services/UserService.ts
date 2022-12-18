@@ -1,17 +1,12 @@
 import axios from "axios";
 import {
-  AddReplyRequestData,
-  CreateReplyRequestData,
-  UpdateReplyRequestData,
-} from "../typings/Reply";
-import {
   addShelfRequest,
   checkShelfRequest,
   deleteShelfRequest,
 } from "../typings/User";
-import { getCookie } from "../utils/cookies";
 import { axiosHeader } from "../constant/axiosHeader";
-const domain = "http://ec2-34-237-181-231.compute-1.amazonaws.com/api/v1";
+
+const domain = `${process.env.USER_API_DOMAIN}/api/v1`;
 
 export const UserService = {
   getUserInfo: async (param: { accessToken: string }) => {

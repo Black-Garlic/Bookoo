@@ -4,13 +4,10 @@ import {
   likeRequest,
   updateArticleRequestData,
 } from "../typings/Article";
-import API from "../utils/api";
 import axios from "axios";
 import { axiosHeader } from "../constant/axiosHeader";
-const domain = "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
-// axios.defaults.baseURL =
-//   "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
-// http://ec2-54-204-214-164.compute-1.amazonaws.com/swagger-ui/index.html
+
+const domain = `${process.env.ARTICLE_API_DOMAIN}/api/v1`;
 
 export const ArticleService = {
   /**

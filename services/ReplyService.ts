@@ -5,7 +5,8 @@ import {
   UpdateReplyRequestData,
 } from "../typings/Reply";
 import { axiosHeader } from "../constant/axiosHeader";
-const domain = "http://ec2-54-204-214-164.compute-1.amazonaws.com/api/v1";
+
+const domain = `${process.env.ARTICLE_API_DOMAIN}/api/v1`;
 
 export const ReplyService = {
   /**
