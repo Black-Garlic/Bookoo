@@ -25,10 +25,10 @@ export const UserService = {
     );
     return { data };
   },
-  withdrawalUser: async (param: { userId: string }) => {
-    const { data } = await axios.get(`${domain}/myPage/${param.userId}`, {
+  withdrawalUser: async (param: { userId: string; accessToken: string }) => {
+    const { data } = await axios.delete(`${domain}/myPage/${param.userId}`, {
       headers: {
-        Authorization: `${param.userId}`,
+        Authorization: `${param.accessToken}`,
       },
     });
     return { data };
