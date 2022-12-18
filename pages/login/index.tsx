@@ -8,7 +8,7 @@ const Login: NextPage = () => {
 
   useEffect(() => {
     console.log(router.query);
-    if (router.query) {
+    if (router.query?.accessToken && router.query?.refreshToken) {
       console.log(router.query);
       setCookie("accessToken", router.query?.accessToken as string, {
         path: "/",

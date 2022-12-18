@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MyBookList from "./MyBookList";
 import MyCommentList from "./MyCommentList";
 import MyArticleList from "./MyArticleList";
@@ -8,11 +8,12 @@ import { useDisableBodyScroll } from "../../../hooks/useDisableBodyScroll";
 import cn from "classnames";
 import WithdrawalModal from "../../common/auth/WithdrawalModal";
 import WithdrawalFailModal from "../../common/auth/WithdrawalFailModal";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { removeCookie } from "../../../utils/cookies";
 import { userInfoState } from "../../../states/userInfoState";
+import { logout } from "../../../utils/user";
 
 interface MyPageProps {}
 
@@ -33,32 +34,6 @@ const MyPage = () => {
   const [selectedMenu, setSelectedMenu] = useState("MyBook");
   const [withdrawalOpen, setWithdrawalOpen] = useState(false);
   const [withdrawalFailOpen, setWithdrawalFailOpen] = useState(false);
-
-  const resetInfo = async () => {
-    setUserInfo({
-      id: 0,
-      email: "",
-      name: "",
-      role: "",
-      picture: "",
-      accessToken: "",
-      refreshToken: "",
-      authProvider: "",
-      createdDate: "",
-      modifiedDate: "",
-    });
-  };
-  let view = <MyBookList isEmpty={true} />;
-
-  if (selectedMenu === "MyBook") {
-    view = <MyBookList isEmpty={false} />;
-  } else if (selectedMenu === "MyComment") {
-    view = <MyCommentList />;
-  } else if (selectedMenu === "MyArticle") {
-    view = <MyArticleList />;
-  } else if (selectedMenu === "MyFavorite") {
-    view = <MyFavoriteList />;
-  }
 
   return (
     <div
@@ -145,7 +120,7 @@ const MyPage = () => {
             <div className={"w-full h-auto"}>
               서비스 사용 중 불편한 사항은
               <br />
-              book-koo@gmail.com
+              bookoo.info@gmail.com
               <br />
               으로 연락부탁드립니다.
             </div>
@@ -157,10 +132,7 @@ const MyPage = () => {
                   e.preventDefault();
                   e.stopPropagation();
 
-                  removeCookie("accessToken");
-                  removeCookie("refreshToken");
-                  resetInfo();
-                  window.location.href = "/main";
+                  logout(setUserInfo, "/main");
                 }}
               >
                 로그아웃
@@ -199,18 +171,7 @@ const MyPage = () => {
           </button>
           {/* Header */}
           <div className={"w-full h-auto mt-24 pb-6"}>
-            {
-              //   if (selectedMenu === "MyBook") {
-              //   view = <MyBookList isEmpty={false} />;
-              // } else if (selectedMenu === "MyComment") {
-              //   view = <MyCommentList />;
-              // } else if (selectedMenu === "MyArticle") {
-              //   view = <MyArticleList />;
-              // } else if (selectedMenu === "MyFavorite") {
-              //   view = <MyFavoriteList />;
-              // }
-              selectedMenu === "MyBook" && <MyBookList isEmpty={false} />
-            }
+            {selectedMenu === "MyBook" && <MyBookList isEmpty={false} />}
             {selectedMenu === "MyComment" && <MyCommentList />}
             {selectedMenu === "MyArticle" && <MyArticleList />}
             {selectedMenu === "MyFavorite" && <MyFavoriteList />}

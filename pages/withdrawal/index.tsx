@@ -20,7 +20,7 @@ const WithdrawalPage: NextPage = () => {
           <br />
           계정 복구를 원하시는 경우 30일 이내
           <br />
-          book-koo@gmail.com으로 문의 부탁드립니다.
+          bookoo.info@gmail.com으로 문의 부탁드립니다.
         </div>
         <Link href={"/main"}>
           <button

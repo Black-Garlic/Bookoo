@@ -21,6 +21,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
     if (!router.pathname.includes("/login")) {
       const authorization = getCookie("accessToken");
 
+      console.log(authorization);
+
       if (authorization !== undefined) {
         await UserService.getUserInfo({ accessToken: authorization }).then(
           (data) => {

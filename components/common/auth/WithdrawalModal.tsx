@@ -1,5 +1,10 @@
 import ModalLayout from "../modal/ModalLayout";
 import { useState } from "react";
+import { UserService } from "../../../services/UserService";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../states/userInfoState";
+import { getCookie } from "../../../utils/cookies";
+import { logout } from "../../../utils/user";
 
 interface WithdrawalModalProps {
   setWithdrawalOpen: any;
@@ -11,6 +16,16 @@ const WithdrawalModal = ({
   setWithdrawalFailOpen,
 }: WithdrawalModalProps) => {
   const [withdrawalText, setWithdrawalText] = useState("");
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
+  const withdrawalUser = async () => {
+    await UserService.withdrawalUser({
+      userId: userInfo.id,
+      accessToken: getCookie("accessToken"),
+    }).then((data) => {
+      return data;
+    });
+  };
 
   return (
     <ModalLayout>
@@ -53,8 +68,9 @@ const WithdrawalModal = ({
             e.preventDefault();
             e.stopPropagation();
 
-            setWithdrawalOpen(false);
-            setWithdrawalFailOpen(true);
+            withdrawalUser().then(() => {
+              logout(setUserInfo, "/withdrawal");
+            });
           }}
         >
           확인
