@@ -20,7 +20,7 @@ const Home: NextPage = () => {
    * progess 필요
    */
   const getBookList = async () => {
-    await ArticleService.getPopularArticles().then((res) => {
+    await ArticleService.getPopularArticles(isMoreArticles).then((res) => {
       setPopularList(res);
     });
   };
@@ -87,7 +87,7 @@ const Home: NextPage = () => {
             className={
               "grid gap-y-16 justify-start " +
               (isMoreArticles
-                ? "h-auto grid-cols-3"
+                ? "h-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 : "grid-cols-1 xl:grid-cols-3 h-40 overflow-hidden")
             }
           >
