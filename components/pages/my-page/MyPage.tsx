@@ -157,6 +157,11 @@ const MyPage = () => {
               으로 연락부탁드립니다.
             </div>
             <div className={"w-full h-auto mt-4"}>버전 정보 0.0.1</div>
+            <div className={"w-full h-auto mt-4"}>
+              {userInfo.name}님,
+              <br />
+              {userInfo.email}
+            </div>
             <div className={"w-full h-auto mt-4 flex flex-row"}>
               <button
                 className={"flex-1 text-start"}
