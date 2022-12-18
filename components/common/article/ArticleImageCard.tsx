@@ -5,13 +5,14 @@ const ArticleImageCard = ({ info }: any) => {
     // Article Info Card
     <div className={"w-[357px] h-40 flex flex-row flex-1"}>
       {/* book Image */}
-      <div className={"w-[110px] h-full"}>
+      <div className={"w-[110px] h-[150px] h-full"}>
         <img
           src={info?.book?.image ? info.book.image : "/image/book_sample.png"}
+          className={"w-full h-full object-fit"}
         />
       </div>
       {/* Article Info Area */}
-      <div className={"w-[247px] mt-1 ml-2 flex flex-col"}>
+      <div className={"w-[247px] mt-1 ml-4 flex flex-col"}>
         {/* Article info Top */}
         <div className={"w-[247px] h-[60px] flex flex-row mb-2"}>
           <div className={"h-[60px] pr-1 body-4 text-text-1 box-truncate-2"}>

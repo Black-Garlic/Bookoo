@@ -96,8 +96,14 @@ export const ArticleService = {
     return data;
   },
 
-  getPopularArticles: async () => {
-    const { data } = await axios.get(`${domain}/articles`, axiosHeader);
+  getPopularArticles: async (flag: boolean = false) => {
+    const { data } = await axios.post(
+      `${domain}/articles/list`,
+      {
+        more: flag,
+      },
+      axiosHeader
+    );
     return data;
   },
 
