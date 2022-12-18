@@ -27,7 +27,7 @@ const MyArticleList = () => {
       });
   };
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     getMyArticleList();
   }, []);
 

@@ -14,7 +14,7 @@ const MyFavoriteList = ({}: MyFavoriteListProps) => {
   const [favoriteList, setFavoriteList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     getFavoriteList();
   }, []);
 

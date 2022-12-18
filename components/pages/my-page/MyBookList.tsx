@@ -36,7 +36,7 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
       });
   };
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     getMyArticleList();
   }, []);
 

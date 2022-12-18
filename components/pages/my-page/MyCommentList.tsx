@@ -13,7 +13,7 @@ const MyCommentList = ({}: MyCommentListProps) => {
   const [commentList, setCommentList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     getMyCommentList();
   }, []);
 

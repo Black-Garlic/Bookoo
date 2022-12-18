@@ -20,11 +20,10 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
   const [isSave, setIsSave] = useState(false); // DEFAULT 상태에서 저장했을 떄 (SAVE는 아닌 상태 - UI 변경을 위함)
 
   useDidMountEffect(() => {
-    if (bookInfo.isbn !== 0 && bookInfo.isbn) checkMyShelf();
+    if (bookInfo.isbn !== 0 && bookInfo.isbn && loginCookie) checkMyShelf();
   }, [bookInfo]);
 
   const checkMyShelf = async () => {
-    console.log("bookInfo", bookInfo);
     // checkShelf 결과에 따라 DEFAULT, SAVE, WRITTEN으로 분류하기
     // if (bookInfo?.isbn) {
     const { data } = await UserService.checkShelf({
@@ -96,7 +95,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
           )}
         </div>
       </div>
-      {inMyShelf === "DEFAULT" && (
+      {loginCookie && inMyShelf === "DEFAULT" && (
         <div className={"flex flex-col gap-4"}>
           <button
             className={"w-full h-14 body-1 text-text-1 bg-primary rounded-lg"}
@@ -141,7 +140,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
           )}
         </div>
       )}
-      {inMyShelf === "SAVE" && (
+      {loginCookie && inMyShelf === "SAVE" && (
         <div className={"flex flex-col gap-4"}>
           <button
             className={
@@ -157,7 +156,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
           </button>
         </div>
       )}
-      {inMyShelf === "WRITTEN" && (
+      {loginCookie && inMyShelf === "WRITTEN" && (
         <div className={"flex flex-col gap-4"}>
           <button
             className={

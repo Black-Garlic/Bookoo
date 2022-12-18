@@ -110,25 +110,25 @@ const ArticleWrite: NextPage = () => {
               </div>
             )}
           </div>
-          <div className={"w-full h-auto flex flex-col "}>
-            <div className={"w-full title-3 text-text-1 mb-1"}>
+          <div className={"w-full h-auto flex flex-col justify-between py-2"}>
+            <div className={"w-full title-3 text-text-1 "}>
               {selectedBookData?.title ? selectedBookData?.title : "도서 제목"}
             </div>
             <div className={"flex flex-row"}>
-              <div className={"w-20 body-1 text-text-2"}>저자</div>
-              <div className={"w-auto body-3 text-text-1"}>
+              <div className={"w-20 body-4 text-text-1"}>저자</div>
+              <div className={"w-auto body-4 text-text-1"}>
                 {selectedBookData?.author}
               </div>
             </div>
             <div className={"flex flex-row"}>
-              <div className={"w-20 body-1 text-text-2"}>출판사</div>
-              <div className={"w-auto body-3 text-text-1"}>
+              <div className={"w-20 body-4 text-text-1"}>출판사</div>
+              <div className={"w-auto body-4 text-text-1"}>
                 {selectedBookData?.publisher}
               </div>
             </div>
             <div className={"flex flex-row"}>
-              <div className={"w-20 body-1 text-text-2"}>출판일</div>
-              <div className={"w-auto body-3 text-text-1"}>
+              <div className={"w-20 body-4 text-text-2"}>출판일</div>
+              <div className={"w-auto body-4 text-text-1"}>
                 {selectedBookData &&
                   String(selectedBookData?.pubdate)?.slice(0, 4) +
                     "." +
