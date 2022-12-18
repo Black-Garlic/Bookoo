@@ -20,7 +20,6 @@ const BookArticleList = ({ bookId }: BookArticleListProps) => {
   const getOtherArticle = async (bookId: number) => {
     const res = await ArticleService.getOtherArticles(bookId);
     setOtherArticles(res);
-    console.log("getOtherArticle", res);
   };
 
   return (

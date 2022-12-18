@@ -15,8 +15,6 @@ const Home: NextPage = () => {
   const router = useRouter();
   const { keyword } = router.query;
 
-  console.log(keyword);
-
   useEffect(() => {
     setSearchList([]);
     setIsDone(false);

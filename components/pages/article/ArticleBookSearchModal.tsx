@@ -27,7 +27,6 @@ const ArticleBookSearchModal = ({ selectBook }: ArticleBookSearchProps) => {
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      console.log("enter~", searchText);
       getBookList();
     }
   };
