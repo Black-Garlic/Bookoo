@@ -103,9 +103,10 @@ export const ArticleService = {
 
   getOtherArticles: async (bookId: number) => {
     const { data } = await axios.get(
-      `${domain}/articles/other/${bookId}`,
+      `${domain}/articles/other/${bookId}?sortBy=createdAt`,
       axiosHeader
     );
+    return data;
   },
 
   /**
@@ -116,7 +117,7 @@ export const ArticleService = {
   getArticleDetail: async (param: getArticleDetailRequestData) => {
     const url = `${domain}/articles/article/${param.articleId}`;
     const { data } = await axios.get(url, {
-      params: { userId: param.userId, bookId: param.bookId },
+      params: { userId: param.userId },
     });
     return data;
   },

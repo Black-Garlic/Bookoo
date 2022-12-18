@@ -21,6 +21,7 @@ import { RecoilUtils } from "../../utils/RecoilUtils";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../states/states";
 import { userInfoState } from "../../states/userInfoState";
+import BookArticleCard from "../../components/pages/book/BookArticleCard";
 
 const Article: NextPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -39,19 +40,27 @@ const Article: NextPage = () => {
     reply: [],
   });
   const [replyList, setReplyList] = useState<ReplyUnitResponseData[]>([]);
-  const [bookInfo, setBookInfo] = useState({});
+  const [bookInfo, setBookInfo] = useState({
+    isbn: 0,
+  });
   const [isLiked, setIsLiked] = useState(false);
   const router = useRouter();
   const { id } = router.query;
   const [replyText, setReplyText] = useState("");
   const [refresh, setRefresh] = useState(new Date());
+  const [likeCount, setLikeCount] = useState(0);
+  const [otherArticles, setOtherArticles] = useState([]);
 
   useEffect(() => {
     setLoginCookie(getCookie("accessToken"));
   }, [getCookie, setLoginCookie]);
 
   useEffect(() => {
-    if (id) getArticleDetail();
+    if (id) {
+      getArticleDetail().then(() => {
+        getArticleLikeCount();
+      });
+    }
   }, [id, refresh]);
 
   const toggleLike = async () => {
@@ -60,17 +69,24 @@ const Article: NextPage = () => {
     request.articleId = Number(id);
     const res = await ArticleService.likeArticle(request);
     getArticleDetail();
+    getArticleLikeCount();
   };
 
   const getArticleDetail = async () => {
     const getArticleDetailRequest = new getArticleDetailRequestData();
     getArticleDetailRequest.articleId = Number(id);
     getArticleDetailRequest.userId = userInfo.id;
-    getArticleDetailRequest.bookId = 9788960213180;
+    // getArticleDetailRequest.bookId = 9788960213180;
     const res = await ArticleService.getArticleDetail(getArticleDetailRequest);
     setArticleDetail(res);
     setReplyList(res.reply);
     setBookInfo(res.book);
+    getOtherArticle(res.book.isbn);
+  };
+
+  const getArticleLikeCount = async () => {
+    const res = await ArticleService.getLikesCount(Number(id));
+    setLikeCount(res);
   };
 
   const updateArticle = async () => {};
@@ -100,15 +116,33 @@ const Article: NextPage = () => {
       }
     }
   };
+  const getOtherArticle = async (bookId: number) => {
+    const res = await ArticleService.getOtherArticles(bookId);
+    setOtherArticles(res);
+  };
+
   return (
     <div className={"w-screen h-full flex flex-row px-40 pt-20"}>
       <div className={"w-72 h-auto"}>
         <BookDetailInfo bookInfo={bookInfo} loginCookie={loginCookie} />
         <div className={"my-10"} />
-        <div className={"w-full h-auto"}>
-          <div className={"body-1 text-text-3 mb-1 px-3"}>서평 리스트</div>
-          <BookArticleCol />
-        </div>
+        {otherArticles && otherArticles.length > 0 && (
+          <div className={"w-full h-auto mb-12"}>
+            <div className={"body-1 text-text-3 mb-1 px-3"}>서평 리스트</div>
+            <div className={"flex flex-col gap-2"}>
+              {/*<BookArticleCol />*/}
+              {otherArticles.map((element: any, index) => {
+                return (
+                  <BookArticleCard
+                    type={"article"}
+                    key={element.articleId}
+                    articleInfo={element}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
       <div className={"w-full h-auto flex-1 ml-32"}>
         <div className={"flex flex-1 flex-col px-6 mb-4"}>
@@ -116,7 +150,10 @@ const Article: NextPage = () => {
             className={"w-full h-auto body-3 text-text-1 flex flex-row mb-2"}
           >
             <div className={"flex flex-row"}>
-              <div>2022/08/22</div>
+              <div>
+                {articleDetail?.createdAt[0]}/{articleDetail?.createdAt[1]}/
+                {articleDetail?.createdAt[2]}
+              </div>
               {/*<div className={"mx-2.5"}>*</div>*/}
               {/*<div>1회차</div>*/}
             </div>
@@ -142,10 +179,21 @@ const Article: NextPage = () => {
               </div>
             )}
           </div>
-          <div className={"w-full h-auto flex flex-row mb-6"}>
+          <div className={"w-full h-auto flex flex-row mb-6 items-center"}>
             <div className={"title-3 text-text-1 mr-1"}>닉네임</div>
-            <div className={"h-5 my-1.5"}>
-              <StarCount />
+            <div className={"h-10 flex flex-row items-center pl-2"}>
+              {/*<StarCount />*/}
+              {[0, 1, 2, 3, 4].map((element, index) => {
+                return (
+                  <div className={"w-10 h-10 -ml-1.5"} key={index}>
+                    <img
+                      src={"/svg/star.svg"}
+                      alt={"star"}
+                      className={"w-10 h-10"}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className={"w-full h-auto body-3 text-text-1"}>
@@ -194,7 +242,7 @@ const Article: NextPage = () => {
                     />
                   )}
                 </div>
-                <div className={"w-auto"}>{articleDetail?.likeCount}</div>
+                <div className={"w-auto"}>{likeCount}</div>
               </button>
             </div>
           </div>

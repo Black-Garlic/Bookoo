@@ -28,7 +28,11 @@ const MyBookUnit = ({ bookInfo, select, selectBook }: BookInfo) => {
     // book Simple Info Card
     <div onClick={clickBookData} className={"cursor-pointer h-auto"}>
       <div className={"w-full h-auto flex justify-center items-center"}>
-        <div className={"w-[12rem] h-auto flex flex-col gap-2 items-center"}>
+        <div
+          className={
+            "w-[12rem] h-auto flex flex-col gap-2 items-center justify-center "
+          }
+        >
           {/*{bookInfo?.article == undefined && (*/}
           {/*  <div*/}
           {/*    className={*/}
@@ -42,7 +46,7 @@ const MyBookUnit = ({ bookInfo, select, selectBook }: BookInfo) => {
           <div className={"w-[130px] h-[200px] place-self-center"}>
             <img
               className={"w-[130px] h-[200px] object-fill"}
-              src={bookInfo?.image ? bookInfo.image : "./svg/empty_book.svg"}
+              src={bookInfo?.image ? bookInfo.image : "/svg/empty_book.svg"}
             />
           </div>
           {/* book Simple Info Center */}
@@ -51,11 +55,11 @@ const MyBookUnit = ({ bookInfo, select, selectBook }: BookInfo) => {
               "w-[230px] flex-1 flex flex-col items-center justify-center "
             }
           >
-            <div className={"w-auto flex flex-col"}>
+            <div className={"w-auto flex flex-col justify-center "}>
               {/* book Title */}
               <div
                 className={
-                  "max-w-[150px] body-4 text-text-1 text-right self-center truncate"
+                  "max-w-[150px] body-4 text-text-1 text-right self-center truncate my-2"
                 }
               >
                 {bookInfo?.title}
@@ -66,10 +70,23 @@ const MyBookUnit = ({ bookInfo, select, selectBook }: BookInfo) => {
                   "max-w-[75px] caption-3 self-center text-sm text-text-1 text-left truncate"
                 }
               >
-                {bookInfo?.author}
+                {bookInfo?.author ? bookInfo.author : "저자 미정"}
               </div>
-              <div className={"flex-1 caption-3 text-text-1 text-center"}>
-                4.7
+              {/*<div className={"flex-1 caption-3 text-text-1 text-center"}>*/}
+              {/*  4.7*/}
+              {/*</div>*/}
+              <div className={"h-5 my-1.5 flex flex-row justify-around px-2"}>
+                {[0, 1, 2, 3, 4].map((element, index) => {
+                  return (
+                    <div className={"w-6 h-6"} key={index}>
+                      <img
+                        src={"/svg/star.svg"}
+                        alt={"star"}
+                        className={"w-6 h-6"}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
             {/* book Score */}

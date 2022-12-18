@@ -1,40 +1,74 @@
 import StarCount from "../../common/star/StarCount";
+import { ArticleService } from "../../../services/ArticleService";
+import { useEffect, useState } from "react";
 
-const BookArticleCard = () => {
-  return (
+interface BookArticleCardProps {
+  articleInfo: any;
+  type: string;
+}
+
+const BookArticleCard = ({ articleInfo, type }: BookArticleCardProps) => {
+  const [likeCount, setLikeCount] = useState(0);
+  useEffect(() => {
+    getArticleLikeCount();
+  }, []);
+
+  const getArticleLikeCount = async () => {
+    const res = await ArticleService.getLikesCount(Number(articleInfo?.id));
+    setLikeCount(res);
+  };
+
+  return type === "book" ? (
     <div
       className={
-        "w-full h-full p-3 rounded-lg hover:bg-text-3 transition delay-100 duration-150 cursor-pointer"
+        "w-full xl:w-1/2 h-full p-3 rounded-lg hover:bg-text-3 transition delay-100 duration-150 cursor-pointer"
       }
     >
       <div className={"flex flex-row"}>
-        <div className={"body-1 text-text-1 mr-1"}>닉네임</div>
-        <div className={"h-5 my-1.5"}>
-          <StarCount />
+        <div className={"body-1 text-text-1 mr-2"}>by 닉네임</div>
+        <div className={"h-5 my-1.5 flex flex-row"}>
+          {[0, 1, 2, 3, 4].map((element, index) => {
+            return (
+              <div className={"w-7 h-7"} key={index}>
+                <img src={"/svg/star.svg"} alt={"star"} className={"w-7 h-7"} />
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className={"flex-1 caption-2 text-text-1 mb-2"}>
-        섞어야 한다. 사람들이 좋아하도록 섞어야 한다. 그러면 히트한다. 그래.
-        쉬운 이야기지만 처음 이야기하기는 쉽지 않은 신선힌말이다. 책을 읽는다는
-        것은 지혜를 가지기 위함이고, 이 지혜는 지식의 통합과 통섭에서 일어나는
-        힘이다. 이것도 섞음 일런지 모른다. 객관적인 사실이라도 다른 관
+        {articleInfo?.content}
       </div>
-      <div className={"w-full h-auto flex flex-row"}>
-        <div className={"flex flex-1 flex-row text-text-2 caption-3"}>
-          <div className={"w-14 h-5 mr-2"}>2022/08/24</div>
-          {/* Like */}
-          <div className={"w-8 h-5 mr-2 flex flex-row"}>
-            <div className={"w-3 h-3 my-1 mr-1"}>
-              <img src={"/svg/uil_heart.svg"} alt={"heart"} />
+      <div className={"w-full h-auto flex flex-row justify-between"}>
+        <div className={"w-auto h-auto flex flex-row items-center"}>
+          <div
+            className={
+              "flex flex-1 flex-row text-text-2 caption-3 gap-4 items-center"
+            }
+          >
+            <div className={"w-14 h-auto mr-2"}>
+              {" "}
+              {articleInfo?.createdAt[0]}/{articleInfo?.createdAt[1]}/
+              {articleInfo?.createdAt[2]}
             </div>
-            <div className={"flex-1"}>54</div>
-          </div>
-          {/* Comment */}
-          <div className={"w-8 h-5 mr-2 flex flex-row"}>
-            <div className={"w-3 h-3 my-1 mr-1"}>
-              <img src={"/svg/uil_comment-alt-lines.svg"} alt={"comment"} />
+            {/* Like */}
+            <div
+              className={
+                "w-auto h-5 flex flex-row items-center text-text-2 gap-2"
+              }
+            >
+              <div className={"w-3 h-3"}>
+                <img src={"/svg/uil_heart.svg"} alt={"heart"} />
+              </div>
+              <div className={"flex-1"}>{likeCount}</div>
             </div>
-            <div className={"flex-1"}>54</div>
+            {/* Comment */}
+            <div className={"w-auto h-5 flex flex-row gap-2 items-center"}>
+              <div className={"w-3 h-3"}>
+                <img src={"/svg/uil_comment-alt-lines.svg"} alt={"comment"} />
+              </div>
+              <div className={"flex-1"}>{articleInfo?.replyCount}</div>
+            </div>
           </div>
         </div>
         <button
@@ -51,6 +85,61 @@ const BookArticleCard = () => {
             <img src={"/svg/uil_arrow-right.svg"} alt={"arrow-right"} />
           </div>
         </button>
+      </div>
+    </div>
+  ) : (
+    <div
+      className={
+        " w-full h-full p-3 rounded-lg hover:bg-text-3 transition delay-100 duration-150 cursor-pointer flex flex-col"
+      }
+    >
+      <div className={"flex flex-row mb-2 -ml-1"}>
+        {[0, 1, 2, 3, 4].map((element, index) => {
+          return (
+            <div className={"w-7 h-7"} key={index}>
+              <img src={"/svg/star.svg"} alt={"star"} className={"w-7 h-7"} />
+            </div>
+          );
+        })}
+      </div>
+      <div className={"flex flex-row items-center mb-2"}>
+        <div className={"body-1 text-text-1 mr-1"}>{articleInfo?.title}</div>
+      </div>
+      <div className={"flex flex-col lg:flex-row"}>
+        <div className={"flex-1 text-text-1 caption-3 mb-2 lg:mb-0"}>
+          by 닉네임
+        </div>
+        <div className={"w-auto h-auto flex flex-row items-center"}>
+          <div
+            className={
+              "flex flex-1 flex-row text-text-2 caption-3 gap-4 items-center"
+            }
+          >
+            <div className={"w-14 h-auto mr-2"}>
+              {" "}
+              {articleInfo?.createdAt[0]}/{articleInfo?.createdAt[1]}/
+              {articleInfo?.createdAt[2]}
+            </div>
+            {/* Like */}
+            <div
+              className={
+                "w-auto h-5 flex flex-row items-center text-text-2 gap-2"
+              }
+            >
+              <div className={"w-3 h-3"}>
+                <img src={"/svg/uil_heart.svg"} alt={"heart"} />
+              </div>
+              <div className={"flex-1"}>{likeCount}</div>
+            </div>
+            {/* Comment */}
+            <div className={"w-auto h-5 flex flex-row gap-2 items-center"}>
+              <div className={"w-3 h-3"}>
+                <img src={"/svg/uil_comment-alt-lines.svg"} alt={"comment"} />
+              </div>
+              <div className={"flex-1"}>{articleInfo?.replyCount}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

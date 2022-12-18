@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useDidMountEffect from "../../../hooks/useDidMountEffect";
 import { userInfoState } from "../../../states/userInfoState";
+import { ArticleService } from "../../../services/ArticleService";
 
 interface BookDetailInfoProps {
   bookInfo: any;
@@ -20,7 +21,9 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
   const [isSave, setIsSave] = useState(false); // DEFAULT 상태에서 저장했을 떄 (SAVE는 아닌 상태 - UI 변경을 위함)
 
   useDidMountEffect(() => {
-    if (bookInfo.isbn !== 0 && bookInfo.isbn && loginCookie) checkMyShelf();
+    if (bookInfo.isbn !== 0 && bookInfo.isbn && loginCookie) {
+      checkMyShelf();
+    }
   }, [bookInfo]);
 
   const checkMyShelf = async () => {
@@ -61,7 +64,7 @@ const BookDetailInfo = ({ bookInfo, loginCookie }: BookDetailInfoProps) => {
       <div className={"w-[130px] h-[200px] mb-8 place-self-center"}>
         <img
           className={"w-full h-full"}
-          src={bookInfo?.image ? bookInfo.image : "./svg/empty_book.svg"}
+          src={bookInfo?.image ? bookInfo.image : "/svg/empty_book.svg"}
         />
       </div>
       <div className={"title-3 text-text-1 flex-1 mb-1"}>{bookInfo?.title}</div>

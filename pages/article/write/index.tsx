@@ -101,7 +101,7 @@ const ArticleWrite: NextPage = () => {
                 src={
                   selectedBookData?.image
                     ? selectedBookData.image
-                    : "./svg/empty_book.svg"
+                    : "/svg/empty_book.svg"
                 }
               />
             ) : (

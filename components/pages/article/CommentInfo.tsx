@@ -52,7 +52,7 @@ const CommentInfo = ({
       }
     >
       <div className={"w-full h-auto sub-title-1 text-text-1 mb-1"}>
-        {info.userId} (매번 유저 정보 API를 사용해야할지)
+        by 닉네임 - {info.userId}
       </div>
       <div className={"flex-1 body-3 text-text-1 mb-1"}>{info?.content}</div>
       <div className={"w-full h-auto flex flex-row caption-1 text-text-2 mb-4"}>
