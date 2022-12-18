@@ -36,7 +36,7 @@ const Search: NextPage = () => {
     setLoginCookie(getCookie("accessToken"));
   }, [getCookie, setLoginCookie]);
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     if (id) getBookDetail();
   }, [id]);
 
