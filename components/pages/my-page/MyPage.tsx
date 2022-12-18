@@ -11,11 +11,9 @@ import WithdrawalFailModal from "../../common/auth/WithdrawalFailModal";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
-import { removeCookie } from "../../../utils/cookies";
 import { userInfoState } from "../../../states/userInfoState";
 import { logout } from "../../../utils/user";
-
-interface MyPageProps {}
+import { UserService } from "../../../services/UserService";
 
 const menuItemList = [
   { menuTitleKor: "내 책장", menuTitleEng: "MyBook" },
@@ -34,6 +32,16 @@ const MyPage = () => {
   const [selectedMenu, setSelectedMenu] = useState("MyBook");
   const [withdrawalOpen, setWithdrawalOpen] = useState(false);
   const [withdrawalFailOpen, setWithdrawalFailOpen] = useState(false);
+
+  const updateNickname = async () => {
+    await UserService.updateNickname({
+      userId: userInfo.id,
+      nickname: nickName,
+      accessToken: userInfo.accessToken,
+    }).then((data) => {
+      setUserInfo(data.data);
+    });
+  };
 
   return (
     <div
@@ -61,7 +69,7 @@ const MyPage = () => {
                   <input
                     type={"text"}
                     className={
-                      "w-[190px] text-[32px] bg-transparent placeholder-[#6D6D6D] outline-0 border-b"
+                      "max-w-[240px] bg-transparent placeholder-[#6D6D6D] outline-0 border-b break-words"
                     }
                     value={nickName}
                     onChange={(e) => {
@@ -70,11 +78,35 @@ const MyPage = () => {
 
                       setNickname(e.target.value);
                     }}
+                    maxLength={12}
                   />
                   님,
                   <br />
                   안녕하세요
                 </div>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    updateNickname().then(() => setEditNickname(!editNickname));
+                  }}
+                  className={"mt-2 body-2"}
+                >
+                  닉네임 저장
+                </button>{" "}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    setEditNickname(!editNickname);
+                    setNickname(userInfo.name);
+                  }}
+                  className={"mt-2 body-2 ml-12 text-text-2"}
+                >
+                  취소
+                </button>
               </>
             ) : (
               <>
@@ -85,19 +117,19 @@ const MyPage = () => {
                     안녕하세요
                   </p>
                 </div>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    setEditNickname(!editNickname);
+                  }}
+                  className={"mt-2 body-2"}
+                >
+                  닉네임 수정
+                </button>
               </>
             )}
-            {/*<button*/}
-            {/*  onClick={(e) => {*/}
-            {/*    e.preventDefault();*/}
-            {/*    e.stopPropagation();*/}
-
-            {/*    setEditNickname(!editNickname);*/}
-            {/*  }}*/}
-            {/*  className={"mt-2 body-2"}*/}
-            {/*>*/}
-            {/*  닉네임 수정*/}
-            {/*</button>*/}
           </div>
           {/* 메뉴 Area */}
           <div
@@ -125,6 +157,7 @@ const MyPage = () => {
               으로 연락부탁드립니다.
             </div>
             <div className={"w-full h-auto mt-4"}>버전 정보 0.0.1</div>
+            <div className={"w-full h-auto mt-4"}>{userInfo.email}</div>
             <div className={"w-full h-auto mt-4 flex flex-row"}>
               <button
                 className={"flex-1 text-start"}

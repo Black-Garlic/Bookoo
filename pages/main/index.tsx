@@ -16,6 +16,15 @@ const Home: NextPage = () => {
   const [mainArticles, setMainArticles] = useState([]);
   const [isMoreArticles, setIsMoreArticles] = useState(false);
 
+  /**
+   * progess 필요
+   */
+  const getBookList = async () => {
+    await ArticleService.getPopularArticles().then((res) => {
+      setPopularList(res);
+    });
+  };
+
   useEffect(() => {
     getBookList();
   }, [isMoreArticles]);
@@ -24,16 +33,6 @@ const Home: NextPage = () => {
     if (e.key === "Enter") {
       getBookList();
     }
-  };
-
-  /**
-   * progess 필요
-   */
-  const getBookList = async () => {
-    await ArticleService.getPopularArticles(isMoreArticles).then((res) => {
-      console.log("res", res);
-      setPopularList(res);
-    });
   };
 
   return (

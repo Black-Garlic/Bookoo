@@ -1,11 +1,8 @@
 import { GetBookListRequest, searchBookRequest } from "../typings/Books";
 import axios from "axios";
-import { instance } from "../hooks/useAxiosLoader";
-import API from "../utils/api";
 import { axiosHeader } from "../constant/axiosHeader";
-const domain = `http://ec2-34-194-74-124.compute-1.amazonaws.com/api/v1`;
-// axios.defaults.baseURL =
-//   "http://ec2-34-194-74-124.compute-1.amazonaws.com/api/v1";
+
+const domain = `${process.env.BOOK_API_DOMAIN}/api/v1`;
 
 export const BookService = {
   /**
