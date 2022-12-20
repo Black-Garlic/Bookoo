@@ -22,6 +22,10 @@ import { useRecoilState } from "recoil";
 import { popupState } from "../../states/states";
 import { userInfoState } from "../../states/userInfoState";
 import BookArticleCard from "../../components/pages/book/BookArticleCard";
+import SockJs from "sockjs-client";
+import Stomp from "@stomp/stompjs";
+import { alarmState } from "../../states/alarm";
+import useDidMountEffect from "../../hooks/useDidMountEffect";
 
 const Article: NextPage = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
@@ -50,6 +54,7 @@ const Article: NextPage = () => {
   const [refresh, setRefresh] = useState(new Date());
   const [likeCount, setLikeCount] = useState(0);
   const [otherArticles, setOtherArticles] = useState([]);
+  const [alarm, setAlarm] = useRecoilState(alarmState);
 
   useEffect(() => {
     setLoginCookie(getCookie("accessToken"));
@@ -63,11 +68,39 @@ const Article: NextPage = () => {
     }
   }, [id, refresh]);
 
+  useDidMountEffect(() => {
+    const sockJs = new SockJs(
+      "http://ec2-34-237-181-231.compute-1.amazonaws.com/ws"
+    );
+    // console.log(sockJs);
+    const stomp = Stomp.over(sockJs);
+    //console.log(stomp.subscribe)
+    //console.log(stomp.send)
+    stomp.connect({}, function () {
+      if (alarm.receiver !== "")
+        stomp.send(
+          "/pub/alarm",
+          {
+            Authorization: `${getCookie("accessToken")}`,
+          },
+          JSON.stringify({ userId: alarm.receiver })
+        );
+      console.log("alarm send to ", alarm.receiver);
+    });
+  }, [alarm.refresh]);
+
   const toggleLike = async () => {
     const request = new likeRequest();
     request.userId = userInfo.id;
     request.articleId = Number(id);
     const res = await ArticleService.likeArticle(request);
+    if (res.liked) {
+      setAlarm({
+        ...alarm,
+        receiver: articleDetail.userId,
+        refresh: new Date(),
+      });
+    }
     getArticleDetail();
     getArticleLikeCount();
   };
@@ -113,6 +146,11 @@ const Article: NextPage = () => {
         const res = await ReplyService.createReply(createReplyRequest);
         setReplyText("");
         setRefresh(new Date());
+        setAlarm({
+          ...alarm,
+          receiver: articleDetail.userId,
+          refresh: new Date(),
+        });
       }
     }
   };

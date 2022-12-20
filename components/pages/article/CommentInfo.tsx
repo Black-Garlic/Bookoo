@@ -6,6 +6,9 @@ import {
 import { ReplyService } from "../../../services/ReplyService";
 import CommentCard from "./CommentCard";
 import CommentCard2 from "./CommentCard2";
+import { useRecoilState } from "recoil";
+import { alarmState } from "../../../states/alarm";
+import { userInfoState } from "../../../states/userInfoState";
 
 interface CommentInfoProps {
   info: any;
@@ -26,18 +29,28 @@ const CommentInfo = ({
 }: CommentInfoProps) => {
   const [replyText, setReplyText] = useState("");
   const [isOpenReply, setIsOpenReply] = useState(false);
+  const [alarm, setAlarm] = useRecoilState(alarmState);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
+  console.log("haha", info);
   const createReReply = async () => {
     const addReplyRequest = new AddReplyRequestData();
     addReplyRequest.replyId = info.replyId;
     addReplyRequest.content = replyText;
     addReplyRequest.level = level + 1;
-    addReplyRequest.userId = 0;
-    addReplyRequest.articleId = info.articleIdOfReply;
+    addReplyRequest.userId = userInfo.id;
+    addReplyRequest.articleId = info.articleId;
 
     const res = await ReplyService.addReply(addReplyRequest);
+    setAlarm({
+      ...alarm,
+      receiver: info.userId,
+      refresh: new Date(),
+    });
+
     setReplyText("");
     setIsOpenReply(false);
+    setRefresh(new Date());
   };
 
   const deleteReply = async () => {

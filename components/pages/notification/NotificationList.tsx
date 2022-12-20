@@ -1,42 +1,27 @@
 import NotificationRow from "./NotificationRow";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../../states/userInfoState";
+import { alarmState } from "../../../states/alarm";
 
-const NotificationList = () => {
+interface NotificationListProps {
+  notiList: any[];
+}
+
+const NotificationList = ({ notiList }: NotificationListProps) => {
   return (
     <div>
-      <NotificationRow
-        extendRow={true}
-        read={true}
-        isChild={false}
-        hasText={false}
-      />
-      <div />
-      <NotificationRow
-        extendRow={true}
-        read={false}
-        isChild={true}
-        hasText={false}
-      />
-      <div />
-      <NotificationRow
-        extendRow={false}
-        read={true}
-        isChild={false}
-        hasText={true}
-      />
-      <div />
-      <NotificationRow
-        extendRow={false}
-        read={false}
-        isChild={false}
-        hasText={false}
-      />
-      <div />
-      <NotificationRow
-        extendRow={false}
-        read={false}
-        isChild={false}
-        hasText={true}
-      />
+      {notiList && notiList.length ? (
+        notiList.map((element, index) => {
+          return (
+            <>
+              <NotificationRow notiInfo={element} />
+              <div />
+            </>
+          );
+        })
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

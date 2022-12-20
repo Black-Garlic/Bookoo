@@ -8,6 +8,8 @@ import ArticleImageCard from "../../components/common/article/ArticleImageCard";
 import cn from "classnames";
 import { ArticleService } from "../../services/ArticleService";
 import useDidMountEffect from "../../hooks/useDidMountEffect";
+import { RecoilUtils } from "../../utils/RecoilUtils";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const [searchText, setSearchText] = useState("");

@@ -9,15 +9,16 @@ import { axiosHeader } from "../constant/axiosHeader";
 const domain = `${process.env.USER_API_DOMAIN}/api/v1`;
 
 export const UserService = {
+  getMyAlarm: async (userId: number) => {
+    const { data } = await axios.get(`${domain}/alarm/${userId}`, axiosHeader);
+    return data;
+  },
   getUserInfo: async (param: { accessToken: string }) => {
-    const { data } = await axios.get(
-      `http://ec2-34-237-181-231.compute-1.amazonaws.com/user/me`,
-      {
-        headers: {
-          Authorization: `${param.accessToken}`,
-        },
-      }
-    );
+    const { data } = await axios.get(`${process.env.USER_API_DOMAIN}/user/me`, {
+      headers: {
+        Authorization: `${param.accessToken}`,
+      },
+    });
     return { data };
   },
   updateNickname: async (param: {

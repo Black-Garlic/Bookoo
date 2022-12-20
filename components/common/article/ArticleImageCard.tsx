@@ -1,9 +1,19 @@
 import StarCount from "../star/StarCount";
+import { useRouter } from "next/router";
 
 const ArticleImageCard = ({ info }: any) => {
+  const router = useRouter();
+
+  const goDetailPage = () => {
+    router.push(`/article/${info?.articleId}`);
+  };
+
   return (
     // Article Info Card
-    <div className={"w-[357px] h-40 flex flex-row flex-1"}>
+    <div
+      className={"w-[357px] h-40 flex flex-row flex-1 cursor-pointer"}
+      onClick={() => goDetailPage()}
+    >
       {/* book Image */}
       <div className={"w-[110px] h-[150px] h-full"}>
         <img

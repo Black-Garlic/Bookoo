@@ -14,7 +14,9 @@ const BookArticleCard = ({ articleInfo, type }: BookArticleCardProps) => {
   }, []);
 
   const getArticleLikeCount = async () => {
-    const res = await ArticleService.getLikesCount(Number(articleInfo?.id));
+    const res = await ArticleService.getLikesCount(
+      Number(articleInfo?.articleId)
+    );
     setLikeCount(res);
   };
 

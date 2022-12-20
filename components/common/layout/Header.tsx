@@ -5,14 +5,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { getCookie } from "../../../utils/cookies";
 import { useEffect, useState } from "react";
+import SockJs from "sockjs-client";
+import Stomp from "@stomp/stompjs";
+import { userInfoState } from "../../../states/userInfoState";
 
 interface HeaderProps {}
 
 const Header = ({}: HeaderProps) => {
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const loginCookie = getCookie("accessToken");
   const [popup, setPopup] = useRecoilState(popupState);
   const [login, setLogin] = useState(false);
   const router = useRouter();
+  const [hasNew, setHasNew] = useState(false);
 
   useEffect(() => {
     if (loginCookie) {
@@ -21,6 +26,31 @@ const Header = ({}: HeaderProps) => {
       setLogin(false);
     }
   }, [loginCookie, setLogin]);
+
+  useEffect(() => {
+    const sockJs = new SockJs(
+      "http://ec2-34-237-181-231.compute-1.amazonaws.com/ws"
+    );
+    // console.log(sockJs);
+    const stomp = Stomp.over(sockJs);
+    //console.log(stomp.subscribe)
+    //console.log(stomp.send)
+    stomp.connect({}, function () {
+      stomp.subscribe("/sub/alarm/" + userInfo.id, function (chat) {
+        var content = JSON.parse(chat.body);
+        var str = "";
+        console.log("채팅", chat);
+        if (chat) setHasNew(true);
+      });
+      // stomp.send(
+      //   "/pub/alarm",
+      //   {
+      //     Authorization: `${getCookie("accessToken")}`,
+      //   },
+      //   JSON.stringify({ userId: userInfo.id })
+      // );
+    });
+  }, []);
 
   return (
     // GNB
@@ -60,18 +90,28 @@ const Header = ({}: HeaderProps) => {
               <img src={"/svg/uil_pen.svg"} alt={"pen"} />
             </button>
             <div className={"w-6 h-6"} />
-            <button
-              className={"w-6 h-6"}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
+            <div className={"relative h-full"}>
+              {hasNew && (
+                <div
+                  className={
+                    "absolute top-0 bg-red-500 -right-1 h-1.5 w-1.5 rounded-full"
+                  }
+                ></div>
+              )}
+              <button
+                className={"w-6 h-6"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
 
-                // setNotificationOpen(true);
-                RecoilUtils.toggleModal("notification", popup, setPopup);
-              }}
-            >
-              <img src={"/svg/uil_bell.svg"} alt={"bell"} />
-            </button>
+                  // setNotificationOpen(true);
+                  setHasNew(false);
+                  RecoilUtils.toggleModal("notification", popup, setPopup);
+                }}
+              >
+                <img src={"/svg/uil_bell.svg"} alt={"bell"} />
+              </button>
+            </div>
             <div className={"w-6 h-6"} />
             <button
               className={"w-6 h-6"}
