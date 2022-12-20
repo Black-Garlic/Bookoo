@@ -24,7 +24,6 @@ const Notification = () => {
 
   const getMyNoti = async () => {
     const res = await UserService.getMyAlarm(userInfo.id);
-    console.log("res", res.alarms);
     setNotiList(res && res?.alarms && res.alarms.length > 0 ? res.alarms : []);
   };
 

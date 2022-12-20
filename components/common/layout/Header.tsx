@@ -39,7 +39,6 @@ const Header = ({}: HeaderProps) => {
       stomp.subscribe("/sub/alarm/" + userInfo.id, function (chat) {
         var content = JSON.parse(chat.body);
         var str = "";
-        console.log("채팅", chat);
         if (chat) setHasNew(true);
       });
       // stomp.send(

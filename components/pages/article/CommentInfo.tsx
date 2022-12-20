@@ -34,7 +34,6 @@ const CommentInfo = ({
   const [alarm, setAlarm] = useRecoilState(alarmState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
-  console.log("haha", info);
   const createReReply = async () => {
     const addReplyRequest = new AddReplyRequestData();
     addReplyRequest.replyId = info.replyId;

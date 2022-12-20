@@ -36,6 +36,7 @@ export const UserService = {
     );
     return { data };
   },
+
   withdrawalUser: async (param: { userId: string; accessToken: string }) => {
     const { data } = await axios.delete(`${domain}/myPage/${param.userId}`, {
       headers: {
