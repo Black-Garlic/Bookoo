@@ -34,7 +34,11 @@ const CommentInfo2 = ({
     <div className={"w-full h-auto pl-12 py-8 mt-4  flex flex-col"}>
       <div className={"w-full h-auto sub-title-1 text-text-1 mb-1"}>닉네임</div>
       <div className={"flex-1 body-3 text-text-1 mb-1"}>{info?.content}</div>
-      <div className={"w-full h-auto flex flex-row caption-1 text-text-2 mb-4"}>
+      <div
+        className={
+          "w-full h-auto flex flex-col lg:flex-row caption-1 text-text-2 mb-4"
+        }
+      >
         <div className={"flex flex-row"}>
           <div className={"mr-3"}>
             {info?.createdAt[0] +

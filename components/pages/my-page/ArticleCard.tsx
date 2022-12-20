@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { RecoilUtils } from "../../../utils/RecoilUtils";
 import { useRecoilState } from "recoil";
 import { popupState } from "../../../states/states";
+import { useEffect, useState } from "react";
+import { ArticleService } from "../../../services/ArticleService";
 
 interface ArticleItemProps {
   like: boolean;
@@ -11,8 +13,17 @@ interface ArticleItemProps {
 
 const ArticleCard = ({ like, info }: ArticleItemProps) => {
   const [popup, setPopup] = useRecoilState(popupState);
-
+  const [likeCount, setLikeCount] = useState(0);
   const router = useRouter();
+
+  useEffect(() => {
+    getArticleLikeCount();
+  }, []);
+
+  const getArticleLikeCount = async () => {
+    const res = await ArticleService.getLikesCount(Number(info.articleId));
+    setLikeCount(res);
+  };
 
   const goDetailPage = () => {
     router.push(`/article/${info?.articleId}`);
@@ -30,10 +41,10 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
       {info?.book ? (
         <div
           className={
-            "flex flex-col h-[200px] w-[100px] justify-start items-center"
+            "flex flex-col h-[205px] w-[100px] justify-start items-center"
           }
         >
-          <div className={"h-[130px]"}>
+          <div className={"h-[130px] mb-1"}>
             <img
               src={info?.book?.image}
               alt={"book"}
@@ -127,7 +138,7 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
                 <img src={"/svg/uil_heart.svg"} alt={"heart"} />
               )}
             </div>
-            <div className={"flex-1"}>{info?.likesList?.length}</div>
+            <div className={"flex-1"}>{likeCount}</div>
           </div>
           {/* Comment */}
           <div
@@ -138,7 +149,7 @@ const ArticleCard = ({ like, info }: ArticleItemProps) => {
             <div className={"w-3 h-3 my-1 mr-1"}>
               <img src={"/svg/uil_comment-alt-lines.svg"} alt={"comment"} />
             </div>
-            <div className={"flex-1"}>{info?.replyList?.length}</div>
+            <div className={"flex-1"}>{info?.replyCount}</div>
           </div>
         </div>
       </div>

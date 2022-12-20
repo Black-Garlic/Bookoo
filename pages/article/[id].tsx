@@ -185,7 +185,9 @@ const Article: NextPage = () => {
       <div className={"w-full h-auto flex-1 ml-32"}>
         <div className={"flex flex-1 flex-col px-6 mb-4"}>
           <div
-            className={"w-full h-auto body-3 text-text-1 flex flex-row mb-2"}
+            className={
+              "w-full h-auto body-3 text-text-1 flex flex-col lg:flex-row mb-2"
+            }
           >
             <div className={"flex flex-row"}>
               <div>
@@ -217,9 +219,17 @@ const Article: NextPage = () => {
               </div>
             )}
           </div>
-          <div className={"w-full h-auto flex flex-row mb-6 items-center"}>
+          <div
+            className={
+              "w-full h-auto flex flex-col-reverse lg:flex-row mb-6 items-start lg:items-center"
+            }
+          >
             <div className={"title-3 text-text-1 mr-1"}>닉네임</div>
-            <div className={"h-10 flex flex-row items-center pl-2"}>
+            <div
+              className={
+                "h-10 flex flex-row items-center pl-0 lg:pl-2 mb-2 lg:mb-0"
+              }
+            >
               {/*<StarCount />*/}
               {[0, 1, 2, 3, 4].map((element, index) => {
                 return (
@@ -327,6 +337,7 @@ const Article: NextPage = () => {
                       setRefresh={setRefresh}
                       replyList={replyList}
                       loginCookie={loginCookie}
+                      articleId={articleDetail.articleId}
                     />
                   );
               })}

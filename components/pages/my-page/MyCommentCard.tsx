@@ -62,7 +62,7 @@ const MyCommentCard = ({ newComment, info }: MyCommentCardProps) => {
         >
           <img
             src={
-              info.article.book.image
+              info?.article?.book?.image
                 ? info.article.book.image
                 : "/image/book_sample.png"
             }

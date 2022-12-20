@@ -17,6 +17,7 @@ interface CommentInfoProps {
   toggleUpdateMode: Function;
   replyList: ReplyUnitResponseData[];
   loginCookie: any;
+  articleId: number;
 }
 
 const CommentInfo = ({
@@ -26,6 +27,7 @@ const CommentInfo = ({
   toggleUpdateMode,
   replyList,
   loginCookie,
+  articleId,
 }: CommentInfoProps) => {
   const [replyText, setReplyText] = useState("");
   const [isOpenReply, setIsOpenReply] = useState(false);
@@ -39,7 +41,7 @@ const CommentInfo = ({
     addReplyRequest.content = replyText;
     addReplyRequest.level = level + 1;
     addReplyRequest.userId = userInfo.id;
-    addReplyRequest.articleId = info.articleId;
+    addReplyRequest.articleId = articleId;
 
     const res = await ReplyService.addReply(addReplyRequest);
     setAlarm({
@@ -50,7 +52,6 @@ const CommentInfo = ({
 
     setReplyText("");
     setIsOpenReply(false);
-    setRefresh(new Date());
   };
 
   const deleteReply = async () => {
@@ -69,7 +70,7 @@ const CommentInfo = ({
       </div>
       <div className={"flex-1 body-3 text-text-1 mb-1"}>{info?.content}</div>
       <div className={"w-full h-auto flex flex-row caption-1 text-text-2 mb-4"}>
-        <div className={"flex flex-row"}>
+        <div className={"flex flex-col lg:flex-row"}>
           <div className={"mr-3"}>
             {info?.createdAt[0] +
               "/" +
