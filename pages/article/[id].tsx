@@ -1,8 +1,5 @@
 import { NextPage } from "next";
-import BookArticleCol from "../../components/pages/book/BookArticleCol";
 import BookDetailInfo from "../../components/common/book/BookDetailInfo";
-import StarCount from "../../components/common/star/StarCount";
-import CommentCol from "../../components/pages/article/CommentCol";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { ArticleService } from "../../services/ArticleService";
@@ -85,7 +82,6 @@ const Article: NextPage = () => {
           },
           JSON.stringify({ userId: alarm.receiver })
         );
-      console.log("alarm send to ", alarm.receiver);
     });
   }, [alarm.refresh]);
 
