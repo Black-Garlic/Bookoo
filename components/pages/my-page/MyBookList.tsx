@@ -52,10 +52,14 @@ const MyBookList = ({ isEmpty }: MyBookListProps) => {
       {!loading ? (
         <div
           className={
-            " w-full h-96 flex flex-row justify-center title-2 items-center text-white"
+            "w-full h-[650px] flex flex-row justify-center title-2 items-center text-white"
           }
         >
-          로딩중...
+          <img
+            className={"loading"}
+            src={"./svg/loading_circle.svg"}
+            alt={"loading"}
+          />
         </div>
       ) : myBookList?.length === 0 ? (
         <EmptyList

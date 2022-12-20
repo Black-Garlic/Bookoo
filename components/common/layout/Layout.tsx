@@ -24,7 +24,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       if (authorization !== undefined) {
         await UserService.getUserInfo({ accessToken: authorization }).then(
           (data) => {
-            setUserInfo(data.data);
+            setUserInfo({ ...data.data, accessToken: authorization });
           }
         );
       }
