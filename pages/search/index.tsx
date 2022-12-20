@@ -64,7 +64,7 @@ const Home: NextPage = () => {
             searchText === "" ? "border-l-2 ml-6" : "pl-12"
           )}
           onKeyPress={(e) => onKeyPress(e)}
-          placeholder={"도서 검색"}
+          placeholder={" 도서 검색"}
           value={searchText}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
@@ -80,10 +80,14 @@ const Home: NextPage = () => {
       {loading ? (
         <div
           className={
-            "w-full h-96 flex flex-row justify-center title-2 items-center text-white"
+            "w-full h-[650px] flex flex-row justify-center title-2 items-center text-white"
           }
         >
-          로딩중...
+          <img
+            className={"loading"}
+            src={"./svg/loading_circle.svg"}
+            alt={"loading"}
+          />
         </div>
       ) : isDone ? (
         searchList && searchList.length > 0 ? (

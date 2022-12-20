@@ -182,3 +182,29 @@ a {
     top : 0;
   }
 }
+
+.loading {
+  /*position: fixed;*/
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  /*border: 4px solid #ffdb00;*/
+  /*border-bottom: 4px solid transparent;*/
+  /*border-radius: 40px;*/
+  transition:all .2s;
+  animation-name:spinCircle;
+  animation-duration:.8s;
+  animation-iteration-count:infinite;
+  animation-timing-function:linear;
+}
+
+@keyframes spinCircle {
+  from {
+    transform:translate(-50%, -50%) rotate(0);
+  }
+  to {
+    transform:translate(-50%, -50%) rotate(360deg);
+  }
+}

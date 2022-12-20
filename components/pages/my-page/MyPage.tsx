@@ -185,7 +185,7 @@ const MyPage = () => {
           </div>
         </div>
         {/* Right Area */}
-        <div className={"w-full h-auth ml-[480px] py-8 pl-16 pr-8"}>
+        <div className={"w-full h-auto ml-[480px] py-8 pl-16 pr-8"}>
           <button
             className={"w-full h-6 flex flex-row"}
             onClick={(e) => {

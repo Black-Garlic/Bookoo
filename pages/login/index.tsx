@@ -30,7 +30,10 @@ const Login: NextPage = () => {
       await UserService.getUserInfo({
         accessToken: router.query?.accessToken as string,
       }).then((data) => {
-        setUserInfo(data.data);
+        setUserInfo({
+          ...data.data,
+          accessToken: router.query?.accessToken as string,
+        });
       });
   };
 
